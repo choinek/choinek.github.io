@@ -1,11 +1,11 @@
 module.exports = {
-  title: 'Docusaurus Site',
-  tagline: 'Static Site Generator with Search',
+  title: 'Enhanced Docusaurus Site',
+  tagline: 'Static Site Generator with Extra Features',
   url: 'https://choinek.github.io',
-  baseUrl: '/',
-  organizationName: 'choinek',
-  projectName: 'choinek.github.io'
-  deploymentBranch: 'main',
+  baseUrl: '/choinek.github.io/',
+  organizationName: 'choinek', // GitHub username or organization
+  projectName: 'choinek.github.io', // Repository name
+  deploymentBranch: 'gh-pages', // Deployment branch
   plugins: [
     [
       require.resolve('docusaurus-lunr-search'),

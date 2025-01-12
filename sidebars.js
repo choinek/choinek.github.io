@@ -9,7 +9,7 @@ module.exports = {
         items: ['doc2', 'doc3', {
           type: 'category',
           label: 'Category Level 3',
-          items: ['category/doc4', 'category/doc5'],
+          items: ['category/doc4', 'category/doc5', 'extra-doc'],
         }],
       }],
     },
