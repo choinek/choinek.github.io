@@ -2,8 +2,6 @@
 
 Hello
 
-
-
 ##
 
 ```bash
