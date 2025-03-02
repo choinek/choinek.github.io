@@ -32,7 +32,10 @@ const config: Config = {
       pl: {label: 'Polski'},
     },
   },
-
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   presets: [
     [
       'classic',
@@ -64,6 +67,9 @@ const config: Config = {
 
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
+    mermaid: {
+      theme: {light: 'dark', dark: 'dark'},
+    },
     navbar: {
       title: 'Choinek GitHub Homepage',
       logo: {
@@ -72,20 +78,14 @@ const config: Config = {
       },
       items: [
         {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+        {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Tutorial',
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
-        },
-        {to: '/blog', label: 'Blog', position: 'left'},
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
         },
       ],
     },
@@ -97,7 +97,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/intro',
+              to: '/docs/category/adrians-tutorials',
             },
           ],
         },
@@ -105,16 +105,8 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
+              label: 'GitHub',
+              href: 'https://github.com/choinek',
             },
           ],
         },
@@ -124,10 +116,6 @@ const config: Config = {
             {
               label: 'Blog',
               to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
             },
           ],
         },
