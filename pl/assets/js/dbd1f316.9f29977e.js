@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkchoinek=self.webpackChunkchoinek||[]).push([[7364],{1278:e=>{e.exports=JSON.parse('{"tags":[{"label":"Health","permalink":"/pl/blog/tags/health","description":"Health tag","count":1},{"label":"Docusaurus","permalink":"/pl/blog/tags/docusaurus","description":"Docusaurus tag description","count":1}]}')}}]);

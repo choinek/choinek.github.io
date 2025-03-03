@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkchoinek=self.webpackChunkchoinek||[]).push([[213],{8602:h=>{h.exports=JSON.parse('{"authors":[{"name":"Adrian Chojnicki","title":"Sth","url":"https://github.com/choinek","page":{"permalink":"/pl/blog/authors/choinek"},"socials":{"github":"https://github.com/choinek"},"imageURL":"https://github.com/choinek.png","key":"choinek","count":1}]}')}}]);

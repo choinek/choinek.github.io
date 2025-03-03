@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://choinek.github.io/pl/blog/</id>
+    <title>Adrian's GitHub Homepage Blog</title>
+    <updated>2025-03-02T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://choinek.github.io/pl/blog/"/>
+    <subtitle>Adrian's GitHub Homepage Blog</subtitle>
+    <icon>https://choinek.github.io/pl/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcome]]></title>
+        <id>https://choinek.github.io/pl/blog/welcome/</id>
+        <link href="https://choinek.github.io/pl/blog/welcome/"/>
+        <updated>2025-03-02T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Here are a few tips you might find useful.]]></summary>
+        <content type="html"><![CDATA[<p>Here are a few tips you might find useful.</p>
+<p>Sleep more, exercise more!</p>]]></content>
+        <author>
+            <name>Adrian Chojnicki</name>
+            <uri>https://github.com/choinek</uri>
+        </author>
+        <category label="Health" term="Health"/>
+        <category label="Docusaurus" term="Docusaurus"/>
+    </entry>
+</feed>

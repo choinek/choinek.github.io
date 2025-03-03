@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkchoinek=self.webpackChunkchoinek||[]).push([[2387],{2387:(e,c,h)=>{h.d(c,{createGitGraphServices:()=>k.b});var k=h(2785);h(9369)}}]);
