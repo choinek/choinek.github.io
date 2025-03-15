@@ -28,3 +28,26 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/** Contact page */
+
+input {
+  border-color: var(--ifm-color-content-secondary);
+  border-radius: var(--ifm-global-radius);
+  border-style: solid;
+  border-width: var(--ifm-global-border-width);
+  font-size: var(--ifm-font-size-base);
+  padding: .5rem;
+  margin: 0.8rem
+}
+
+textarea {
+  border-color: var(--ifm-color-content-secondary);
+  border-radius: var(--ifm-global-radius);
+  border-style: solid;
+  border-width: var(--ifm-global-border-width);
+  font-size: var(--ifm-font-size-base);
+  padding: .5rem;
+  margin: 0.8rem;
+  min-height: 300px
+}

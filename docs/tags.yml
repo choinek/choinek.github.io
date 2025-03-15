@@ -1,0 +1,36 @@
+paReq:
+  label: 'Personal Assistant Requirements'
+  permalink: '/personal-assistant-requirements'
+  description: |
+    Documents containing information about tools, accounts, formatting, 
+    structures, etc., with which Adrian's personal assistant should be familiar.
+
+git: 
+  label: "Git"
+  permalink: "/tags/git"
+  description: "Version control system for tracking changes in source code." 
+  #description_pl: "System kontroli wersji do śledzenia zmian w kodzie źródłowym." 
+
+programming:
+  label: "Programming"
+  permalink: "/tags/programming"
+  description: "The process of creating and maintaining code for applications and systems." 
+  #description_pl: "Proces tworzenia i utrzymywania kodu dla aplikacji i systemów." 
+
+lhb: 
+    label: "Life Health Business"
+    permalink: "/tags/life-health-business"
+    description: "Topics related to personal development, health, and business strategies." 
+    #description_pl: "Tematy związane z rozwojem osobistym, zdrowiem i strategiami biznesowymi." 
+
+yaml:
+  label: "YAML"
+  permalink: "/tags/yaml"
+  description: "A human-readable data serialization standard used for configuration files." 
+  #description_pl: "Czytelny dla człowieka standard serializacji danych używany w plikach konfiguracyjnych." 
+
+markdown:
+  label: "Markdown"
+  permalink: "/tags/markdown"
+  description: "A lightweight markup language for formatting text using plain syntax." 
+  #description_pl: "Lekki język znaczników do formatowania tekstu za pomocą prostej składni." 

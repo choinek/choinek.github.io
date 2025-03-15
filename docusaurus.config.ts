@@ -6,7 +6,12 @@ const config: Config = {
   title: 'Adrian\'s GitHub Homepage',
   tagline: 'I write something... sometimes...',
   favicon: 'img/favicon.ico',
-
+  clientModules: [
+    require.resolve("./src/clientModules/visitorCounter"),
+  ],
+  plugins: [
+    require.resolve('docusaurus-lunr-search')
+  ],
   // Set the production url of your site here
   url: 'https://choinek.github.io/',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -73,7 +78,7 @@ const config: Config = {
     navbar: {
       title: 'Choinek GitHub Homepage',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Choinek',
         src: 'img/logo.svg',
       },
       items: [
@@ -83,9 +88,20 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'guideSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: '📖 Guide',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'standardsSidebar',
+          position: 'left',
+          label: '🛠️ Standards',
+        },
+        {
+          position: 'left',
+          href: "/contact",
+          label: '💬 Adrian',
         },
       ],
     },
@@ -96,7 +112,7 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
+              label: 'Guide',
               to: '/docs/category/adrians-tutorials',
             },
           ],

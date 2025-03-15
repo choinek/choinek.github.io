@@ -1,15 +1,14 @@
-git:
-  label: git
-  permalink: /git
-  description: Git tag description
-
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
-
-
 health:
   label: Health
   permalink: /health
   description: Health tag
+
+life:
+  label: Life
+  permalink: /life
+  description: Life tag
+
+business:
+  label: Business
+  permalink: /business
+  description: Business tag

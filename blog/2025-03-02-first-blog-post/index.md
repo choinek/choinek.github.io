@@ -2,7 +2,7 @@
 slug: welcome
 title: Welcome
 authors: [choinek]
-tags: [health, docusaurus]
+tags: [health]
 ---
 
 # First blog post
