@@ -33,17 +33,19 @@ export default function Contact() {
   return (
     <Layout title="Contact">
       <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
-      <div class="card card--full-height">
-                <div class="card__header">
-                    <div class="avatar avatar--vertical">
-                        <img class="avatar__photo avatar__photo--xl"
+      <div className="card card--full-height">
+                <div className="card__header">
+                    <div className="avatar avatar--vertical">
+                        <img className="avatar__photo avatar__photo--xl"
                              src="https://github.com/choinek.png"
                              alt="Adrian Chojnicki"/>
-                        <div class="avatar__intro">
-                            <div class="avatar__name">Adrian Chojnicki</div>
-                            <small class="avatar__subtitle">
+                        <div className="avatar__intro">
+                            <div className="avatar__name">Adrian Chojnicki</div>
+                            <small className="avatar__subtitle">
                                 Solution Architect<br/>
-                                <a href="https://www.linkedin.com/in/adrian-chojnicki">Linkedin</a><br/>
+                                <a href="#" target="_blank">@Univo </a>
+                                <a href="https://global4net.com/" target="_blank">@Global4Net</a><br/>
+                                <a href="https://www.linkedin.com/in/adrian-chojnicki" target="_blank">Linkedin</a><br/>
                                 <a href="mailto:adrian.chojnicki@univio.com">Wyślij
                                     wiadomość</a>
                             </small>

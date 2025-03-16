@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Adrian\'s GitHub Homepage',
-  tagline: 'I write something... sometimes...',
+  title: 'Adrian\'s Homepage',
+  tagline: 'I always... sometimes...',
   favicon: 'img/favicon.ico',
   clientModules: [
     require.resolve("./src/clientModules/visitorCounter"),
@@ -76,7 +76,7 @@ const config: Config = {
       theme: {light: 'dark', dark: 'dark'},
     },
     navbar: {
-      title: 'Choinek GitHub Homepage',
+      title: "Adrian's Homepage",
       logo: {
         alt: 'Choinek',
         src: 'img/logo.svg',
@@ -102,6 +102,12 @@ const config: Config = {
           position: 'left',
           href: "/contact",
           label: '💬 Adrian',
+        },
+        {
+          href: 'https://github.com/choinek',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub Profile',
         },
       ],
     },
