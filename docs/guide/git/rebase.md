@@ -169,23 +169,14 @@ By understanding and properly using `git rebase`, you can maintain a tidy and co
 
 ---
 
-## Summary
+## When to use/not use `git rebase`?
 
-### When to use `git rebase`?
-
-|   |                                                                      |
-|---|----------------------------------------------------------------------|
-| ✅ | **Before merging into `main`** - to avoid unnecessary merge commits. |
-| ✅ | **Before code review**, to clean up commits (`git rebase -i`).       |
-| ✅ | **To rebase a branch onto a different base** (`git rebase --onto`).  |    
-| ✅ | **During `git pull`**, to avoid merge commits (`git pull --rebase`). |
-
-### When **not to use** `git rebase`?  
-
-|   |                                                                                                        |
-|---|--------------------------------------------------------------------------------------------------------|
-| ❌ | **On a shared branch** – it rewrites commit history, which can cause conflicts.                        |    
-| ❌ | **If commits were already pushed** – requires `git push --force`, which may overwrite others' changes. |    
+| When to use `git rebase`?                                               | When **not to use** `git rebase`?
+|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| ✅  **Before merging into `main`** - to avoid unnecessary merge commits. | ❌  **On a shared branch** – it rewrites commit history, which can cause conflicts.                        |    
+| ✅  **Before code review**, to clean up commits: <br />(`git rebase -i`)       | ❌  **If commits were already pushed** – requires `git push --force`, which may overwrite others' changes. |  
+| ✅  **To rebase a branch onto a different base**: <br />(`git rebase --onto`)  |  |
+| ✅  **During `git pull`**, to avoid merge commits: <br />(`git pull --rebase`) |  |
 
 ---
 
