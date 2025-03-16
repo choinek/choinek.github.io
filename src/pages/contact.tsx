@@ -54,7 +54,7 @@ export default function Contact() {
                 </div>
             </div>
         {/* <ContactForm /> */}
-       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJDpPNc2kENr_ABzBjzYV8rsg3W0lm-Rz6JwNpKBk2RiTfDA/viewform?embedded=true" width="640" height="820" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
+       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJDpPNc2kENr_ABzBjzYV8rsg3W0lm-Rz6JwNpKBk2RiTfDA/viewform?embedded=true" width="640" height="820" frameBorder="0">Ładuję…</iframe>
       </div>
     </Layout>
   );
