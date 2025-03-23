@@ -5,37 +5,37 @@ tags:
   - paReq
 ---
 
-# Visual Studio Code dla YAML, Markdown i HTML
+# Visual Studio Code for YAML, Markdown, and HTML
 
-## Opis wymagania
-Znajomość pracy w Visual Studio Code z plikami YAML, Markdown i HTML, w tym instalacja odpowiednich rozszerzeń, konfiguracja środowiska oraz umiejętność korzystania z narzędzi ułatwiających pracę z tymi formatami.
+## Requirement Description
+Knowledge of working with Visual Studio Code with YAML, Markdown, and HTML files, including installing appropriate extensions, configuring the environment, and using tools that facilitate working with these formats.
 
-## Wymagania szczegółowe
-- Instalacja i konfiguracja Visual Studio Code.
-- Instalacja rozszerzeń do obsługi YAML, Markdown i HTML.
-- Umiejętność konfigurowania środowiska pracy w VS Code.
-- Praca z terminalem wbudowanym w VS Code.
-- Korzystanie z podpowiedzi składni, walidacji i formatowania.
+## Detailed Requirements
+- Installing and configuring Visual Studio Code.
+- Installing extensions for YAML, Markdown, and HTML support.
+- Ability to configure the working environment in VS Code.
+- Working with the built-in terminal in VS Code.
+- Using syntax suggestions, validation, and formatting.
 
-## Praktyczne umiejętności
-Osoba powinna potrafić skonfigurować VS Code do pracy z YAML, Markdown i HTML, korzystać z podpowiedzi składni i walidacji oraz używać terminala wbudowanego.
+## Practical Skills
+The person should be able to configure VS Code for working with YAML, Markdown, and HTML, use syntax suggestions and validation, and utilize the built-in terminal.
 
-## Zadanie weryfikacyjne
-**Cel:**  
-Skonfigurować Visual Studio Code dla efektywnej pracy z plikami YAML, Markdown i HTML.
+## Verification Task
+**Objective:**  
+Configure Visual Studio Code for effective work with YAML, Markdown, and HTML files.
 
-**Kroki do wykonania:**  
-1. Pobierz i zainstaluj Visual Studio Code z [oficjalnej strony](https://code.visualstudio.com/).  
-2. Zainstaluj rozszerzenia:
+**Steps to Perform:**  
+1. Download and install Visual Studio Code from the [official website](https://code.visualstudio.com/).  
+2. Install extensions:
    - YAML (Red Hat)
    - Markdown All in One
-   - Live Server (dla podglądu HTML)
-   - Prettier (do formatowania kodu)  
-3. Utwórz folder `.vscode` w projekcie i stwórz plik `settings.json` z poniższą konfiguracją:
+   - Live Server (for HTML preview)
+   - Prettier (for code formatting)  
+3. Create a `.vscode` folder in the project and create a `settings.json` file with the following configuration:
 
-**Przykładowy plik `settings.json`:**
+**Example `settings.json`:**
 
-```json
+```
 {
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
@@ -47,9 +47,9 @@ Skonfigurować Visual Studio Code dla efektywnej pracy z plikami YAML, Markdown 
 }
 ```
 
-4. Utwórz plik `assistant_config.yaml`:
+4. Create a file `assistant_config.yaml`:
 
-```yaml
+```
 user:
   name: "Anna Kowalska"
   email: "anna.kowalska@example.com"
@@ -58,52 +58,52 @@ user:
     timezone: "Europe/Warsaw"
 ```
 
-5. Utwórz plik `README.md`:
+5. Create a file `README.md`:
 
-```markdown
-# Personalna asystentka
+```
+# Personal Assistant
 
-Aplikacja do zarządzania zadaniami i listą zakupów.
+An application for managing tasks and a shopping list.
 
-## Funkcje
-- Zarządzanie zadaniami
-- Tworzenie listy zakupów
-- Powiadomienia
+## Features
+- Task management
+- Creating shopping lists
+- Notifications
 ```
 
-6. Utwórz plik `index.html`:
+6. Create a file `index.html`:
 
-```html
+```
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalna Asystentka</title>
+    <title>Personal Assistant</title>
 </head>
 <body>
-    <h1>Witaj w aplikacji Asystentki!</h1>
+    <h1>Welcome to the Assistant application!</h1>
 </body>
 </html>
 ```
 
-7. Skonfiguruj Live Server do podglądu plików HTML.  
-8. Sprawdź walidację plików YAML i podgląd Markdown (`Ctrl + Shift + V`).
+7. Configure Live Server to preview HTML files.  
+8. Check YAML validation and Markdown preview (`Ctrl + Shift + V`).
 
-**Kryteria oceny:**  
-- VS Code poprawnie waliduje składnię YAML i Markdown.  
-- Live Server poprawnie renderuje plik HTML.  
-- Formatowanie kodu działa automatycznie.  
-- Terminal w VS Code jest używany do podstawowych komend.
+**Evaluation Criteria:**  
+- VS Code correctly validates YAML and Markdown syntax.  
+- Live Server correctly renders the HTML file.  
+- Code formatting works automatically.  
+- The terminal in VS Code is used for basic commands.
 
-## Polecane Tutoriale
-- [Oficjalny Przewodnik Visual Studio Code](https://code.visualstudio.com/docs) - Dokumentacja VS Code.  
-- [Markdown All in One Extension Guide](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) - Dokumentacja rozszerzenia do Markdown.  
-- [YAML Extension Guide](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) - Dokumentacja rozszerzenia YAML.  
-- [Live Server Guide](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) - Przewodnik po Live Server.  
-- [Prettier Formatter Guide](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Instrukcja obsługi Prettier.
+## Recommended Tutorials
+- [Official Visual Studio Code Guide](https://code.visualstudio.com/docs) - VS Code documentation.  
+- [Markdown All in One Extension Guide](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) - Markdown extension documentation.  
+- [YAML Extension Guide](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) - YAML extension documentation.  
+- [Live Server Guide](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) - Live Server guide.  
+- [Prettier Formatter Guide](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Prettier user guide.  
 
 ---
 
-> **Notatki dodatkowe:**  
-> Zapoznaj się z dokumentacją każdego rozszerzenia, aby maksymalnie wykorzystać jego możliwości.
+> **Additional Notes:**  
+> Familiarize yourself with the documentation for each extension to fully utilize its capabilities.
