@@ -42,8 +42,7 @@ export default function Contact() {
                         <div className="avatar__intro">
                             <div className="avatar__name">Adrian Chojnicki</div>
                             <small className="avatar__subtitle">
-                                Solution Architect<br/>
-                                <a href="#" target="_blank">@Univo </a>
+                                <a href="https://univio.com/" target="_blank">@Univo </a>
                                 <a href="https://global4net.com/" target="_blank">@Global4Net</a><br/>
                                 <a href="https://www.linkedin.com/in/adrian-chojnicki" target="_blank">Linkedin</a><br/>
                                 <a href="mailto:adrian.chojnicki@univio.com">Wyślij
