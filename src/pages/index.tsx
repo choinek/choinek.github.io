@@ -20,7 +20,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/adrians-tutorials/git/rebase">
+            to="/docs/guide/git/rebase/">
             Git rebase tutorial
           </Link>
         </div>
