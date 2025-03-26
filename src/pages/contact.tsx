@@ -32,28 +32,29 @@ function HomepageHeader() {
 export default function Contact() {
   return (
     <Layout title="Contact">
-      <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
-      <div className="card card--full-height">
-                <div className="card__header">
-                    <div className="avatar avatar--vertical">
-                        <img className="avatar__photo avatar__photo--xl"
-                             src="https://github.com/choinek.png"
-                             alt="Adrian Chojnicki"/>
-                        <div className="avatar__intro">
-                            <div className="avatar__name">Adrian Chojnicki</div>
-                            <small className="avatar__subtitle">
-                                <a href="https://univio.com/" target="_blank">@Univo </a>
-                                <a href="https://global4net.com/" target="_blank">@Global4Net</a><br/>
-                                <a href="https://www.linkedin.com/in/adrian-chojnicki" target="_blank">Linkedin</a><br/>
-                                <a href="mailto:adrian.chojnicki@univio.com">Wyślij
-                                    wiadomość</a>
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {/* <ContactForm /> */}
-       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJDpPNc2kENr_ABzBjzYV8rsg3W0lm-Rz6JwNpKBk2RiTfDA/viewform?embedded=true" width="640" height="820" frameBorder="0">Ładuję…</iframe>
+      <div className="contact-page" style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+        <div className="card card--full-height">
+                  <div className="card__header">
+                      <div className="avatar avatar--vertical">
+                          <img className="avatar__photo avatar__photo--xl"
+                              src="https://github.com/choinek.png"
+                              alt="Adrian Chojnicki"/>
+                          <div className="avatar__intro">
+                              <div className="avatar__name">Adrian Chojnicki</div>
+                              <small className="avatar__subtitle">
+                                  <a href="https://univio.com/" target="_blank">@Univo </a>
+                                  <a href="https://global4net.com/" target="_blank">@Global4Net</a><br/>
+                                  <a href="https://www.linkedin.com/in/adrian-chojnicki" target="_blank">Linkedin</a><br/>
+                                  <a href="mailto:adrian@chojnicki.pl">adrian@chojnicki.pl</a>
+                              </small>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          {/* <ContactForm /> */}
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJDpPNc2kENr_ABzBjzYV8rsg3W0lm-Rz6JwNpKBk2RiTfDA/viewform?embedded=true" width="640" height="820" frameBorder="0">
+        Ładuję...
+        </iframe>
       </div>
     </Layout>
   );

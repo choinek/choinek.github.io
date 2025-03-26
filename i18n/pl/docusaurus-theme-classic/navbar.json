@@ -18,5 +18,17 @@
   "item.label.GitHub": {
     "message": "GitHub",
     "description": "Navbar item with label GitHub"
+  },
+  "item.label.📖 Guide": {
+    "message": "📖 Guide",
+    "description": "Navbar item with label 📖 Guide"
+  },
+  "item.label.🛠️ Standards": {
+    "message": "🛠️ Standards",
+    "description": "Navbar item with label 🛠️ Standards"
+  },
+  "item.label.💬 Adrian": {
+    "message": "💬 Adrian",
+    "description": "Navbar item with label 💬 Adrian"
   }
 }

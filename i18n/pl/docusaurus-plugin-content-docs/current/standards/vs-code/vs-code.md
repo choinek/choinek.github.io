@@ -51,8 +51,8 @@ Skonfigurować Visual Studio Code dla efektywnej pracy z plikami YAML, Markdown 
 
 ```yaml
 user:
-  name: "Anna Kowalska"
-  email: "anna.kowalska@example.com"
+  name: "Imie nazwisko"
+  email: "idk@example.com"
   preferences:
     language: "pl"
     timezone: "Europe/Warsaw"

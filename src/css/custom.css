@@ -31,7 +31,7 @@
 
 /** Contact page */
 
-input {
+.contact-page input {
   border-color: var(--ifm-color-content-secondary);
   border-radius: var(--ifm-global-radius);
   border-style: solid;
@@ -41,7 +41,7 @@ input {
   margin: 0.8rem
 }
 
-textarea {
+.contact-page textarea {
   border-color: var(--ifm-color-content-secondary);
   border-radius: var(--ifm-global-radius);
   border-style: solid;
@@ -51,6 +51,8 @@ textarea {
   margin: 0.8rem;
   min-height: 300px
 }
+
+/** Header */
 
 .header-github-link:before {
   content: "";
