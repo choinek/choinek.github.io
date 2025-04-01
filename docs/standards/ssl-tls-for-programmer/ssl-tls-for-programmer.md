@@ -5,7 +5,7 @@
 
 SSL/TLS zapewnia:
 - **Poufność** – dane są szyfrowane, więc osoba trzecia nie może ich odczytać  
-- **Integralność** – wiadomość nie została zmieniona w drodze  
+- **Integralność** – wiadomość nie została zmieniona w drodze   
 - **Uwierzytelnienie** – przeglądarka może sprawdzić, że łączy się z właściwym serwerem
 
 ---
@@ -13,10 +13,10 @@ SSL/TLS zapewnia:
 ## 🔄 Proces nawiązywania połączenia TLS (Handshake)
 
 ### 1. **Client Hello**  
-Przeglądarka (lub aplikacja) inicjuje połączenie:
-
+Przeglądarka (lub aplikacja) inicjuje połączenie: 
+ 
 Wysyła:
-- `client_random` – losowy ciąg bajtów, używany później przy generowaniu kluczy  
+- `client_random` – losowy ciąg bajtów, używany później przy generowaniu kluczy   
 - Wersję TLS (np. 1.3)  
 - Listę obsługiwanych **cipher suites** – zestawów algorytmów do szyfrowania  
 - Rozszerzenia, np. **SNI (Server Name Indication)** – ujawnia nazwę domeny, do której chce się połączyć  
@@ -26,7 +26,7 @@ Wysyła:
 Serwer odpowiada:
 
 - `server_random` – kolejny losowy ciąg bajtów, używany przy generowaniu kluczy  
-- Wybiera jedną z cipher suites  
+- Wybiera jedną z cipher suites 
 - Wysyła **certyfikat X.509** – zawiera m.in. nazwę domeny, datę ważności, klucz publiczny  
 - Wysyła swój `key_share` (jeśli TLS 1.3) – do wspólnego obliczenia tajnego klucza  
 - Potwierdza nazwę domeny z SNI
@@ -49,7 +49,7 @@ Na podstawie:
 - `shared secret` – wspólnie uzyskany wynik z algorytmu ECDHE (Elliptic-curve Diffie–Hellman)  
 ....
 . przeglądarka i serwer generują:
-- `master secret` → z niego wyprowadzają klucze szyfrujące i uwierzytelniające
+- `master secret` → z niego wyprowadzają klucze szyfrujące i uwierzytelniające  
 
 > **key_share** – publiczna część klucza ECDHE, wykorzystywana do wygenerowania `shared secret` bez przesyłania go jawnie
 
