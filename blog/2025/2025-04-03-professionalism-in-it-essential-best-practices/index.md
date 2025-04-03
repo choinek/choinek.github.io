@@ -1,7 +1,7 @@
 ---
 title: "Professionalism in IT: Few Essential Best Practices"
 authors: [choinek]
-tags: [health]
+tags: [it]
 ---
 
 # Profesjonalizm w IT - Przewodnik Dobrych Praktyk
@@ -67,10 +67,3 @@ tags: [health]
 | **Weryfikacja tego co wysyłamy 2x** | Sprawdzanie materiałów przed i po wysłaniu, szczególnie w ważnych tematach | Testowanie linku przed wysłaniem, a następnie sprawdzenie go "na chłodno" po wysłaniu, aby upewnić się o poprawności; kliknięcie we własny link aby sprawdzić czy działa | Wysłanie uszkodzonego linku do całego departamentu, powodując zamieszanie i stratę czasu 20 osób, podczas gdy szybka weryfikacja pomogłaby uniknąć problemu | Strata czasu wielu osób; konieczność wysyłania sprostowań; utrata profesjonalnego wizerunku; podważenie kompetencji |
 | **Nastawienie na rozwiązywanie problemów** | Podejmowanie prób samodzielnego rozwiązania problemów | Dokładne przyjrzenie się nieprawidłowemu linkowi i zauważenie, że dokleił się do niego fragment tekstu, który wystarczy usunąć | Natychmiastowe odbicie maila do wszystkich z informacją o nieprawidłowym linku, zamiast spróbować znaleźć i naprawić problem | Niepotrzebne obciążenie całego zespołu; rozpraszanie uwagi innych pracowników; tworzenie kultury zależności; utrata okazji do samodzielnego rozwoju |
 | **Narzędzia profesjonalne** | Używanie odpowiednich narzędzi dla swojej domeny | Używanie Git do kontroli wersji kodu z sensownymi komunikatami commit i odpowiednią strukturą gałęzi | Tworzenie wielu kopii plików z nazwami jak "index_v1.html", "index_v2.html", "index_final.html" na współdzielonym dysku sieciowym | Konflikty w kodzie; trudności w śledzeniu zmian; problemy z integracją; niemożność ustalenia aktualnej wersji; wydłużony czas wdrożenia |
-
-| Head 1 | Head 2 | Head 3 | Head 4 | Head 5 |
-| ------ | ------ | ------ | ------ | ------ |
-| >      | (2x1)  | Cell   | Cell   | Cell   |
-| (1x3)  | >  <br/>asd    | (2x2)  | >      | (2x2)  |
-| ^      | >      | ^      | Cell   | Cell   |
-| ^      | >      | >      | (3x1)  | Cell   |
