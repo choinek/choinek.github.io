@@ -99,7 +99,12 @@ const config: Config = {
           label: '🛠️ Standards',
         },
         {
-          position: 'left',
+          to: 'blog', 
+          label: 'Blog',
+          position: 'left'
+        },
+        {
+          position: 'right',
           href: "/contact",
           label: '💬 Adrian',
         },
