@@ -2,7 +2,7 @@
 author: adrian@chojncki.pl
 ---
 
-# Podstawy markdown
+# Podstawy Markdown
 
 :::note
 Tekst, który właśnie czytasz (podobnie jak większość na tej stronie), jest zapisany w formacie Markdown właśnie.
