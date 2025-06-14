@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Light/Dark Mode</title>
+<style>
+:root {
+    --hue: 215;
+    --saturation: 70%;
+    --light-lightness: 95%;
+    --light-text-lightness: 10%;
+    --dark-lightness: 15%;
+    --dark-text-lightness: 90%;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: hsl(var(--hue), var(--saturation), var(--light-lightness));
+    color: hsl(var(--hue), var(--saturation), var(--light-text-lightness));
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark {
+    background-color: hsl(var(--hue), var(--saturation), var(--dark-lightness));
+    color: hsl(var(--hue), var(--saturation), var(--dark-text-lightness));
+}
+
+nav {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+}
+
+nav .logo {
+    font-size: 1.5rem;
+}
+
+body.dark nav {
+    background-color: rgba(18, 18, 18, 0.7);
+}
+
+.container {
+    display: flex;
+    margin-top: 70px;
+}
+
+.menu {
+    width: 200px;
+    background: none;
+    padding: 1rem;
+    min-height: calc(100vh - 70px);
+}
+
+.menu p {
+    margin: 0.5rem 0;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.menu p:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .menu p:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.content {
+    flex-grow: 1;
+    padding: 2rem;
+    margin-right: 220px;
+}
+
+h1, h2, a {
+    color: inherit;
+}
+
+.date {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.toc {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 1rem;
+    border-radius: 8px;
+    width: 180px;
+    max-height: 40vh;
+    overflow-y: auto;
+    transition: background 0.3s;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .toc {
+    background: rgba(18, 18, 18, 0.7);
+}
+
+.toc p {
+    margin: 0.5rem 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.toc p.active {
+    font-weight: bold;
+    text-decoration: underline;
+    border-left: 2px solid hsl(var(--hue), var(--saturation), 50%);
+}
+
+.switchers {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 1001;
+}
+
+.switcher, .mode-toggle {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: #ccc;
+}
+</style>
+</head>
+<body class="dark">
+<div class="switchers">
+    <input type="color" id="colorPicker" class="switcher" oninput="updateTheme()" value="#15437F">
+    <button class="mode-toggle" onclick="toggleMode()">Toggle Mode</button>
+</div>
+
+<nav><span class="logo">🚀 LOGO</span></nav>
+
+<div class="container">
+    <div class="menu">
+        <p>Home</p>
+        <p>About</p>
+        <p>Services</p>
+        <p>Contact</p>
+    </div>
+
+    <div class="content" id="content">
+        <h1>Main Header</h1>
+        <div class="date">May 15, 2025</div>
+        <p>This is the description text under the header, providing more details about the main content and structure of the page.</p>
+    </div>
+</div>
+
+<div class="toc" id="toc"></div>
+
+<script>
+function hexToHSL(hex) {
+    hex = hex.replace('#', '');
+    let r = parseInt(hex.substring(0,2), 16) / 255;
+    let g = parseInt(hex.substring(2,4), 16) / 255;
+    let b = parseInt(hex.substring(4,6), 16) / 255;
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    if (max === min) {
+        h = s = 0;
+    } else {
+        let d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    h = Math.round(h * 360);
+    s = Math.round(s * 100) + '%';
+    l = Math.round(l * 100) + '%';
+    return {h, s, l};
+}
+
+function updateTheme() {
+    const color = document.getElementById('colorPicker').value;
+    const hsl = hexToHSL(color);
+    document.documentElement.style.setProperty('--hue', hsl.h);
+    document.documentElement.style.setProperty('--saturation', hsl.s);
+}
+
+function toggleMode() {
+    document.body.classList.toggle('dark');
+}
+
+const content = document.getElementById('content');
+const toc = document.getElementById('toc');
+
+for (let i = 1; i <= 30; i++) {
+    const section = document.createElement('h2');
+    section.id = 'section' + i;
+    section.textContent = 'Section ' + i;
+    content.appendChild(section);
+    const paragraph = document.createElement('p');
+    paragraph.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc at scelerisque tincidunt, nunc nisl aliquam nunc, eget aliquam nunc nisl eu nunc.';
+    content.appendChild(paragraph);
+    const tocEntry = document.createElement('p');
+    tocEntry.textContent = 'Section ' + i;
+    tocEntry.onclick = () => document.getElementById('section' + i).scrollIntoView({behavior: 'smooth'});
+    toc.appendChild(tocEntry);
+}
+
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.content h2');
+    let index = sections.length;
+    while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+    document.querySelectorAll('.toc p').forEach((p, i) => p.classList.toggle('active', i === index));
+});
+</script>
+</body>
+</html>
