@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 - Tutorial dla początkujących</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1d1d1f;
+            background: #f5f5f7;
+            font-size: 17px;
+            font-weight: 400;
+        }
+        
+        .book-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            min-height: 100vh;
+        }
+        
+        .book-header {
+            background: white;
+            padding: 80px 60px 60px;
+            text-align: center;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        
+        .book-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        .book-header p {
+            font-size: 24px;
+            color: #86868b;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+        
+        .language-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #f5f5f7;
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            color: #1d1d1f;
+            transition: all 0.2s ease;
+        }
+        
+        .language-toggle:hover {
+            background: #e5e5e7;
+        }
+        
+        .language-toggle input {
+            margin: 0;
+        }
+        
+        .languageEn {
+            color: #86868b;
+            font-size: 15px;
+            font-weight: 400;
+            margin-left: 8px;
+        }
+        
+        .book-content {
+            padding: 0 60px 60px;
+        }
+        
+        .toc {
+            background: #fbfbfd;
+            padding: 40px;
+            margin: 60px 0;
+            border-radius: 16px;
+            border: 1px solid #d2d2d7;
+            page-break-inside: avoid;
+        }
+        
+        .toc h2 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 32px;
+            letter-spacing: -0.01em;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc li {
+            margin: 16px 0;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f0f2;
+        }
+        
+        .toc li:last-child {
+            border-bottom: none;
+        }
+        
+        .toc a {
+            color: #006cff;
+            text-decoration: none;
+            font-size: 19px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .toc a:hover {
+            color: #0056d6;
+        }
+        
+        .chapter {
+            margin: 80px 0;
+            page-break-inside: avoid;
+        }
+        
+        .chapter h2 {
+            font-size: 40px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+            border-bottom: 1px solid #d2d2d7;
+            padding-bottom: 16px;
+        }
+        
+        .chapter h3 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin: 48px 0 24px 0;
+            letter-spacing: -0.01em;
+        }
+        
+        .chapter h4 {
+            font-size: 21px;
+            font-weight: 600;
+            color: #424245;
+            margin: 32px 0 16px 0;
+        }
+        
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+        
+        .shortcut-item {
+            background: #fbfbfd;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #e5e5e7;
+            transition: all 0.2s ease;
+        }
+        
+        .shortcut-item:hover {
+            border-color: #d2d2d7;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        
+        .shortcut-keys {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            background: #1d1d1f;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        
+        .shortcut-item p {
+            font-size: 17px;
+            color: #424245;
+            margin: 0;
+        }
+        
+        .definition {
+            background: #f0f9ff;
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid #006cff;
+            margin: 24px 0;
+        }
+        
+        .warning {
+            background: #fff8f0;
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid #ff9500;
+            margin: 24px 0;
+        }
+        
+        .tip {
+            background: #f0fff4;
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid #30d158;
+            margin: 24px 0;
+        }
+        
+        .step {
+            background: #fbfbfd;
+            padding: 20px 24px;
+            margin: 16px 0;
+            border-radius: 8px;
+            border: 1px solid #e5e5e7;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        
+        .step-number {
+            background: #1d1d1f;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .step-content {
+            flex: 1;
+            font-size: 17px;
+            color: #424245;
+        }
+        
+        .location-example {
+            background: #fbfbfd;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e7;
+            margin: 20px 0;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 15px;
+            color: #1d1d1f;
+        }
+        
+        ul, ol {
+            margin: 24px 0;
+            padding-left: 32px;
+        }
+        
+        li {
+            margin: 12px 0;
+            font-size: 17px;
+            color: #424245;
+        }
+        
+        p {
+            margin: 16px 0;
+            font-size: 17px;
+            color: #424245;
+        }
+        
+        strong {
+            color: #1d1d1f;
+            font-weight: 600;
+        }
+        
+        .extension-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .extension-item {
+            background: #fbfbfd;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e7;
+            text-align: center;
+        }
+        
+        .extension-name {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-weight: 600;
+            color: #1d1d1f;
+            font-size: 16px;
+        }
+        
+        .extension-desc {
+            font-size: 14px;
+            color: #86868b;
+            margin-top: 4px;
+        }
+        
+        @media print {
+            .chapter {
+                page-break-inside: avoid;
+            }
+            .toc {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .book-content {
+                padding: 0 32px 32px;
+            }
+            
+            .book-header {
+                padding: 40px 32px 32px;
+            }
+            
+            .book-header h1 {
+                font-size: 40px;
+            }
+            
+            .shortcut-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="book-header">
+            <h1>Windows 11</h1>
+            <p>Przewodnik dla początkujących</p>
+            <p>by Wujek Ardian &amp; Tata Adi</p>
+            
+            <label class="language-toggle">
+                <input type="checkbox" id="languageToggle" checked onchange="toggleLanguage()">
+                Pokaż nazwy angielskie
+            </label>
+        </div>
+        
+        <div class="book-content">
+            <div class="toc">
+                <h2>Spis treści</h2>
+                <ul>
+                    <li><a href="#chapter1">Rozdział 1: Podstawowe pojęcia</a></li>
+                    <li><a href="#chapter2">Rozdział 2: Lokalizacje i ścieżki</a></li>
+                    <li><a href="#chapter3">Rozdział 3: Dyski i system plików</a></li>
+                    <li><a href="#chapter4">Rozdział 4: Skróty klawiszowe</a></li>
+                    <li><a href="#chapter5">Rozdział 5: Eksplorator plików</a></li>
+                    <li><a href="#chapter6">Rozdział 6: Przeciąganie i upuszczanie</a></li>
+                    <li><a href="#chapter7">Rozdział 7: Zarządzanie oknami</a></li>
+                    <li><a href="#chapter8">Rozdział 8: Menu Start i pasek zadań</a></li>
+                    <li><a href="#chapter9">Rozdział 9: Ustawienia systemu</a></li>
+                    <li><a href="#chapter10">Rozdział 10: Zaawansowane funkcje</a></li>
+                </ul>
+            </div>
+
+            <div class="chapter" id="chapter1">
+                <h2>Rozdział 1: Podstawowe pojęcia</h2>
+                
+                <h3>Czym jest plik?</h3>
+                <div class="definition">
+                    <strong>Plik</strong> <span class="languageEn">(File)</span> - to zbiór danych zapisanych w pamięci komputera pod określoną nazwą. Może zawierać tekst, obrazy, muzykę, programy lub inne dane.
+                </div>
+                
+                <h3>Czym jest folder?</h3>
+                <div class="definition">
+                    <strong>Folder</strong> <span class="languageEn">(Folder/Directory)</span> - to kontener służący do organizowania i przechowywania plików oraz innych folderów. Pozwala na uporządkowanie danych na dysku.
+                </div>
+                
+                <h3>Rozszerzenia plików</h3>
+                <p>Rozszerzenie pliku to końcówka nazwy pliku (np. .txt, .jpg, .exe) która informuje system o typie pliku:</p>
+                
+                <div class="extension-grid">
+                    <div class="extension-item">
+                        <div class="extension-name">.txt</div>
+                        <div class="extension-desc">Pliki tekstowe</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.jpg, .png</div>
+                        <div class="extension-desc">Obrazy</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.mp3, .wav</div>
+                        <div class="extension-desc">Pliki audio</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.mp4, .avi</div>
+                        <div class="extension-desc">Filmy</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.exe</div>
+                        <div class="extension-desc">Programy wykonywalne</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.docx</div>
+                        <div class="extension-desc">Dokumenty Word</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.pdf</div>
+                        <div class="extension-desc">Dokumenty PDF</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.html</div>
+                        <div class="extension-desc">Strony internetowe</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.css</div>
+                        <div class="extension-desc">Style CSS</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.js</div>
+                        <div class="extension-desc">Skrypty JavaScript</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.md</div>
+                        <div class="extension-desc">Markdown</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.yaml, .yml</div>
+                        <div class="extension-desc">Pliki konfiguracyjne</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.ppt, .pptx</div>
+                        <div class="extension-desc">Prezentacje PowerPoint</div>
+                    </div>
+                    <div class="extension-item">
+                        <div class="extension-name">.zip, .rar</div>
+                        <div class="extension-desc">Archiwa skompresowane</div>
+                    </div>
+                </div>
+                
+                <h4>Jak włączyć widoczność rozszerzeń plików?</h4>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Otwórz Eksplorator plików <span class="languageEn">(File Explorer)</span> używając <span class="shortcut-keys">Windows + E</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Kliknij zakładkę "Widok" <span class="languageEn">(View)</span> w górnym menu</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Zaznacz opcję "Rozszerzenia nazw plików" <span class="languageEn">(File name extensions)</span></div>
+                </div>
+                
+                <div class="tip">
+                    <strong>Wskazówka:</strong> Widoczność rozszerzeń pomaga identyfikować typy plików i chroni przed złośliwym oprogramowaniem, które może się podszywać pod inne typy plików.
+                </div>
+            </div>
+
+            <div class="chapter" id="chapter2">
+                <h2>Rozdział 2: Lokalizacje i ścieżki</h2>
+                
+                <h3>Czym jest lokalizacja?</h3>
+                <div class="definition">
+                    <strong>Lokalizacja</strong> <span class="languageEn">(Location/Path)</span> - to adres określający miejsce, gdzie znajduje się plik lub folder w systemie plików. Każdy element ma swoją unikalną ścieżkę.
+                </div>
+                
+                <h3>Jak działają ścieżki?</h3>
+                <p>Gdy otwierasz kolejne foldery, poruszasz się po hierarchicznej strukturze folderów. Każde "wejście" do folderu dodaje nowy poziom do ścieżki:</p>
+                
+                <pre class="location-example" style="font-family: 'SF Mono', Monaco, monospace;">
+C:\                         (główny katalog dysku C)
+├── Users\                  (folder z kontami użytkowników)
+    ├── TwojeImie\          (folder twojego konta)
+        ├── Desktop\        (pulpit)
+        ├── Documents\      (dokumenty)
+        ├── Downloads\      (pobrane)
+        └── Pictures\       (obrazy)
+                </pre>
+
+                <h4>Przykład nawigacji po folderach:</h4>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        Zaczynasz w: <code>C:\</code><br>
+                        <span class="languageEn">(Root directory of C: drive)</span>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        Otwierasz folder "Users" czyli Użytkownicy: <code>C:\Users\</code><br>
+                        <span class="languageEn">(Users folder)</span>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        Otwierasz swój folder: <code>C:\Users\TwojeImie\</code><br>
+                        <span class="languageEn">(Your user profile folder)</span>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        Otwierasz "Documents" czyli Dokumenty: <code>C:\Users\TwojeImie\Documents\</code><br>
+                        <span class="languageEn">(Documents folder)</span>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    <strong>Pola:</strong> W linuxie i macOS używa się ukośników (/) do oddzielania folderów, np. <code>/Users/TwojeImie/Documents/</code>. W Windows używamy odwrotnych ukośników (\), np. <code>C:\Users\TwojeImie\Documents\</code>. <br/>
+                    Co więcej w windows ścieżka zaczyna się od litery dysku, np. <code>C:\</code>, podczas gdy w systemach unixowych (linux/macOS) zaczynamy po prostu od ukośnika, np. <code>/</code>. 
+                    Dlatego coś, co w Windows wygląda jak <code>C:\Users\TwojeImie\Documents\</code>, w systemach unixowych będzie wyglądać jak <code>/Users/TwojeImie/Documents/</code>.                   
+                </div>
+
+                <h3>Typy ścieżek</h3>
+                <ul>
+                    <li><strong>Ścieżka bezwzględna</strong> <span class="languageEn">(Absolute path)</span> - pełny adres od głównego katalogu: <code>C:\Users\Jan\Desktop\plik.txt</code></li>
+                    <li><strong>Ścieżka względna</strong> <span class="languageEn">(Relative path)</span> - adres względem bieżącej lokalizacji: <code>Desktop\plik.txt</code></li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Wskazówka:</strong> W pasku adresu Eksploratora zawsze widzisz pełną ścieżkę do aktualnej lokalizacji. Możesz na nią kliknąć, aby edytować ścieżkę bezpośrednio.
+                </div>
+            </div>
+
+            <div class="chapter" id="chapter3">
+                <h2>Rozdział 3: Dyski i system plików</h2>
+                
+                <h3>Czym są dyski?</h3>
+                <div class="definition">
+                    <strong>Dysk</strong> <span class="languageEn">(Drive)</span> - to fizyczne lub logiczne urządzenie przechowujące dane. W Windows każdy dysk ma przypisaną literę (C:, D:, E: itd.).
+                </div>
+                
+                <h3>Główne typy dysków</h3>
+                <ul>
+                    <li><strong>Dysk C:</strong> - główny dysk systemowy, zawiera Windows i programy <span class="languageEn">(System drive)</span></li>
+                    <li><strong>Dysk D:</strong> - często dodatkowy dysk na dane <span class="languageEn">(Data drive)</span></li>
+                    <li><strong>Dyski USB</strong> - pendrivy, dyski zewnętrzne <span class="languageEn">(USB drives)</span></li>
+                    <li><strong>Napęd DVD/CD</strong> - do odczytu płyt <span class="languageEn">(Optical drives)</span></li>
+                    <li><strong>Dyski sieciowe</strong> - foldery udostępnione w sieci <span class="languageEn">(Network drives)</span></li>
+                </ul>
+                
+                <h3>Gdzie są zapisane pliki?</h3>
+                <p>Wszystkie pliki w Windows są fizycznie zapisane na dyskach twardych (HDD) lub półprzewodnikowych (SSD). System organizuje je w folderach:</p>
+                
+                <h4>Ważne lokalizacje systemowe:</h4>
+                <ul>
+                    <li><code>C:\Windows\</code> - pliki systemu operacyjnego <span class="languageEn">(Operating system files)</span></li>
+                    <li><code>C:\Program Files\</code> - zainstalowane programy <span class="languageEn">(Installed programs)</span></li>
+                    <li><code>C:\Users\</code> - foldery użytkowników <span class="languageEn">(User profiles)</span></li>
+                    <li><code>C:\Users\TwojeImie\AppData\</code> - dane aplikacji <span class="languageEn">(Application data)</span></li>
+                </ul>
+                
+                <h3>Pulpit to też folder!</h3>
+                <div class="definition">
+                    <strong>Pulpit</strong> <span class="languageEn">(Desktop)</span> to zwykły folder znajdujący się w lokalizacji:<br>
+                    <code>C:\Users\TwojeImie\Desktop\</code><br><br>
+                    Wszystko co widzisz na pulpicie to pliki i foldery fizycznie zapisane w tej lokalizacji.
+                </div>
+                
+                <h4>Inne specjalne foldery użytkownika:</h4>
+                <div class="location-example">
+Dokumenty:    C:\Users\TwojeImie\Documents\
+Pobrane:      C:\Users\TwojeImie\Downloads\
+Obrazy:       C:\Users\TwojeImie\Pictures\
+Muzyka:       C:\Users\TwojeImie\Music\
+Filmy:        C:\Users\TwojeImie\Videos\
+                </div>
+                
+                <h3>Sprawdzanie miejsca na dysku</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Otwórz Eksplorator plików <span class="shortcut-keys">Windows + E</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Kliknij "Ten komputer" <span class="languageEn">(This PC)</span> w lewym panelu</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Zobacz paski pod każdym dyskiem pokazujące zajęte miejsce</div>
+                </div>
+                
+                <div class="warning">
+                    <strong>Uwaga:</strong> Dysk C: nie powinien być zapełniony powyżej 80-85%. Pełny dysk systemowy spowalnia działanie komputera.
+                </div>
+            </div>
+
+            <div class="chapter" id="chapter4">
+                <h2>Rozdział 4: Skróty klawiszowe</h2>
+                
+                <h3>Operacje na plikach i tekście</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Ctrl + C</span>
+                        <p>Kopiuj zaznaczony element <span class="languageEn">(Copy)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Ctrl + V</span>
+                        <p>Wklej skopiowany element <span class="languageEn">(Paste)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Ctrl + X</span>
+                        <p>Wytnij zaznaczony element <span class="languageEn">(Cut)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Ctrl + Z</span>
+                        <p>Cofnij ostatnią operację <span class="languageEn">(Undo)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Ctrl + Y</span>
+                        <p>Ponów cofniętą operację <span class="languageEn">(Redo)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Ctrl + A</span>
+                        <p>Zaznacz wszystko <span class="languageEn">(Select All)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Delete</span>
+                        <p>Usuń do kosza <span class="languageEn">(Delete to Recycle Bin)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Shift + Delete</span>
+                        <p>Usuń na stałe <span class="languageEn">(Permanent Delete)</span></p>
+                    </div>
+                </div>
+                
+                <h3>Nawigacja w systemie</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + E</span>
+                        <p>Otwórz Eksplorator plików <span class="languageEn">(File Explorer)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Alt + Tab</span>
+                        <p>Przełączaj między oknami <span class="languageEn">(Switch Windows)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows</span>
+                        <p>Otwórz/zamknij menu Start <span class="languageEn">(Start Menu)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + L</span>
+                        <p>Zablokuj komputer <span class="languageEn">(Lock Computer)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + D</span>
+                        <p>Pokaż pulpit <span class="languageEn">(Show Desktop)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Alt + F4</span>
+                        <p>Zamknij aktywne okno <span class="languageEn">(Close Window)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + I</span>
+                        <p>Otwórz Ustawienia <span class="languageEn">(Settings)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + S</span>
+                        <p>Otwórz wyszukiwanie <span class="languageEn">(Search)</span></p>
+                    </div>
+                </div>
+                
+                <h3>Zarządzanie oknami</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + ←</span>
+                        <p>Przyciągnij okno do lewej <span class="languageEn">(Snap Left)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + →</span>
+                        <p>Przyciągnij okno do prawej <span class="languageEn">(Snap Right)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + ↑</span>
+                        <p>Maksymalizuj okno <span class="languageEn">(Maximize)</span></p>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-keys">Windows + ↓</span>
+                        <p>Minimalizuj/przywróć <span class="languageEn">(Minimize/Restore)</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter" id="chapter5">
+                <h2>Rozdział 5: Eksplorator plików</h2>
+                
+                <h3>Otwieranie Eksploratora</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Naciśnij <span class="shortcut-keys">Windows + E</span> lub kliknij ikonę folderu na pasku zadań <span class="languageEn">(Taskbar)</span></div>
+                </div>
+                
+                <h3>Nawigacja w folderach</h3>
+                <ul>
+                    <li><strong>Dwuklik</strong> na folder - otwiera folder <span class="languageEn">(Double-click opens folder)</span></li>
+                    <li><strong>Przycisk "Wstecz"</strong> - powrót do poprzedniego folderu <span class="languageEn">(Back button)</span></li>
+                    <li><strong>Przycisk "Do góry"</strong> - przejście do folderu nadrzędnego <span class="languageEn">(Up button)</span></li>
+                    <li><strong>Pasek adresu</strong> - pokazuje aktualną ścieżkę <span class="languageEn">(Address bar)</span></li>
+                    <li><strong>Panel nawigacji</strong> - szybki dostęp do folderów <span class="languageEn">(Navigation pane)</span></li>
+                </ul>
+                
+                <h3>Podstawowe lokalizacje</h3>
+                <ul>
+                    <li><strong>Pulpit</strong> <span class="languageEn">(Desktop)</span> - zawartość pulpitu</li>
+                    <li><strong>Dokumenty</strong> <span class="languageEn">(Documents)</span> - główny folder na dokumenty</li>
+                    <li><strong>Pobrane</strong> <span class="languageEn">(Downloads)</span> - pliki pobrane z internetu</li>
+                    <li><strong>Obrazy</strong> <span class="languageEn">(Pictures)</span> - zdjęcia i grafiki</li>
+                    <li><strong>Muzyka</strong> <span class="languageEn">(Music)</span> - pliki audio</li>
+                    <li><strong>Filmy</strong> <span class="languageEn">(Videos)</span> - pliki wideo</li>
+                    <li><strong>Ten komputer</strong> <span class="languageEn">(This PC)</span> - dostęp do wszystkich dysków</li>
+                </ul>
+                
+                <h3>Tworzenie nowych folderów</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Kliknij prawym przyciskiem w pustym miejscu <span class="languageEn">(Right-click)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Wybierz "Nowy" → "Folder" <span class="languageEn">(New → Folder)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Wpisz nazwę folderu i naciśnij Enter</div>
+                </div>
+                
+                <div class="tip">
+                    <strong>Wskazówka:</strong> Możesz też użyć skrótu <span class="shortcut-keys">Ctrl + Shift + N</span> do szybkiego utworzenia nowego folderu.
+                </div>
+                
+                <h3>Widoki plików</h3>
+                <ul>
+                    <li><strong>Bardzo duże ikony</strong> <span class="languageEn">(Extra large icons)</span> - najlepsze dla obrazów</li>
+                    <li><strong>Duże ikony</strong> <span class="languageEn">(Large icons)</span> - standardowy widok</li>
+                    <li><strong>Średnie ikony</strong> <span class="languageEn">(Medium icons)</span> - kompromis</li>
+                    <li><strong>Małe ikony</strong> <span class="languageEn">(Small icons)</span> - więcej plików na ekranie</li>
+                    <li><strong>Lista</strong> <span class="languageEn">(List)</span> - prosta lista nazw</li>
+                    <li><strong>Szczegóły</strong> <span class="languageEn">(Details)</span> - z informacjami o plikach</li>
+                </ul>
+            </div>
+
+            <div class="chapter" id="chapter6">
+                <h2>Rozdział 6: Przeciąganie i upuszczanie</h2>
+                
+                <h3>Podstawowe przeciąganie</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Kliknij i przytrzymaj lewy przycisk myszy na pliku/folderze <span class="languageEn">(Click and hold)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Przeciągnij element w wybrane miejsce <span class="languageEn">(Drag to destination)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Puść przycisk myszy aby upuścić element <span class="languageEn">(Release to drop)</span></div>
+                </div>
+                
+                <h3>Różne tryby przeciągania</h3>
+                <ul>
+                    <li><strong>Przeciągnij</strong> - przenosi plik (na tym samym dysku) lub kopiuje (między dyskami) <span class="languageEn">(Drag)</span></li>
+                    <li><strong>Ctrl + przeciągnij</strong> - zawsze kopiuje plik <span class="languageEn">(Copy)</span></li>
+                    <li><strong>Shift + przeciągnij</strong> - zawsze przenosi plik <span class="languageEn">(Move)</span></li>
+                    <li><strong>Alt + przeciągnij</strong> - tworzy skrót do pliku <span class="languageEn">(Create shortcut)</span></li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>Uwaga:</strong> Przeciąganie między różnymi dyskami (np. z C: na D:) domyślnie kopiuje pliki, nie przenosi ich.
+                </div>
+                
+                <h3>Zaznaczanie wielu plików</h3>
+                <ul>
+                    <li><strong>Ctrl + klik</strong> - zaznacza pojedyncze pliki <span class="languageEn">(Select individual files)</span></li>
+                    <li><strong>Shift + klik</strong> - zaznacza zakres plików <span class="languageEn">(Select range)</span></li>
+                    <li><strong>Ctrl + A</strong> - zaznacza wszystkie pliki w folderze <span class="languageEn">(Select all)</span></li>
+                    <li><strong>Przeciągnij myszą</strong> - zaznacza prostokątny obszar <span class="languageEn">(Lasso selection)</span></li>
+                </ul>
+                
+                <h3>Przeciąganie do różnych miejsc</h3>
+                <ul>
+                    <li><strong>Na pulpit</strong> - tworzy kopię lub skrót <span class="languageEn">(To desktop)</span></li>
+                    <li><strong>Do innego folderu</strong> - przenosi lub kopiuje <span class="languageEn">(To another folder)</span></li>
+                    <li><strong>Na pasek zadań</strong> - przypina aplikację <span class="languageEn">(To taskbar)</span></li>
+                    <li><strong>Do kosza</strong> - usuwa plik <span class="languageEn">(To recycle bin)</span></li>
+                </ul>
+            </div>
+
+            <div class="chapter" id="chapter7">
+                <h2>Rozdział 7: Zarządzanie oknami</h2>
+                
+                <h3>Podstawowe operacje na oknach</h3>
+                <ul>
+                    <li><strong>Minimalizacja</strong> <span class="languageEn">(Minimize)</span> - ukrywa okno na pasku zadań</li>
+                    <li><strong>Maksymalizacja</strong> <span class="languageEn">(Maximize)</span> - rozciąga okno na cały ekran</li>
+                    <li><strong>Przywracanie</strong> <span class="languageEn">(Restore)</span> - powrót do normalnego rozmiaru</li>
+                    <li><strong>Zamykanie</strong> <span class="languageEn">(Close)</span> - kończy działanie programu</li>
+                </ul>
+                
+                <h3>Snap Layouts (Windows 11)</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Najedź myszą na przycisk maksymalizacji okna <span class="languageEn">(Hover over maximize button)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Wybierz jeden z układów snap <span class="languageEn">(Choose layout)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">System automatycznie ułoży okna <span class="languageEn">(Windows arrange automatically)</span></div>
+                </div>
+                
+                <h3>Przełączanie między oknami</h3>
+                <ul>
+                    <li><strong>Alt + Tab</strong> - przegląd wszystkich otwartych okien <span class="languageEn">(Window switcher)</span></li>
+                    <li><strong>Windows + Tab</strong> - widok zadań <span class="languageEn">(Task view)</span></li>
+                    <li><strong>Klik na pasku zadań</strong> - przełączenie do konkretnego okna <span class="languageEn">(Click taskbar)</span></li>
+                </ul>
+                
+                <h3>Wirtualne pulpity</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Naciśnij <span class="shortcut-keys">Windows + Tab</span> <span class="languageEn">(Task view)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Kliknij "Nowy pulpit" <span class="languageEn">(New desktop)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Przełączaj używając <span class="shortcut-keys">Ctrl + Windows + ←/→</span></div>
+                </div>
+                
+                <div class="tip">
+                    <strong>Wskazówka:</strong> Wirtualne pulpity pozwalają na organizację różnych zadań w oddzielnych przestrzeniach roboczych.
+                </div>
+            </div>
+
+            <div class="chapter" id="chapter8">
+                <h2>Rozdział 8: Menu Start i pasek zadań</h2>
+                
+                <h3>Menu Start</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Kliknij przycisk Start <span class="languageEn">(Start button)</span> lub naciśnij klawisz Windows</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Użyj sekcji "Przypięte" <span class="languageEn">(Pinned)</span> dla szybkiego dostępu</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Sprawdź "Polecane" <span class="languageEn">(Recommended)</span> dla ostatnio używanych plików</div>
+                </div>
+                
+                <h3>Wyszukiwanie</h3>
+                <ul>
+                    <li>Otwórz menu Start i po prostu zacznij pisać</li>
+                    <li>System automatycznie wyszuka aplikacje, pliki i ustawienia</li>
+                    <li>Użyj <span class="shortcut-keys">Windows + S</span> dla bezpośredniego dostępu</li>
+                </ul>
+                
+                <h3>Pasek zadań</h3>
+                <ul>
+                    <li><strong>Ikony aplikacji</strong> <span class="languageEn">(App icons)</span> - szybki dostęp do programów</li>
+                    <li><strong>Obszar powiadomień</strong> <span class="languageEn">(Notification area)</span> - zegar, głośność, sieć</li>
+                    <li><strong>Widżety</strong> <span class="languageEn">(Widgets)</span> - pogoda, aktualności (Windows 11)</li>
+                    <li><strong>Wyszukiwanie</strong> <span class="languageEn">(Search)</span> - ikona lupy</li>
+                    <li><strong>Widok zadań</strong> <span class="languageEn">(Task view)</span> - przełączanie między pulpitami</li>
+                </ul>
+                
+                <h3>Przypinanie do paska zadań</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Kliknij prawym przyciskiem na ikonę aplikacji <span class="languageEn">(Right-click app)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Wybierz "Przypnij do paska zadań" <span class="languageEn">(Pin to taskbar)</span></div>
+                </div>
+                
+                <h3>Personalizacja paska zadań</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Kliknij prawym przyciskiem na pasku zadań</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Wybierz "Ustawienia paska zadań" <span class="languageEn">(Taskbar settings)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Dostosuj widoczność elementów i zachowanie</div>
+                </div>
+            </div>
+
+            <div class="chapter" id="chapter9">
+                <h2>Rozdział 9: Ustawienia systemu</h2>
+                
+                <h3>Dostęp do ustawień</h3>
+                <ul>
+                    <li><span class="shortcut-keys">Windows + I</span> - bezpośredni dostęp</li>
+                    <li>Menu Start → ikona koła zębatego <span class="languageEn">(Settings icon)</span></li>
+                    <li>Prawy klik na pulpicie → "Ustawienia wyświetlania" <span class="languageEn">(Display settings)</span></li>
+                </ul>
+                
+                <h3>Najważniejsze kategorie ustawień</h3>
+                <ul>
+                    <li><strong>System</strong> <span class="languageEn">(System)</span> - wyświetlacz, dźwięk, powiadomienia</li>
+                    <li><strong>Bluetooth i urządzenia</strong> <span class="languageEn">(Bluetooth & devices)</span> - mysz, klawiatura, drukarki</li>
+                    <li><strong>Sieć i internet</strong> <span class="languageEn">(Network & internet)</span> - Wi-Fi, Ethernet</li>
+                    <li><strong>Personalizacja</strong> <span class="languageEn">(Personalization)</span> - tapety, kolory, motywy</li>
+                    <li><strong>Konta</strong> <span class="languageEn">(Accounts)</span> - zarządzanie kontami użytkowników</li>
+                    <li><strong>Prywatność i zabezpieczenia</strong> <span class="languageEn">(Privacy & security)</span> - ustawienia prywatności</li>
+                </ul>
+                
+                <h3>Zmiana tapety</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Kliknij prawym przyciskiem na pulpicie <span class="languageEn">(Right-click desktop)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Wybierz "Personalizuj" <span class="languageEn">(Personalize)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Kliknij "Tło" <span class="languageEn">(Background)</span> i wybierz nową tapetę</div>
+                </div>
+                
+                <h3>Ustawienia dźwięku</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Idź do Ustawienia → System → Dźwięk <span class="languageEn">(Settings → System → Sound)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Wybierz urządzenie wyjściowe <span class="languageEn">(Output device)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Dostosuj poziom głośności <span class="languageEn">(Volume level)</span></div>
+                </div>
+                
+                <div class="tip">
+                    <strong>Wskazówka:</strong> Możesz też przeciągnąć dowolny obraz na pulpit i wybrać "Ustaw jako tło pulpitu" <span class="languageEn">(Set as desktop background)</span>.
+                </div>
+            </div>
+
+            <div class="chapter" id="chapter10">
+                <h2>Rozdział 10: Zaawansowane funkcje</h2>
+                
+                <h3>Schowek wieloelementowy</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Naciśnij <span class="shortcut-keys">Windows + V</span> <span class="languageEn">(Clipboard history)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Włącz historię schowka jeśli pojawi się pytanie <span class="languageEn">(Enable clipboard history)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Teraz możesz wklejać wcześniej skopiowane elementy</div>
+                </div>
+                
+                <h3>Zrzuty ekranu</h3>
+                <ul>
+                    <li><span class="shortcut-keys">Print Screen</span> - cały ekran do schowka <span class="languageEn">(Full screen to clipboard)</span></li>
+                    <li><span class="shortcut-keys">Alt + Print Screen</span> - aktywne okno do schowka <span class="languageEn">(Active window)</span></li>
+                    <li><span class="shortcut-keys">Windows + Shift + S</span> - narzędzie do wycinania <span class="languageEn">(Snipping tool)</span></li>
+                    <li><span class="shortcut-keys">Windows + Print Screen</span> - cały ekran do pliku <span class="languageEn">(Full screen to file)</span></li>
+                </ul>
+                
+                <h3>Menedżer zadań</h3>
+                <ul>
+                    <li><span class="shortcut-keys">Ctrl + Shift + Esc</span> - bezpośredni dostęp <span class="languageEn">(Direct access)</span></li>
+                    <li><span class="shortcut-keys">Ctrl + Alt + Delete</span> → Menedżer zadań <span class="languageEn">(Task Manager)</span></li>
+                    <li>Prawklik na pasku zadań → Menedżer zadań</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>Uwaga:</strong> Menedżer zadań pozwala zamykać nieodpowiadające programy, ale używaj go ostrożnie - zamknięcie niewłaściwego procesu może spowodować problemy z systemem.
+                </div>
+                
+                <h3>Centrum akcji</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Kliknij ikonę powiadomień w prawym dolnym rogu <span class="languageEn">(Notifications icon)</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Lub naciśnij <span class="shortcut-keys">Windows + A</span></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Użyj szybkich ustawień <span class="languageEn">(Quick settings)</span> i powiadomień</div>
+                </div>
+                
+                <h3>Focus Assist</h3>
+                <p>Funkcja pomagająca skupić się na pracy poprzez ograniczenie powiadomień <span class="languageEn">(Focus on work by limiting notifications)</span>:</p>
+                <ul>
+                    <li><strong>Wyłączony</strong> <span class="languageEn">(Off)</span> - wszystkie powiadomienia</li>
+                    <li><strong>Tylko priorytetowe</strong> <span class="languageEn">(Priority only)</span> - ważne powiadomienia</li>
+                    <li><strong>Tylko alarmy</strong> <span class="languageEn">(Alarms only)</span> - tylko alarmy</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Wskazówka:</strong> Focus Assist można szybko włączyć przez Centrum akcji lub automatycznie podczas gier i prezentacji.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLanguage() {
+            const toggle = document.getElementById('languageToggle');
+            const languageElements = document.querySelectorAll('.languageEn');
+            
+            languageElements.forEach(element => {
+                element.style.display = toggle.checked ? 'inline' : 'none';
+            });
+        }
+        
+        // Initialize language toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleLanguage();
+        });
+    </script>
+</body>
+</html>
