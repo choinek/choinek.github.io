@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -112,6 +113,40 @@
             font-size: 14px;
             display: inline-block;
             margin: 8px 0;
+            position: relative;
+            cursor: pointer;
+            user-select: all;
+        }
+
+        .formula:hover::after {
+            content: "Kliknij aby skopiować";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #424245;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        .copy-btn {
+            background: #006cff;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #0056d6;
         }
 
         .tip {
@@ -176,6 +211,32 @@
             <p>Ten tutorial pokaże jak stworzyć dwie powiązane tabele w Excel do zarządzania kosztami dzieci i transferami między rodzicami. System automatycznie obliczy rozliczenia.</p>
         </div>
 
+    <script>
+        // Dodaj funkcjonalność kopiowania formuł
+        document.addEventListener('DOMContentLoaded', function() {
+            const formulas = document.querySelectorAll('.formula');
+            
+            formulas.forEach(formula => {
+                formula.addEventListener('click', function() {
+                    const text = this.textContent;
+                    navigator.clipboard.writeText(text).then(function() {
+                        // Pokaż komunikat o skopiowaniu
+                        const originalText = formula.textContent;
+                        formula.textContent = '✓ Skopiowano!';
+                        formula.style.background = '#30d158';
+                        
+                        setTimeout(() => {
+                            formula.textContent = originalText;
+                            formula.style.background = '#1d1d1f';
+                        }, 1000);
+                    }).catch(function(err) {
+                        console.error('Błąd kopiowania: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+
         <h2>Tabela 1: Koszty Dzieci</h2>
 
         <div class="card">
@@ -198,9 +259,9 @@
                         <tr>
                             <td>01.01.2025</td>
                             <td>Trening</td>
-                            <td>Basen - Ania</td>
+                            <td>Basen - Dziecko1</td>
                             <td>150</td>
-                            <td>Monika wstępnie opłaciła</td>
+                            <td>Dorosła2 wstępnie opłaciła</td>
                             <td><span class="color-indicator red"></span>Nierozliczone</td>
                         </tr>
                         <tr>
@@ -208,7 +269,7 @@
                             <td>Szkoła</td>
                             <td>Podręczniki</td>
                             <td>200</td>
-                            <td>Adrian od razu opłacił</td>
+                            <td>Dorosły1 od razu opłacił</td>
                             <td><span class="color-indicator green"></span>Rozliczone</td>
                         </tr>
                     </tbody>
@@ -228,7 +289,7 @@
             <ol>
                 <li>Zaznacz komórki w kolumnie E</li>
                 <li>Dane → Sprawdzanie poprawności danych → Lista</li>
-                <li>Źródło: <span class="formula">Monika wstępnie opłaciła;Adrian od razu opłacił</span></li>
+                <li>Źródło: <span class="formula">Dorosła2 wstępnie opłaciła;Dorosły1 od razu opłacił</span></li>
             </ol>
         </div>
 
@@ -236,7 +297,7 @@
             <h3><span class="step-number">2</span>Automatyczne kolorowanie statusu</h3>
             <p>W kolumnie F dodaj formułę warunkową:</p>
             
-            <div class="formula">=JEŻELI(E2="Adrian od razu opłacił";"Rozliczone";"Nierozliczone")</div>
+            <div class="formula">=JEŻELI(E2="Dorosły1 od razu opłacił";"Rozliczone";"Nierozliczone")</div>
             
             <h4>Formatowanie warunkowe:</h4>
             <ol>
@@ -323,13 +384,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Monika</strong></td>
+                            <td><strong>Dorosła2</strong></td>
                             <td>450 zł</td>
                             <td>175 zł</td>
                             <td style="color: #ff3b30;"><strong>275 zł do zwrotu</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>Adrian</strong></td>
+                            <td><strong>Dorosły1</strong></td>
                             <td>200 zł</td>
                             <td>-</td>
                             <td style="color: #30d158;"><strong>Rozliczony</strong></td>
@@ -344,7 +405,7 @@
             <p>Dodaj pomocniczą tabelę pokazującą co jeszcze wymaga zwrotu:</p>
             
             <h4>Formuła do wyświetlania nierozliczonych pozycji:</h4>
-            <div class="formula">=JEŻELI(I(Tabela1[Osoba płacąca]="Monika wstępnie opłaciła";Tabela1[Status]="Nierozliczone");Tabela1[Opis]&" - "&Tabela1[Kwota]&" zł";"")</div>
+            <div class="formula">=JEŻELI(ORAZ(Tabela1[Osoba płacąca]="Dorosła2 wstępnie opłaciła";Tabela1[Status]="Nierozliczone");Tabela1[Opis]&" - "&Tabela1[Kwota]&" zł";"")</div>
         </div>
 
         <div class="tip">
@@ -401,8 +462,8 @@
         <div class="card">
             <h3>Dashboard wizualny</h3>
             
-            <h4>Stopień zadłużenia Moniki:</h4>
-            <div class="formula">=JEŻELI((Suma_kosztów_Moniki-Suma_transferów)>500;"🔴 Wysoki";"🟡 Normalny")</div>
+            <h4>Stopień zadłużenia Dorosłej2:</h4>
+            <div class="formula">=JEŻELI((Suma_kosztów_Dorosłej2-Suma_transferów)>500;"🔴 Wysoki";"🟡 Normalny")</div>
             
             <h4>Wykres kołowy wydatków:</h4>
             <p>Stwórz wykres na podstawie SUMA.JEŻELI dla każdej kategorii:</p>
@@ -429,12 +490,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Ania</td>
+                            <td>Dziecko1</td>
                             <td>350 zł</td>
                             <td>📈 +15%</td>
                         </tr>
                         <tr>
-                            <td>Tomek</td>
+                            <td>Dziecko2</td>
                             <td>280 zł</td>
                             <td>📉 -5%</td>
                         </tr>
@@ -450,7 +511,7 @@
             <h3>Narzędzia kontrolne</h3>
             
             <h4>Sprawdzenie czy wszystko się zgadza:</h4>
-            <div class="formula">=JEŻELI(SUMA(Tabela1[Kwota])=Suma_Moniki+Suma_Adriana;"✅ OK";"❌ BŁĄD")</div>
+            <div class="formula">=JEŻELI(SUMA(Tabela1[Kwota])=Suma_Dorosłej2+Suma_Dorosłego1;"✅ OK";"❌ BŁĄD")</div>
             
             <h4>Największy wydatek miesiąca:</h4>
             <div class="formula">=INDEKS(Tabela1[Opis];PODAJ.POZYCJĘ(MAKS(Tabela1[Kwota]);Tabela1[Kwota];0))</div>
@@ -466,11 +527,11 @@
             <h4>Formatowanie dla dużych kwot:</h4>
             <p>Ustaw formatowanie warunkowe dla kwot > 200 zł - automatycznie zmieni kolor na pomarańczowy</p>
             
-            <h4>Próg ostrzegawczy dla Moniki:</h4>
-            <div class="formula">=JEŻELI(Saldo_Moniki>1000;"🚨 UWAGA: Wysokie zadłużenie!";"Stan normalny")</div>
+            <h4>Próg ostrzegawczy dla Dorosłej2:</h4>
+            <div class="formula">=JEŻELI(Saldo_Dorosłej2>1000;"🚨 UWAGA: Wysokie zadłużenie!";"Stan normalny")</div>
             
             <div class="warning">
-                <strong>Praktyczny hint:</strong> Ustaw regułę że jak saldo Moniki przekroczy 500 zł, automatycznie planuje się transfer na weekend!
+                <strong>Praktyczny hint:</strong> Ustaw regułę że jak saldo Dorosłej2 przekroczy 500 zł, automatycznie planuje się transfer na weekend!
             </div>
         </div>
 
@@ -491,7 +552,7 @@
 
         <h2>Podsumowanie</h2>
         <div class="card">
-            <p>System składa się z dwóch powiązanych tabel które automatycznie obliczają rozliczenia między rodzicami. Monika widzi ile jeszcze należy jej się zwrotu, a Adrian ma przejrzysty obraz swoich bezpośrednich wydatków.</p>
+            <p>System składa się z dwóch powiązanych tabel które automatycznie obliczają rozliczenia między rodzicami. Dorosła2 widzi ile jeszcze należy jej się zwrotu, a Dorosły1 ma przejrzysty obraz swoich bezpośrednich wydatków.</p>
             
             <p>Kolorowe wskaźniki pomagają szybko identyfikować nierozliczone pozycje i planować kolejne transfery.</p>
             
