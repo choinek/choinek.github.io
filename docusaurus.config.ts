@@ -124,7 +124,7 @@ const config: Config = {
           items: [
             {
               label: 'Guide',
-              to: '/docs/category/adrians-tutorials',
+              to: '/docs/guide',
             },
           ],
         },
