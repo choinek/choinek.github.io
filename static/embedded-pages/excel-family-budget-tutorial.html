@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutorial: Excel Family Budget Tables Example</title>
+    <title>Tutorial: Excel Family Budget Tables</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
@@ -198,9 +198,9 @@
                         <tr>
                             <td>01.01.2025</td>
                             <td>Trening</td>
-                            <td>Basen - Dziecko1</td>
+                            <td>Basen - Ania</td>
                             <td>150</td>
-                            <td>Dorosła2 wstępnie opłaciła</td>
+                            <td>Monika wstępnie opłaciła</td>
                             <td><span class="color-indicator red"></span>Nierozliczone</td>
                         </tr>
                         <tr>
@@ -208,7 +208,7 @@
                             <td>Szkoła</td>
                             <td>Podręczniki</td>
                             <td>200</td>
-                            <td>Dorosły1 od razu opłacił</td>
+                            <td>Adrian od razu opłacił</td>
                             <td><span class="color-indicator green"></span>Rozliczone</td>
                         </tr>
                     </tbody>
@@ -228,7 +228,7 @@
             <ol>
                 <li>Zaznacz komórki w kolumnie E</li>
                 <li>Dane → Sprawdzanie poprawności danych → Lista</li>
-                <li>Źródło: <span class="formula">Dorosła2 wstępnie opłaciła;Dorosły1 od razu opłacił</span></li>
+                <li>Źródło: <span class="formula">Monika wstępnie opłaciła;Adrian od razu opłacił</span></li>
             </ol>
         </div>
 
@@ -236,7 +236,7 @@
             <h3><span class="step-number">2</span>Automatyczne kolorowanie statusu</h3>
             <p>W kolumnie F dodaj formułę warunkową:</p>
             
-            <div class="formula">=JEŚLI(E2="Dorosły1 od razu opłacił";"Rozliczone";"Nierozliczone")</div>
+            <div class="formula">=JEŻELI(E2="Adrian od razu opłacił";"Rozliczone";"Nierozliczone")</div>
             
             <h4>Formatowanie warunkowe:</h4>
             <ol>
@@ -248,7 +248,7 @@
             </ol>
         </div>
 
-        <h2>Tabela 2: Transfery do Dorosłej2</h2>
+        <h2>Tabela 2: Transfery do Moniki</h2>
 
         <div class="card">
             <h3><span class="step-number">3</span>Struktura tabeli transferów</h3>
@@ -285,24 +285,24 @@
 
         <div class="grid">
             <div class="card">
-                <h3>Podsumowanie dla Dorosłej2</h3>
+                <h3>Podsumowanie dla Moniki</h3>
                 <h4>Suma kosztów wstępnie opłaconych:</h4>
-                <div class="formula">=SUMJEŚLI(Tabela1[Osoba płacąca];"Dorosła2 wstępnie opłaciła";Tabela1[Kwota])</div>
+                <div class="formula">=SUMJEŚLI(Tabela1[Osoba płacąca];"Monika wstępnie opłaciła";Tabela1[Kwota])</div>
                 
                 <h4>Suma otrzymanych transferów:</h4>
                 <div class="formula">=SUMA(Tabela2[Kwota transferu])</div>
                 
                 <h4>Saldo do zwrotu:</h4>
-                <div class="formula">=Suma_kosztów_Dorosłej2 - Suma_transferów</div>
+                <div class="formula">=Suma_kosztów_Moniki - Suma_transferów</div>
             </div>
 
             <div class="card">
-                <h3>Podsumowanie dla Dorosłego1</h3>
+                <h3>Podsumowanie dla Adriana</h3>
                 <h4>Suma kosztów bezpośrednich:</h4>
-                <div class="formula">=SUMJEŚLI(Tabela1[Osoba płacąca];"Dorosły1 od razu opłacił";Tabela1[Kwota])</div>
+                <div class="formula">=SUMJEŚLI(Tabela1[Osoba płacąca];"Adrian od razu opłacił";Tabela1[Kwota])</div>
                 
                 <div class="tip">
-                    <strong>Hint:</strong> Dorosły1 wyświetla tylko sumę kosztów, ponieważ płaci bezpośrednio - nie potrzebuje żadnych transferów ani zwrotów.
+                    <strong>Hint:</strong> Adrian wyświetla tylko sumę kosztów, ponieważ płaci bezpośrednio - nie potrzebuje żadnych transferów ani zwrotów.
                 </div>
             </div>
         </div>
@@ -323,13 +323,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Dorosła2</strong></td>
+                            <td><strong>Monika</strong></td>
                             <td>450 zł</td>
                             <td>175 zł</td>
                             <td style="color: #ff3b30;"><strong>275 zł do zwrotu</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>Dorosły1</strong></td>
+                            <td><strong>Adrian</strong></td>
                             <td>200 zł</td>
                             <td>-</td>
                             <td style="color: #30d158;"><strong>Rozliczony</strong></td>
@@ -344,7 +344,7 @@
             <p>Dodaj pomocniczą tabelę pokazującą co jeszcze wymaga zwrotu:</p>
             
             <h4>Formuła do wyświetlania nierozliczonych pozycji:</h4>
-            <div class="formula">=JEŚLI(I(Tabela1[Osoba płacąca]="Dorosła2 wstępnie opłaciła";Tabela1[Status]="Nierozliczone");Tabela1[Opis]&" - "&Tabela1[Kwota]&" zł";"")</div>
+            <div class="formula">=JEŻELI(I(Tabela1[Osoba płacąca]="Monika wstępnie opłaciła";Tabela1[Status]="Nierozliczone");Tabela1[Opis]&" - "&Tabela1[Kwota]&" zł";"")</div>
         </div>
 
         <div class="tip">
@@ -361,23 +361,23 @@
             <h3>Zaawansowane formuły</h3>
             
             <h4>Średnia miesięczna wydatków:</h4>
-            <div class="formula">=ŚREDNIA(SUMPRODUCT((MIESIĄC(Tabela1[Data])=MIESIĄC(DZISIAJ()))*Tabela1[Kwota]))</div>
+            <div class="formula">=ŚREDNIA(SUMA.ILOCZYNÓW((MIESIĄC(Tabela1[Data])=MIESIĄC(DZIŚ()))*Tabela1[Kwota]))</div>
             
             <h4>Wydatki w bieżącym miesiącu:</h4>
-            <div class="formula">=SUMPRODUCT((MIESIĄC(Tabela1[Data])=MIESIĄC(DZISIAJ()))*(ROK(Tabela1[Data])=ROK(DZISIAJ()))*Tabela1[Kwota])</div>
+            <div class="formula">=SUMA.ILOCZYNÓW((MIESIĄC(Tabela1[Data])=MIESIĄC(DZIŚ()))*(ROK(Tabela1[Data])=ROK(DZIŚ()))*Tabela1[Kwota])</div>
             
             <h4>Ile dni od ostatniego transferu:</h4>
-            <div class="formula">=DZISIAJ()-MAKS(Tabela2[Data])</div>
+            <div class="formula">=DZIŚ()-MAKS(Tabela2[Data])</div>
         </div>
 
         <div class="card">
             <h3>Automatyzacja statusów</h3>
             
             <h4>Status transferu na podstawie daty:</h4>
-            <div class="formula">=JEŚLI(C2<=DZISIAJ();"Zrealizowany";"Planowany")</div>
+            <div class="formula">=JEŻELI(C2<=DZIŚ();"Zrealizowany";"Planowany")</div>
             
             <h4>Przypomnienia o przeterminowanych transferach:</h4>
-            <div class="formula">=JEŚLI(I(D2="Oczekujący";A2<DZISIAJ()-7);"⚠️ PRZETERMINOWANY";D2)</div>
+            <div class="formula">=JEŻELI(ORAZ(D2="Oczekujący";A2<DZIŚ()-7);"⚠️ PRZETERMINOWANY";D2)</div>
             
             <div class="tip">
                 <strong>Pro tip:</strong> Dodaj kolumnę z emoji 🔥 dla transferów starszych niż 14 dni - wizualnie od razu widać pilne sprawy!
@@ -388,10 +388,10 @@
             <h3>Inteligentne kategoryzacje</h3>
             
             <h4>Podział na koszty stałe vs jednorazowe:</h4>
-            <div class="formula">=JEŚLI(LUB(B2="trening";B2="szkoły";B2="przedszkola");"Stały";"Jednorazowy")</div>
+            <div class="formula">=JEŻELI(LUB(B2="trening";B2="szkoły";B2="przedszkola");"Stały";"Jednorazowy")</div>
             
             <h4>Sezonowość wydatków:</h4>
-            <div class="formula">=JEŚLI(LUB(MIESIĄC(A2)=7;MIESIĄC(A2)=8);"Wakacje";JEŚLI(LUB(MIESIĄC(A2)=9;MIESIĄC(A2)=10);"Początek roku szkolnego";"Normalny"))</div>
+            <div class="formula">=JEŻELI(LUB(MIESIĄC(A2)=7;MIESIĄC(A2)=8);"Wakacje";JEŻELI(LUB(MIESIĄC(A2)=9;MIESIĄC(A2)=10);"Początek roku szkolnego";"Normalny"))</div>
             
             <div class="warning">
                 <strong>Uwaga:</strong> Wakacyjne wydatki często są wyższe - warto osobno je śledzić i planować budżet z wyprzedzeniem!
@@ -401,12 +401,12 @@
         <div class="card">
             <h3>Dashboard wizualny</h3>
             
-            <h4>Stopień zadłużenia Dorosłej2:</h4>
-            <div class="formula">=JEŚLI((Suma_kosztów_Dorosłej2-Suma_transferów)>500;"🔴 Wysoki";"🟡 Normalny")</div>
+            <h4>Stopień zadłużenia Moniki:</h4>
+            <div class="formula">=JEŻELI((Suma_kosztów_Moniki-Suma_transferów)>500;"🔴 Wysoki";"🟡 Normalny")</div>
             
             <h4>Wykres kołowy wydatków:</h4>
-            <p>Stwórz wykres na podstawie SUMJEŚLI dla każdej kategorii:</p>
-            <div class="formula">=SUMJEŚLI(Tabela1[Typ];"trening";Tabela1[Kwota])</div>
+            <p>Stwórz wykres na podstawie SUMA.JEŻELI dla każdej kategorii:</p>
+            <div class="formula">=SUMA.JEŻELI(Tabela1[Typ];"trening";Tabela1[Kwota])</div>
             
             <div class="info">
                 <strong>Ciekawostka:</strong> Excel automatycznie zaktualizuje wykres gdy dodasz nowe pozycje - żywa wizualizacja budżetu!
@@ -429,12 +429,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Dziecko1</td>
+                            <td>Ania</td>
                             <td>350 zł</td>
                             <td>📈 +15%</td>
                         </tr>
                         <tr>
-                            <td>Dziecko2</td>
+                            <td>Tomek</td>
                             <td>280 zł</td>
                             <td>📉 -5%</td>
                         </tr>
@@ -443,17 +443,17 @@
             </div>
             
             <h4>Formuła trendu:</h4>
-            <div class="formula">=JEŚLI(Miesiąc_bieżący>Miesiąc_poprzedni;"📈 +"&ZAOKR((Miesiąc_bieżący-Miesiąc_poprzedni)/Miesiąc_poprzedni*100;0)&"%";"📉 "&ZAOKR((Miesiąc_bieżący-Miesiąc_poprzedni)/Miesiąc_poprzedni*100;0)&"%")</div>
+            <div class="formula">=JEŻELI(Miesiąc_bieżący>Miesiąc_poprzedni;"📈 +"&ZAOKR((Miesiąc_bieżący-Miesiąc_poprzedni)/Miesiąc_poprzedni*100;0)&"%";"📉 "&ZAOKR((Miesiąc_bieżący-Miesiąc_poprzedni)/Miesiąc_poprzedni*100;0)&"%")</div>
         </div>
 
         <div class="card">
             <h3>Narzędzia kontrolne</h3>
             
             <h4>Sprawdzenie czy wszystko się zgadza:</h4>
-            <div class="formula">=JEŚLI(SUMA(Tabela1[Kwota])=Suma_Dorosłej2+Suma_Dorosłego1;"✅ OK";"❌ BŁĄD")</div>
+            <div class="formula">=JEŻELI(SUMA(Tabela1[Kwota])=Suma_Moniki+Suma_Adriana;"✅ OK";"❌ BŁĄD")</div>
             
             <h4>Największy wydatek miesiąca:</h4>
-            <div class="formula">=INDEKS(Tabela1[Opis];POKAŻ(MAKS(Tabela1[Kwota])))</div>
+            <div class="formula">=INDEKS(Tabela1[Opis];PODAJ.POZYCJĘ(MAKS(Tabela1[Kwota]);Tabela1[Kwota];0))</div>
             
             <div class="tip">
                 <strong>Life hack:</strong> Dodaj kolumnę z tygodniem roku - zobaczysz ciekawe wzorce wydatków (np. większe koszty przed feriami)!
@@ -466,11 +466,11 @@
             <h4>Formatowanie dla dużych kwot:</h4>
             <p>Ustaw formatowanie warunkowe dla kwot > 200 zł - automatycznie zmieni kolor na pomarańczowy</p>
             
-            <h4>Próg ostrzegawczy dla Dorosłej2:</h4>
-            <div class="formula">=JEŚLI(Saldo_Dorosłej2>1000;"🚨 UWAGA: Wysokie zadłużenie!";"Stan normalny")</div>
+            <h4>Próg ostrzegawczy dla Moniki:</h4>
+            <div class="formula">=JEŻELI(Saldo_Moniki>1000;"🚨 UWAGA: Wysokie zadłużenie!";"Stan normalny")</div>
             
             <div class="warning">
-                <strong>Praktyczny hint:</strong> Ustaw regułę że jak saldo Dorosłej2 przekroczy 500 zł, automatycznie planuje się transfer na weekend!
+                <strong>Praktyczny hint:</strong> Ustaw regułę że jak saldo Moniki przekroczy 500 zł, automatycznie planuje się transfer na weekend!
             </div>
         </div>
 
@@ -479,7 +479,7 @@
             
             <h4>Miesięczny raport:</h4>
             <p>Stwórz osobny arkusz z podsumowaniem miesięcznym używając formuł:</p>
-            <div class="formula">=SUMPRODUCT((MIESIĄC(Tabela1[Data])=1)*(ROK(Tabela1[Data])=2025)*Tabela1[Kwota])</div>
+            <div class="formula">=SUMA.ILOCZYNÓW((MIESIĄC(Tabela1[Data])=1)*(ROK(Tabela1[Data])=2025)*Tabela1[Kwota])</div>
             
             <h4>Udostępnianie przez OneDrive:</h4>
             <p>Zapisz w chmurze aby oboje rodzice mieli dostęp w czasie rzeczywistym</p>
@@ -491,7 +491,7 @@
 
         <h2>Podsumowanie</h2>
         <div class="card">
-            <p>System składa się z dwóch powiązanych tabel które automatycznie obliczają rozliczenia między rodzicami. Dorosła2 widzi ile jeszcze należy jej się zwrotu, a Dorosły1 ma przejrzysty obraz swoich bezpośrednich wydatków.</p>
+            <p>System składa się z dwóch powiązanych tabel które automatycznie obliczają rozliczenia między rodzicami. Monika widzi ile jeszcze należy jej się zwrotu, a Adrian ma przejrzysty obraz swoich bezpośrednich wydatków.</p>
             
             <p>Kolorowe wskaźniki pomagają szybko identyfikować nierozliczone pozycje i planować kolejne transfery.</p>
             
