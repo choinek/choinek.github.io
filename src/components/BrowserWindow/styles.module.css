@@ -1,0 +1,142 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+.browserWindow {
+  border: 3px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-global-shadow-lw);
+  margin-bottom: var(--ifm-leading);
+}
+
+.browserWindowHeader {
+  align-items: center;
+  background: var(--ifm-color-emphasis-200);
+  display: flex;
+  padding: 0.5rem 1rem;
+}
+
+.row::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.buttons {
+  white-space: nowrap;
+}
+
+.right {
+  align-self: center;
+  width: 10%;
+}
+
+[data-theme='light'] {
+  --ifm-background-color: #fff;
+}
+
+.browserWindowAddressBar {
+  flex: 1 0;
+  margin: 0 0 0 0.5rem;
+  border-radius: 12.5px;
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-color-gray-800);
+  padding: 5px 15px;
+  font: 400 13px Arial, sans-serif;
+  user-select: none;
+}
+
+[data-theme='dark'] .browserWindowAddressBar {
+  color: var(--ifm-color-gray-300);
+}
+
+.dot {
+  margin-right: 6px;
+  margin-top: 4px;
+  height: 24px;
+  width: 24px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dotGlowing {
+  animation: flame 3s ease-in-out infinite;
+}
+
+@keyframes flame {
+  0%, 100% {
+    filter: drop-shadow(0 0 1px #261353) drop-shadow(0 0 1px #ff6347);
+    transform: scale(1) translateY(0);
+    opacity: 0.8;
+  }
+  50% {
+    filter: drop-shadow(0 0 3px #ff4500) drop-shadow(0 0 3px #261353);
+    transform: scale(1.01) translateY(-1px);
+    opacity: 1;
+  }
+}
+
+
+@keyframes dotglow {
+  from {
+    box-shadow: 0px 0px 11px 7px var(--ifm-color-primary);
+  }
+  to {
+    box-shadow: 0 0 3px 3px var(--ifm-color-secondary);
+  }
+}
+
+
+.browserWindowMenuIcon {
+  margin-left: auto;
+}
+
+.bar {
+  width: 17px;
+  height: 3px;
+  background-color: #aaa;
+  margin: 3px 0;
+  display: block;
+}
+
+.browserWindowBody {
+  background-color: var(--ifm-background-color);
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  padding: 1rem;
+}
+
+.browserWindowBody > *:last-child {
+  margin-bottom: 0;
+}
+
+.fullscreenBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.fullscreenWindow {
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.3);
+  width: 90vw;
+  height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+}
