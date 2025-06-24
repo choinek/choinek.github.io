@@ -12,3 +12,8 @@ business:
   label: Business
   permalink: /business
   description: Business tag
+
+it:
+  label: IT
+  permalink: /it
+  description: IT tag
