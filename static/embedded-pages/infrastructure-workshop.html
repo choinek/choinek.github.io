@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <style>
+        :root {
+            --r-background-color: #0d1117;
+            --r-main-font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            --r-heading-font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            --r-main-color: #e6edf3;
+            --r-heading-color: #58a6ff;
+            --r-link-color: #58a6ff;
+            --r-selection-background-color: #264f78;
+            --r-code-font: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3 {
+            color: var(--r-heading-color);
+            text-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+        }
+
+        .reveal .slides section {
+            text-align: left;
+        }
+
+        .reveal .title-slide {
+            text-align: center;
+        }
+
+        .reveal .warning-box {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #f59e0b;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+        }
+
+        .reveal .info-box {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #06b6d4;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .reveal .glass-box {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .reveal .terminal {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: var(--r-code-font);
+            border: 1px solid #374151;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .reveal .terminal::before {
+            content: "$ ";
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .reveal table {
+            background: rgba(30, 41, 59, 0.5);
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            font-size: 0.75em;
+        }
+
+        .reveal .large-table {
+            font-size: 0.7em;
+            width: 100%;
+        }
+
+        .reveal .large-table th,
+        .reveal .large-table td {
+            padding: 15px 20px;
+        }
+
+        .reveal .scrollable-table {
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 8px;
+            border: 2px solid #f59e0b;
+        }
+
+        .reveal .scrollable-indicator {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #0d1117;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .reveal table th {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: #58a6ff;
+            padding: 15px;
+            border: none;
+        }
+
+        .reveal table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #374151;
+        }
+
+        .reveal .network-diagram {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #374151;
+            text-align: center;
+        }
+
+        .reveal .highlight {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        .reveal .code-output {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: var(--r-code-font);
+            font-size: 0.8em;
+            border-left: 3px solid #10b981;
+            margin: 10px 0;
+        }
+
+        .reveal .fragment.fade-in-then-semi-out.visible:not(.current-fragment) {
+            opacity: 0.4;
+        }
+
+        .reveal .dns-flow {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            margin: 15px 0;
+        }
+
+        .reveal .protocol-box {
+            background: linear-gradient(135deg, #065f46, #047857);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .reveal .step-counter {
+            display: inline-block;
+            background: #58a6ff;
+            color: #0d1117;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .reveal .tool-description {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 10px;
+            border-left: 4px solid #58a6ff;
+        }
+
+        /* Animowana strzałka w dół */
+        .reveal .down-arrow {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            color: #58a6ff;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Highlight dla tabel */
+        .reveal .highlight-row {
+            background-color: rgba(88, 166, 255, 0.2) !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .reveal .more-content {
+            font-size: 0.8em;
+            opacity: 0.7;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section class="title-slide" data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                <h1 data-id="title">🚀 Warsztat<br>Infrastruktura + Linux</h1>
+                <p class="fragment fade-up" data-fragment-index="1">
+                    <strong>Poziom:</strong> <span class="highlight">Basic</span> |
+                    <strong>Wersja:</strong> <span class="highlight">Alpha</span>
+                </p>
+                <div class="fragment fade-up" data-fragment-index="2" style="margin-top: 50px;">
+                    <p style="font-size: 0.8em; opacity: 0.8;">Od podstaw sieci do zarządzania systemem</p>
+                </div>
+                <div style="position: absolute; bottom: 20px; right: 30px; font-size: 0.7em; opacity: 0.6;">
+                    <p>Adrian Chojnicki<br>adrian@chojnicki.pl</p>
+                </div>
+            </section>
+
+            <!-- Agenda -->
+            <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                <h2>🎯 Agenda Prezentacji</h2>
+
+                <div class="dns-flow">
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="1">
+                        <span class="step-counter">1</span><strong>Teoria sieci</strong> - fundamenty IPv4, protokoły
+                    </div>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="2">
+                        <span class="step-counter">2</span><strong>Narzędzia diagnostyczne</strong> - netstat, tcpdump
+                    </div>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="3">
+                        <span class="step-counter">3</span><strong>DNS</strong> - teoria i praktyka z dig
+                    </div>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="4">
+                        <span class="step-counter">4</span><strong>Komunikacja sieciowa</strong> - netcat
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="5">
+                        <span class="step-counter">5</span><strong>Zarządzanie systemem</strong> - użytkownicy i grupy
+                    </div>
+                </div>
+            </section>
+
+            <!-- Introduction -->
+            <section data-auto-animate>
+                <h2 data-id="intro-title">💡 Wprowadzenie do Warsztatów</h2>
+
+                <div class="warning-box">
+                    <h3>⚠️ Ważne Uwagi</h3>
+                    <ul>
+                        <li class="fragment" data-fragment-index="1">To <strong>nie jest</strong> szkolenie z AWS</li>
+                        <li class="fragment" data-fragment-index="2">AWS to tylko narzędzie dla prostoty</li>
+                        <li class="fragment" data-fragment-index="3">Bezpieczeństwo != produkcyjne best practices</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section data-auto-animate>
+                <h2 data-id="intro-title">💡 Wprowadzenie do Warsztatów</h2>
+
+                <div class="info-box">
+                    <h3>🤔 Dlaczego mnie to obchodzi?</h3>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="1">
+                        <p><strong>Programista musi umieć DevOps</strong> – Współczesny development</p>
+                    </div>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="2">
+                        <p><strong>Cloud koszty - Sky is the limit!</strong> ⚠️</p>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <p><strong>Kooperacja z Full DevOps</strong> – Wspólny język zespołu</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Network Basics -->
+            <section data-background-color="#1e293b">
+                <h2>🌐 Podstawy Sieci - Teoria</h2>
+
+                <div class="network-diagram">
+                    <h3>Architektura Przepływu Requestów</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 30px 0;">
+                        <div class="fragment" data-fragment-index="1">
+                            <h4>Public</h4>
+                            <p>👤 User<br>🌐 DNS<br>🔄 Router</p>
+                        </div>
+                        <div class="fragment" data-fragment-index="2" style="font-size: 2em;">→</div>
+                        <div class="fragment" data-fragment-index="3">
+                            <h4>Internal</h4>
+                            <p>🌐 EDGE<br>📄 Balancer<br>🖥️ Infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IP Ranges -->
+            <section data-auto-animate>
+                <h2 data-id="ip-title">📊 Zakresy Adresów IPv4</h2>
+
+                <div class="scrollable-table">
+                    <table style="font-size: 0.7em;">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Zakres IP</th>
+                                <th style="width: 60%;">Opis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment highlight-current-red" data-fragment-index="1">
+                                <td><code>0.0.0.0</code></td>
+                                <td>Nasłuchiwanie publiczne z komputera</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="2">
+                                <td><code>10.0.0.0 – 10.255.255.255</code></td>
+                                <td>Sieci prywatne - duże organizacje</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="3">
+                                <td><code>172.16.0.0 – 172.31.255.255</code></td>
+                                <td>Sieci prywatne - średnie organizacje</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="4">
+                                <td><code>192.168.0.0 – 192.168.255.255</code></td>
+                                <td>Sieci domowe i małe biura</td>
+                            </tr>
+                            <tr class="fragment highlight-current-green" data-fragment-index="5">
+                                <td><code>127.0.0.0 – 127.255.255.255</code></td>
+                                <td>Loopback - komunikacja lokalna</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="6">
+                                <td><code>169.254.0.0 – 169.254.255.255</code></td>
+                                <td>Link-local - auto-konfiguracja</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="7">
+                                <td><code>224.0.0.0 – 239.255.255.255</code></td>
+                                <td>Multicast - jeden do wielu</td>
+                            </tr>
+                            <tr class="fragment highlight-current-red" data-fragment-index="8">
+                                <td><code>255.255.255.255</code></td>
+                                <td>Broadcast - do wszystkich w sieci</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="scrollable-indicator">
+                    📜 Tabela jest przewijalna - użyj scroll! ⬆️ ⬇️
+                </div>
+                <div class="more-content">📝 <em>Więcej zakresów specjalnych w dokumentacji RFC</em></div>
+
+                <aside class="notes">
+                    <p>RFC 3927 (Link-Local), RFC 1918 (Private Networks), RFC 5735 (Special-Use IPv4).</p>
+
+                    <p>Kluczowe RFC:</p>
+                    <p>- RFC 1918: Private Internet - definiuje zakresy prywatne (10.x, 172.16-31.x, 192.168.x)</p>
+                    <p>- RFC 3927: Dynamic Configuration of IPv4 Link-Local Addresses - zakres 169.254.x dla
+                        auto-konfiguracji</p>
+                    <p>- RFC 5735: Special Use IPv4 Addresses - kompletna lista wszystkich specjalnych zakresów</p>
+                    <p>- RFC 3171: IANA Guidelines for IPv4 Multicast Address Assignments - multicast 224-239</p>
+
+                    <p>0.0.0.0 to "any address" używane w bind() do nasłuchiwania na wszystkich interfejsach.</p>
+                    <p>127.x to loopback - cały zakres, nie tylko 127.0.0.1.</p>
+                    <p>255.255.255.255 to limited broadcast address.</p>
+                </aside>
+            </section>
+
+            <!-- Protocols - Vertical slides -->
+            <section data-background-gradient="linear-gradient(135deg, #065f46, #047857)">
+                <section>
+                    <h2>📡 Protokoły Sieciowe</h2>
+
+                    <div class="glass-box">
+                        <h3>🔒 TCP (Transmission Control Protocol)</h3>
+                        <ul style="font-size: 0.9em;">
+                            <li class="fragment" data-fragment-index="1">Niezawodny, sekwencyjny, bezbłędny</li>
+                            <li class="fragment" data-fragment-index="2">Połączeniowy (3-way handshake)</li>
+                            <li class="fragment" data-fragment-index="3">Więcej zasobów vs UDP</li>
+                            <li class="fragment" data-fragment-index="4">Idealne dla: WWW, email, FTP</li>
+                        </ul>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+
+                    <aside class="notes">
+                        SEKWENCYJNY = TCP gwarantuje że dane dotrą w takiej kolejności jak zostały wysłane. Każdy pakiet
+                        ma sequence number.
+
+                        WIĘCEJ ZASOBÓW niż UDP bo:
+                        - Potrzeba track connection state (connected, disconnected, etc.)
+                        - Buffering dla retransmisji
+                        - Timery dla retransmission timeouts
+                        - Acknowledgment tracking
+                        - Flow control windows
+                        - Congestion control algorithms
+
+                        UDP to "fire and forget" - wystrzel pakiet i nie dbaj czy dotarł.
+                        TCP to "reliable delivery" - sprawdza czy dotarło, retransmituje jeśli nie.
+
+                        3-way handshake: SYN -> SYN-ACK -> ACK (nawiązanie połączenia)
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>📡 HTTP + TCP</h2>
+
+                    <div class="glass-box">
+                        <h3>🌐 HTTP (Hypertext Transfer Protocol)</h3>
+                        <div class="fragment fade-in" data-fragment-index="1">
+                            <p style="font-size: 0.9em;">Protokół aplikacyjny - architektura żądanie/odpowiedź</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box fragment fade-in" data-fragment-index="2">
+                        <h3>🤝 HTTP + TCP = Perfect Match</h3>
+                        <p class="fragment" data-fragment-index="3" style="font-size: 0.85em;">TCP zapewnia niezawodność
+                            dla HTTP</p>
+                    </div>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="4" style="font-size: 1.1em;">
+                        <span class="highlight">HTTP = 80</span> | <span class="highlight">HTTPS = 443</span>
+                    </div>
+
+                    <p class="fragment fade-in" data-fragment-index="5" style="font-size: 0.75em; opacity: 0.7;">
+                        💡 Porty &lt; 1024 wymagają uprawnień root
+                    </p>
+                </section>
+            </section>
+
+            <!-- Netcat Tool - Vertical slides -->
+            <section data-background-color="#0f172a">
+                <section>
+                    <h2>🔧 Narzędzie: Netcat (nc)</h2>
+
+                    <div class="tool-description">
+                        <p style="font-size: 0.9em;"><strong>nc</strong> - "Szwajcarski scyzoryk" komunikacji sieciowej
+                        </p>
+                        <p style="font-size: 0.8em;">Tworzy połączenia TCP/UDP, może działać jako klient lub serwer</p>
+                    </div>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        apt install netcat
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Podstawowe opcje</h3>
+                    <div class="scrollable-table">
+                        <table class="large-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Opcja</th>
+                                    <th style="width: 75%;">Opis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="1">
+                                    <td><code>-l</code></td>
+                                    <td>Listen mode - nasłuchiwanie na porcie</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="2">
+                                    <td><code>-p port</code></td>
+                                    <td>Określenie konkretnego portu</td>
+                                </tr>
+                                <tr class="fragment highlight-current-green" data-fragment-index="3">
+                                    <td><code>-v</code></td>
+                                    <td>Verbose - szczegółowe informacje o połączeniu</td>
+                                </tr>
+                                <tr class="fragment highlight-current-red" data-fragment-index="4">
+                                    <td><code>-z</code></td>
+                                    <td>Port scan - skanowanie portów (zero-I/O)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="5">
+                                    <td><code>-u</code></td>
+                                    <td>Protokół UDP zamiast TCP</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="scrollable-indicator">📜 Tabela jest przewijalna - użyj scroll! ⬆️ ⬇️</div>
+                    <div class="more-content">📖 <em>Więcej opcji: -w timeout, -c close, -n numeric only</em></div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Przykłady użycia</h3>
+
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4>Nasłuchiwanie na porcie:</h4>
+                        <div class="terminal">nc -l 8080</div>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4>Połączenie z hostem:</h4>
+                        <div class="terminal">nc google.com 80</div>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h4>Skanowanie portów:</h4>
+                        <div class="terminal">nc -z -v google.com 80-90</div>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="4">
+                        <h4>Transfer pliku:</h4>
+                        <div class="terminal">nc -l 1234 > received_file.txt</div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Netstat - Vertical slides -->
+            <section data-auto-animate>
+                <section>
+                    <h2 data-id="netstat-title">📊 Narzędzie: Netstat</h2>
+
+                    <div class="tool-description">
+                        <p style="font-size: 0.9em;">Wyświetla informacje o połączeniach sieciowych, portach i
+                            statystykach</p>
+                    </div>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        apt install net-tools
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Kluczowe opcje</h3>
+                    <div class="scrollable-table">
+                        <table class="large-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%;">Opcja</th>
+                                    <th style="width: 80%;">Opis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="1">
+                                    <td><code>-a</code></td>
+                                    <td>Wszystkie połączenia (nasłuchujące i ustanowione)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-green" data-fragment-index="2">
+                                    <td><code>-l</code></td>
+                                    <td>Tylko porty w stanie nasłuchiwania</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="3">
+                                    <td><code>-n</code></td>
+                                    <td>Adresy numeryczne (nie rozwiązuj nazw)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-red" data-fragment-index="4">
+                                    <td><code>-p</code></td>
+                                    <td>PID i nazwa procesu dla każdego gniazda</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="5">
+                                    <td><code>-t/-u</code></td>
+                                    <td>Tylko połączenia TCP / UDP</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="scrollable-indicator">📜 Tabela jest przewijalna - użyj scroll! ⬆️ ⬇️</div>
+                    <div class="more-content">🔧 <em>Kombinuj opcje: -tulpn to najbardziej użyteczne połączenie</em>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Praktyczny przykład</h3>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        netstat -tulpn
+                    </div>
+
+                    <div class="code-output fragment fade-in" data-fragment-index="2" style="font-size: 0.65em;">
+                        <pre><code>Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1234/sshd
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      5678/mysqld
+tcp6       0      0 :::80                   :::*                    LISTEN      9012/apache2</code></pre>
+                    </div>
+
+                    <div class="info-box fragment fade-in" data-fragment-index="3">
+                        <p style="font-size: 0.85em;">💡 <strong>Golden command:</strong> <code>netstat -tulpn</code>
+                        </p>
+                        <p style="font-size: 0.8em;">Zobacz wszystkie aktywne porty z procesami w trybie numerycznym</p>
+
+                        <aside class="notes">
+                            Golden command to netstat -tulpn:
+                            - t = TCP połączenia
+                            - u = UDP połączenia
+                            - l = tylko nasłuchujące porty
+                            - p = pokaż PID i nazwę procesu
+                            - n = tryb numeryczny (szybciej, bez rozwiązywania DNS)
+
+                            To najczęściej używana kombinacja do szybkiego sprawdzenia co nasłuchuje na systemie.
+                        </aside>
+                    </div>
+                </section>
+            </section>
+
+            <!-- DNS Section -->
+            <section data-background-gradient="linear-gradient(135deg, #1e40af, #3b82f6)">
+                <h2>🌐 System DNS - Teoria</h2>
+
+                <div class="dns-flow">
+                    <h3>🎯 Główne Zadania</h3>
+                    <div class="fragment" data-fragment-index="1">
+                        <span class="step-counter">1</span>Tłumaczenie nazw → IP
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <span class="step-counter">2</span>Zarządzanie domenami
+                    </div>
+                    <div class="fragment" data-fragment-index="3">
+                        <span class="step-counter">3</span>Dystrybucja ruchu
+                    </div>
+                </div>
+
+                <div class="fragment fade-in" data-fragment-index="4">
+                    <p style="text-align: center; font-size: 1.2em;">
+                        <span class="highlight">google.com</span> → <span class="highlight">142.250.191.46</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- DNS Records -->
+            <section data-auto-animate>
+                <h2 data-id="dns-records">📋 Typy Rekordów DNS</h2>
+
+                <div class="scrollable-table">
+                    <table style="font-size: 0.65em;">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Rekord</th>
+                                <th style="width: 35%;">Funkcja</th>
+                                <th style="width: 50%;">Przykład</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment highlight-current-green" data-fragment-index="1">
+                                <td><strong>A</strong></td>
+                                <td>Mapuje nazwę → IPv4</td>
+                                <td>google.com → 142.250.191.46</td>
+                            </tr>
+                            <tr class="fragment highlight-current-green" data-fragment-index="2">
+                                <td><strong>AAAA</strong></td>
+                                <td>Mapuje nazwę → IPv6</td>
+                                <td>google.com → 2a00:1450:4014:80c::200e</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="3">
+                                <td><strong>CNAME</strong></td>
+                                <td>Alias domeny na inną</td>
+                                <td>www.example.com → example.com</td>
+                            </tr>
+                            <tr class="fragment highlight-current-red" data-fragment-index="4">
+                                <td><strong>MX</strong></td>
+                                <td>Wskazuje serwery email</td>
+                                <td>example.com → mail.example.com</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="5">
+                                <td><strong>TXT</strong></td>
+                                <td>Dowolny tekst/weryfikacja</td>
+                                <td>SPF, DKIM, weryfikacja domeny</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="6">
+                                <td><strong>NS</strong></td>
+                                <td>Wskazuje serwery nazw</td>
+                                <td>example.com → ns1.example.com</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="7">
+                                <td><strong>PTR</strong></td>
+                                <td>Reverse lookup IP → nazwa</td>
+                                <td>8.8.8.8 → dns.google</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="scrollable-indicator">📜 Tabela jest przewijalna - użyj scroll! ⬆️ ⬇️</div>
+                <div class="more-content">🔍 <em>Inne rekordy: SOA, SRV, CAA, DNSKEY, DS...</em></div>
+            </section>
+
+            <!-- tcpdump - Vertical slides -->
+            <section data-background-color="#0f172a">
+                <section>
+                    <h2>🕵️ Narzędzie: tcpdump</h2>
+
+                    <div class="tool-description">
+                        <p style="font-size: 0.9em;">Przechwytuje i analizuje pakiety sieciowe w czasie rzeczywistym</p>
+                        <p style="font-size: 0.8em;">Zazwyczaj wbudowane, może wymagać: <code>apt install tcpdump</code>
+                        </p>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Kluczowe opcje</h3>
+                    <div class="scrollable-table">
+                        <table class="large-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Opcja</th>
+                                    <th style="width: 75%;">Opis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="1">
+                                    <td><code>-i interface</code></td>
+                                    <td>Interfejs sieciowy (any = wszystkie)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-green" data-fragment-index="2">
+                                    <td><code>-n</code></td>
+                                    <td>Nie rozwiązuj adresów IP na nazwy (szybciej)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="3">
+                                    <td><code>-v, -vv, -vvv</code></td>
+                                    <td>Verbose - coraz więcej szczegółów</td>
+                                </tr>
+                                <tr class="fragment highlight-current-red" data-fragment-index="4">
+                                    <td><code>-A</code></td>
+                                    <td>Wyświetl zawartość pakietów w ASCII</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="5">
+                                    <td><code>-w/-r file</code></td>
+                                    <td>Zapisz do pliku / czytaj z pliku</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="scrollable-indicator">📜 Tabela jest przewijalna - użyj scroll! ⬆️ ⬇️</div>
+                    <div class="more-content">⚠️ <em>Wymaga uprawnień root (sudo)</em></div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Przykłady użycia</h3>
+
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4>Nasłuchiwanie DNS:</h4>
+                        <div class="terminal">sudo tcpdump -i any -n port 53</div>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4>HTTP z zawartością:</h4>
+                        <div class="terminal">sudo tcpdump -i eth0 -vv -A port 80</div>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h4>Zapis do pliku:</h4>
+                        <div class="terminal">sudo tcpdump -i any -w capture.pcap port 22</div>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>DNS w Akcji - Z cache</h3>
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4>Zapytanie DNS:</h4>
+                        <div class="terminal">dig gitlab.com</div>
+                    </div>
+                    <div class="code-output fragment fade-in" data-fragment-index="2" style="font-size: 0.6em;">
+                        <pre><code>18:31:51.999148 lo In IP 127.0.0.1.37336 > 127.0.0.53.53: 64340+ A? gitlab.com.
+18:31:51.999214 lo In IP 127.0.0.53.53 > 127.0.0.1.37336: 64340 1/0/1 A 172.65.251.78</code></pre>
+                    </div>
+                    <p class="fragment fade-in" data-fragment-index="3" style="font-size: 0.8em;">🚀 Szybka odpowiedź z
+                        lokalnego cache (systemd-resolved)</p>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>DNS w Akcji - Bez cache</h3>
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4>Zapytanie DNS po flush cache:</h4>
+                        <div class="terminal">sudo systemd-resolve --flush-caches && dig mbank.pl</div>
+                    </div>
+                    <div class="code-output fragment fade-in" data-fragment-index="2" style="font-size: 0.6em;">
+                        <pre><code>13:37:56.539626 lo In IP 127.0.0.1.42050 > 127.0.0.53.53: 31798+ A? mbank.pl.
+13:37:56.539725 enp5s0 Out IP 192.168.50.231.59964 > 192.168.50.1.53: 41331+ A? mbank.pl.
+13:37:56.557578 enp5s0 In IP 192.168.50.1.53 > 192.168.50.231.59964: 41331 2/0/1 A 193.41.230.99</code></pre>
+                    </div>
+                    <p class="fragment fade-in" data-fragment-index="3" style="font-size: 0.8em;">🌐 Zapytanie idzie do
+                        zewnętrznego DNS (router/ISP)</p>
+                </section>
+            </section>
+
+            <!-- dig Tool - Vertical slides -->
+            <section data-background-gradient="linear-gradient(135deg, #1e40af, #3b82f6)">
+                <section>
+                    <h2>🔍 Narzędzie: dig</h2>
+
+                    <div class="tool-description">
+                        <p style="font-size: 0.9em;"><strong>Domain Information Groper</strong> - profesjonalne
+                            zapytania DNS</p>
+                    </div>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        apt install dnsutils
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Przydatne opcje</h3>
+                    <div class="scrollable-table">
+                        <table class="large-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Opcja</th>
+                                    <th style="width: 75%;">Opis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="1">
+                                    <td><code>@server</code></td>
+                                    <td>Użyj konkretnego serwera DNS</td>
+                                </tr>
+                                <tr class="fragment highlight-current-green" data-fragment-index="2">
+                                    <td><code>+short</code></td>
+                                    <td>Tylko wynik bez dodatkowych informacji</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="3">
+                                    <td><code>+trace</code></td>
+                                    <td>Śledź ścieżkę rozwiązywania DNS</td>
+                                </tr>
+                                <tr class="fragment highlight-current-red" data-fragment-index="4">
+                                    <td><code>-x</code></td>
+                                    <td>Reverse lookup (IP → nazwa)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="5">
+                                    <td><code>-t type</code></td>
+                                    <td>Typ rekordu (A, AAAA, MX, TXT, itp.)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="scrollable-indicator">📜 Tabela jest przewijalna - użyj scroll! ⬆️ ⬇️</div>
+                    <div class="more-content">🛠️ <em>Idealne do skryptów i debugowania DNS</em></div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Podstawowe użycie</h3>
+
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4>Zapytanie A:</h4>
+                        <div class="terminal">dig google.com</div>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4>Konkretny typ rekordu:</h4>
+                        <div class="terminal">dig global4net.com TXT</div>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h4>Konkretny serwer DNS:</h4>
+                        <div class="terminal">dig @8.8.8.8 google.com A</div>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Praktyczny przykład - Short format</h3>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        dig @8.8.8.8 google.com A +short
+                    </div>
+
+                    <div class="code-output fragment fade-in" data-fragment-index="2">
+                        <pre><code>142.250.191.46</code></pre>
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <p style="font-size: 0.85em;">💡 <strong>Perfect for scripts!</strong></p>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Reverse lookup</h3>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        dig -x 8.8.8.8
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <p style="font-size: 0.85em;">🎯 Świetne do debugowania problemów DNS</p>
+                    </div>
+
+                    <aside class="notes">
+                        REVERSE LOOKUP debugowanie:
+
+                        1. SPAM filtering - serwery email sprawdzają czy IP ma prawidłowy PTR record
+                        2. Log analysis - zamiast IP w logach masz czytelne nazwy hostów
+                        3. Security - sprawdzenie czy suspicious IP należy do znanej organizacji
+                        4. Network troubleshooting - weryfikacja czy forward i reverse lookup są spójne
+                        5. Mail delivery issues - brak PTR to powód odrzucenia emaila
+
+                        Przykłady problemów które rozwiązuje reverse lookup:
+                        - "Dlaczego mój mail server odmawia połączenia?" → brak PTR record
+                        - "Skąd przychodzi ten ruch sieciowy?" → reverse lookup IP z logów
+                        - "Czy to prawdziwy google bot?" → sprawdź czy IP ma PTR na googlebota
+
+                        Narzędzia do reverse lookup:
+                        - dig -x IP
+                        - nslookup IP
+                        - host IP
+                        - ping -a IP (Windows)
+                    </aside>
+                </section>
+            </section>
+
+            <!-- User Management - Vertical slides -->
+            <section data-background-color="#1e293b">
+                <section>
+                    <h2>👥 Zarządzanie Użytkownikami</h2>
+
+                    <div class="glass-box">
+                        <h3>📂 Kluczowe Pliki Systemowe</h3>
+
+                        <div class="fragment" data-fragment-index="1">
+                            <div class="terminal">/etc/passwd</div>
+                            <p style="font-size: 0.8em;">Lista użytkowników i ich podstawowe informacje</p>
+                        </div>
+
+                        <div class="fragment" data-fragment-index="2">
+                            <div class="terminal">/etc/group</div>
+                            <p style="font-size: 0.8em;">Definicje grup systemowych</p>
+                        </div>
+
+                        <div class="fragment" data-fragment-index="3">
+                            <div class="terminal">/etc/shells</div>
+                            <p style="font-size: 0.8em;">Dostępne shelle w systemie</p>
+                        </div>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Format /etc/passwd</h3>
+
+                    <div class="code-output fragment fade-in" data-fragment-index="1" style="font-size: 0.7em;">
+                        <pre><code>nazwa:hasło:UID:GID:komentarz:katalog_domowy:shell</code></pre>
+                    </div>
+
+                    <div class="code-output fragment fade-in" data-fragment-index="2" style="font-size: 0.65em;">
+                        <pre><code>root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash</code></pre>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Analiza wpisów</h3>
+                    <ul style="font-size: 0.9em;">
+                        <li class="fragment" data-fragment-index="1"><strong>root</strong> - UID 0 (administrator
+                            systemu)</li>
+                        <li class="fragment" data-fragment-index="2"><strong>daemon</strong> - nologin (konto serwisowe)
+                        </li>
+                        <li class="fragment" data-fragment-index="3"><strong>ubuntu</strong> - UID 1000 (normalny
+                            użytkownik)</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- usermod Tool - Vertical slides -->
+            <section data-background-gradient="linear-gradient(135deg, #059669, #10b981)">
+                <section>
+                    <h2>⚙️ Narzędzie: usermod</h2>
+
+                    <div class="tool-description">
+                        <p style="font-size: 0.9em;">Modyfikuje konta użytkowników w systemie Linux</p>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Podstawowe opcje</h3>
+                    <div class="scrollable-table">
+                        <table class="large-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Opcja</th>
+                                    <th style="width: 75%;">Funkcja</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="1">
+                                    <td><code>-s shell</code></td>
+                                    <td>Zmiana domyślnego shell użytkownika</td>
+                                </tr>
+                                <tr class="fragment highlight-current-green" data-fragment-index="2">
+                                    <td><code>-a -G groups</code></td>
+                                    <td>Dodaj do grup (append - nie zastępuj)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-red" data-fragment-index="3">
+                                    <td><code>-G groups</code></td>
+                                    <td>Ustaw grupy (zastąp obecne!)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="4">
+                                    <td><code>-e date</code></td>
+                                    <td>Data wygaśnięcia konta (YYYY-MM-DD)</td>
+                                </tr>
+                                <tr class="fragment highlight-current-blue" data-fragment-index="5">
+                                    <td><code>-L / -U</code></td>
+                                    <td>Zablokuj / Odblokuj konto użytkownika</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="scrollable-indicator">📜 Tabela jest przewijalna - użyj scroll! ⬆️ ⬇️</div>
+                    <div class="more-content">⚠️ <em>UWAGA: -G zastępuje grupy, -a -G dodaje do grup!</em></div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Dodanie do grupy sudo</h3>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        usermod -a -G sudo username
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4>Weryfikacja:</h4>
+                        <div class="terminal">groups username</div>
+                    </div>
+
+                    <div class="code-output fragment fade-in" data-fragment-index="3" style="font-size: 0.7em;">
+                        <pre><code>username : username sudo adm</code></pre>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>Zmiana shell</h3>
+
+                    <div class="terminal fragment fade-in" data-fragment-index="1">
+                        usermod -s /bin/zsh username
+                    </div>
+
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4>Weryfikacja z id:</h4>
+                        <div class="terminal">id username</div>
+                    </div>
+
+                    <div class="code-output fragment fade-in" data-fragment-index="3" style="font-size: 0.65em;">
+                        <pre><code>uid=1000(username) gid=1000(username) groups=1000(username),27(sudo),4(adm)</code></pre>
+                    </div>
+                    <div class="down-arrow">⬇</div>
+                </section>
+
+                <section>
+                    <h3>⚠️ Częste Błędy</h3>
+
+                    <div class="warning-box">
+                        <ul style="font-size: 0.9em;">
+                            <li class="fragment" data-fragment-index="1">
+                                <strong>-G</strong> vs <strong>-a -G</strong> - pierwszy zastępuje, drugi dodaje!
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                <strong>Format daty:</strong> Tylko YYYY-MM-DD w -e
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                <strong>Weryfikacja:</strong> Zawsze sprawdź zmiany!
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <section data-auto-animate>
+                <h2>⚠️ Najczęstsze Problemy</h2>
+
+                <div class="warning-box fragment fade-in" data-fragment-index="1">
+                    <h3>🔧 tcpdump</h3>
+                    <p><strong>Brak uprawnień root</strong> - zawsze używaj <code>sudo</code></p>
+                </div>
+
+                <div class="warning-box fragment fade-in" data-fragment-index="2">
+                    <h3>👥 usermod</h3>
+                    <p><strong>Pomylenie <code>-G</code> i <code>-a -G</code></strong> - pierwszy zastępuje, drugi
+                        dodaje grupy!</p>
+                </div>
+
+                <div class="warning-box fragment fade-in" data-fragment-index="3">
+                    <h3>🌐 DNS</h3>
+                    <p><strong>Nierozumienie cache vs brak cache</strong> - zwróć uwagę na ścieżkę zapytań</p>
+                </div>
+
+                <div class="warning-box fragment fade-in" data-fragment-index="4">
+                    <h3>📅 Daty</h3>
+                    <p><strong>Format YYYY-MM-DD w usermod -e</strong> - tylko ten format działa</p>
+                </div>
+            </section>
+
+            <section data-auto-animate>
+                <h2 data-id="tcpdump-title">📡 Analiza Loopback przez tcpdump</h2>
+
+                <pre><code data-trim data-noescape class="bash">tcpdump -i lo</code></pre>
+
+                <div class="scrollable-table">
+                    <table style="font-size: 0.7em;">
+                        <thead>
+                            <tr>
+                                <th>Element</th>
+                                <th>Znaczenie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment highlight-current-red" data-fragment-index="1">
+                                <td><code>127.0.0.1.12345 &gt; 127.0.0.1.80</code></td>
+                                <td>Komunikacja lokalna między procesami (porty)</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="2">
+                                <td><code>Flags [S]</code></td>
+                                <td>SYN – rozpoczęcie połączenia TCP</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="3">
+                                <td><code>seq 1:5</code></td>
+                                <td>Zakres bajtów danych w pakiecie</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="4">
+                                <td><code>ack 10</code></td>
+                                <td>Potwierdzenie odebranych danych</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="5">
+                                <td><code>length 4</code></td>
+                                <td>Długość danych w bajtach</td>
+                            </tr>
+                            <tr class="fragment highlight-current-blue" data-fragment-index="6">
+                                <td><code>options [mss 1460,...]</code></td>
+                                <td>Parametry TCP (np. maks. segment)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="scrollable-indicator">
+                    📜 Użyj scrolla by zobaczyć całość ⬆️ ⬇️
+                </div>
+                <div class="more-content">🧠 <em>Loopback to rdzeń komunikacji lokalnej systemu</em></div>
+
+                <aside class="notes">
+                    <p>tcpdump na lo pokazuje całą komunikację wewnętrzną, np. localhost API, Redis, DB, testy.</p>
+                    <p>127.0.0.0/8 to pełny zakres, nie tylko 127.0.0.1.</p>
+                    <p>Użycie flag TCP pozwala rozpoznać fazę połączenia (SYN, ACK, FIN, RST).</p>
+                    <p>Opcje pokazują negocjowane parametry połączenia.</p>
+                    <p>Dodając -A lub -X można zobaczyć dane (payload).</p>
+                </aside>
+            </section>
+
+
+            <section data-auto-animate>
+                <h2>💡 Golden Rules</h2>
+
+                <div class="info-box">
+                    <h3>🎯 Sprawdzone Praktyki</h3>
+                    <ul>
+                        <li class="fragment fade-in" data-fragment-index="1">Zawsze używaj <code>sudo</code> z tcpdump
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="2">Weryfikuj zmiany użytkowników z
+                            <code>groups</code> i <code>id</code></li>
+                        <li class="fragment fade-in" data-fragment-index="3">Testuj DNS z różnymi serwerami (@8.8.8.8)
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="4">Używaj <code>netstat -tulpn</code> do
+                            szybkiej diagnozy</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section data-background-color="#0d1117">
+                <h2>🚀 Dalsze Kroki</h2>
+
+                <div class="network-diagram">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h3>🔥 Advanced Topics</h3>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                        <div class="fragment fade-left" data-fragment-index="2">
+                            <h4>🛡️ Security</h4>
+                            <ul>
+                                <li>Security Groups</li>
+                                <li>Access Control Lists (ACL)</li>
+                                <li>SSH hardening</li>
+                            </ul>
+                        </div>
+
+                        <div class="fragment fade-right" data-fragment-index="3">
+                            <h4>🌐 Web Services</h4>
+                            <ul>
+                                <li>SSL/TLS</li>
+                                <li>Load balancing</li>
+                                <li>Reverse proxy</li>
+                            </ul>
+                        </div>
+
+                        <div class="fragment fade-left" data-fragment-index="4">
+                            <h4>📊 Monitoring</h4>
+                            <ul>
+                                <li>Logi systemowe</li>
+                                <li>Metryki</li>
+                                <li>Alerting</li>
+                            </ul>
+                        </div>
+
+                        <div class="fragment fade-right" data-fragment-index="5">
+                            <h4>🤖 Automation</h4>
+                            <ul>
+                                <li>Shell scripting</li>
+                                <li>Cron jobs</li>
+                                <li>Configuration management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hands-on Section -->
+            <section data-background-gradient="linear-gradient(135deg, #f59e0b, #d97706)">
+                <h2>🛠️ Czas na Praktykę!</h2>
+
+                <div class="info-box">
+                    <h3>🎯 Quick Lab</h3>
+                    <ol style="font-size: 1.1em;">
+                        <li class="fragment fade-in" data-fragment-index="1">
+                            Sprawdź aktywne połączenia: <code>netstat -tulpn</code>
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="2">
+                            Przetestuj DNS: <code>dig @8.8.8.8 google.com +short</code>
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="3">
+                            Posłuchaj ruchu DNS: <code>sudo tcpdump -i any port 53</code>
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="4">
+                            Sprawdź swoje grupy: <code>groups $(whoami)</code>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="fragment fade-in" data-fragment-index="5" style="text-align: center; margin-top: 40px;">
+                    <p style="font-size: 1.5em;">
+                        🚀 <strong>Let's get our hands dirty!</strong>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Final slide -->
+            <section class="title-slide" data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                <h1 data-id="final-title">🎉 Dziękuję!</h1>
+
+                <div class="fragment fade-up" data-fragment-index="1">
+                    <h3>Pytania?</h3>
+                </div>
+
+                <div class="fragment fade-up" data-fragment-index="2" style="margin-top: 50px;">
+                    <p style="font-size: 1.2em;">
+                        📚 <strong>Infrastruktura + Linux</strong><br>
+                        Od teorii do praktyki
+                    </p>
+                </div>
+
+                <div class="fragment fade-up" data-fragment-index="3" style="margin-top: 30px;">
+                    <p style="font-size: 0.9em; opacity: 0.8;">
+                        💡 Pamiętajcie: <strong>Practice makes perfect!</strong>
+                    </p>
+                </div>
+
+                <div style="position: absolute; bottom: 20px; right: 30px; font-size: 0.7em; opacity: 0.6;">
+                    <p>Adrian Chojnicki<br>adrian@chojnicki.pl</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            // Presentation size
+            width: 1200,
+            height: 840,
+
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+
+            // Auto-animate settings
+            autoAnimate: true,
+            autoAnimateEasing: 'ease-out',
+            autoAnimateDuration: 0.8,
+            autoAnimateUnmatched: false,
+
+            // Navigation
+            controls: true,
+            controlsTutorial: true,
+            progress: true,
+            center: true,
+            touch: true,
+            loop: false,
+
+            // Appearance
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0,
+
+            plugins: [RevealHighlight, RevealMarkdown, RevealNotes]
+        });
+
+        // Custom keyboard shortcuts
+        Reveal.addKeyBinding({ keyCode: 70, key: 'F', description: 'Toggle fullscreen' }, () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.documentElement.requestFullscreen();
+            }
+        });
+
+        // Down arrow click handler
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains('down-arrow')) {
+                    Reveal.navigateDown();
+                }
+            });
+        });
+
+        // Add some interactive effects
+        Reveal.on('slidechanged', event => {
+            // Add subtle animation to code blocks
+            const codeBlocks = event.currentSlide.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                block.style.transform = 'translateX(-10px)';
+                block.style.opacity = '0';
+                setTimeout(() => {
+                    block.style.transition = 'all 0.3s ease-out';
+                    block.style.transform = 'translateX(0)';
+                    block.style.opacity = '1';
+                }, 200);
+            });
+        });
+
+        // Add typing effect to terminal commands
+        Reveal.on('fragmentshown', event => {
+            if (event.fragment.classList.contains('terminal')) {
+                const text = event.fragment.textContent;
+                event.fragment.textContent = '';
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    if (i < text.length) {
+                        event.fragment.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 50);
+            }
+        });
+    </script>
+</body>
+
+</html>
