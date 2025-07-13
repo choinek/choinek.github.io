@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energia w Komunikacji</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .reveal {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+        }
+        
+        .reveal .slides {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .reveal .slides section {
+            background: #000;
+            padding: 20px;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .reveal h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 20px rgba(255,255,255,0.3);
+            margin-bottom: 0.3em;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal h2 {
+            font-size: 2.2em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.4em;
+            text-shadow: 0 1px 10px rgba(255,255,255,0.2);
+        }
+        
+        .reveal h3 {
+            font-size: 1.4em;
+            font-weight: 500;
+            color: #a1a1a6;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal p {
+            font-size: 1em;
+            line-height: 1.4;
+            color: #f5f5f7;
+            margin-bottom: 0.8em;
+        }
+        
+        .reveal .slides section {
+            text-transform: none;
+        }
+        
+        /* Apple Dark Style Cards */
+        .glass-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .accent-card {
+            background: linear-gradient(135deg, rgba(0,122,255,0.8) 0%, rgba(88,86,214,0.8) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 8px 32px rgba(0,122,255,0.3);
+            backdrop-filter: blur(20px);
+        }
+        
+        .warning-card {
+            background: linear-gradient(135deg, rgba(255,59,48,0.8) 0%, rgba(255,149,0,0.8) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 8px 32px rgba(255,59,48,0.3);
+            backdrop-filter: blur(20px);
+        }
+        
+        .success-card {
+            background: linear-gradient(135deg, rgba(52,199,89,0.8) 0%, rgba(48,209,88,0.8) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 8px 32px rgba(52,199,89,0.3);
+            backdrop-filter: blur(20px);
+        }
+        
+        .hero-section {
+            background: radial-gradient(circle at center, rgba(0,122,255,0.1) 0%, rgba(0,0,0,0.9) 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .statistic {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #007aff;
+            text-shadow: 0 0 30px rgba(0,122,255,0.5);
+            margin: 15px 0;
+        }
+        
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .reveal li {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            margin: 8px 0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.9em;
+            color: #f5f5f7;
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-indicator {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.8em;
+            color: #a1a1a6;
+            font-weight: 500;
+        }
+        
+        .timer {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #007aff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .reflection-box {
+            background: rgba(255,255,255,0.02);
+            border-left: 3px solid #007aff;
+            padding: 16px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #d1d1d6;
+            backdrop-filter: blur(10px);
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 1.1em;
+            color: #a1a1a6;
+            border-left: 2px solid #007aff;
+            padding-left: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        
+        .mini-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px;
+            display: inline-block;
+            min-width: 200px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .transform-example {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .before {
+            background: rgba(255,59,48,0.1);
+            border: 1px solid rgba(255,59,48,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            color: #ff453a;
+        }
+        
+        .after {
+            background: rgba(52,199,89,0.1);
+            border: 1px solid rgba(52,199,89,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            color: #32d74b;
+        }
+        
+        .progress-step {
+            background: linear-gradient(135deg, rgba(0,122,255,0.2) 0%, rgba(88,86,214,0.2) 100%);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid rgba(0,122,255,0.3);
+            backdrop-filter: blur(15px);
+        }
+        
+        .reveal .progress {
+            color: #007aff;
+        }
+        
+        .navigation-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.7em;
+            color: #a1a1a6;
+        }
+        
+        /* Responsive fixes */
+        @media (max-width: 768px) {
+            .reveal h1 { font-size: 2.2em; }
+            .reveal h2 { font-size: 1.8em; }
+            .statistic { font-size: 2.5em; }
+            .transform-example { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Główny poziom: Wprowadzenie -->
+            <section>
+                <section class="hero-section">
+                    <div class="section-indicator">Wprowadzenie</div>
+                    <h1>Energia w Komunikacji</h1>
+                    <h3>Jak nasze słowa kształtują rzeczywistość</h3>
+                    <p>Warsztat o sile pozytywnego myślenia w codziennym życiu</p>
+                    <aside class="notes">
+                        PRAWDZIWY CEL: Doprowadzić do samoidentyfikacji z problemem marudzenia. Uczestnik myśli, że to warsztat o pozytywnej komunikacji.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Moc słów w liczbach</h2>
+                    <div class="glass-card">
+                        <div class="statistic">16,000</div>
+                        <p>słów dziennie wypowiada przeciętny człowiek</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="statistic">80%</div>
+                        <p>naszych myśli ma charakter negatywny</p>
+                    </div>
+                    <aside class="notes">
+                        Niewinne statystyki o komunikacji. Przygotowujemy grunt pod identyfikację z negatywnymi wzorcami.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Twoje wzorce komunikacji</h2>
+                    <div class="reflection-box">
+                        <p><strong>Zastanów się: O czym najczęściej rozmawiasz?</strong></p>
+                    </div>
+                    <ul>
+                        <li><span class="emoji">💼</span> Problemy w pracy i frustracje</li>
+                        <li><span class="emoji">📰</span> Negatywne wiadomości ze świata</li>
+                        <li><span class="emoji">😤</span> Rzeczy które Cię irytują</li>
+                        <li><span class="emoji">🤷</span> Sytuacje nad którymi nie masz kontroli</li>
+                    </ul>
+                    <aside class="notes">
+                        Pierwsza pułapka - lista sformułowana tak, by większość się identyfikowała. Uczestnik zaczyna rozpoznawać swoje negatywne wzorce.
+                    </aside>
+                </section>
+            </section>
+
+            <!-- Główny poziom: Konsekwencje w pracy -->
+            <section>
+                <section>
+                    <div class="section-indicator">Praca</div>
+                    <h2>Negatywność w środowisku pracy</h2>
+                    <div class="warning-card">
+                        <div class="statistic">40%</div>
+                        <p>spadek wydajności zespołu przez jednego "chronic complainer"</p>
+                    </div>
+                    <div class="accent-card">
+                        <p>Negatywne nastawienie rozprzestrzenia się <strong>7x szybciej</strong> niż pozytywne</p>
+                    </div>
+                    <aside class="notes">
+                        Pokazujemy realne koszty marudzenia. Uczestnik ma pomyśleć: "Czy to ja jestem tym chronic complainer?"
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Typowe scenariusze</h2>
+                    <div class="mini-card">
+                        <h3>🌅 Poniedziałek 8:00</h3>
+                        <p>"Znowu ten bezsensowny meeting..."</p>
+                    </div>
+                    <div class="mini-card">
+                        <h3>☕ Przerwa kawowa</h3>
+                        <p>"Czy tylko mnie irytuje że szef..."</p>
+                    </div>
+                    <div class="mini-card">
+                        <h3>🏠 Powrót do domu</h3>
+                        <p>"Ale miałem dzień, wszystko poszło nie tak..."</p>
+                    </div>
+                    <aside class="notes">
+                        Uniwersalne przykłady - każdy może się rozpoznać. Moment: "O, to brzmi znajomo..."
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Efekt domina w zespole</h2>
+                    <div class="glass-card">
+                        <p><span class="emoji">📉</span> Spadek motywacji → Gorsze wyniki → Więcej stresu → Więcej narzekania</p>
+                    </div>
+                    <div class="glass-card">
+                        <p><span class="emoji">🚪</span> Najlepsi pracownicy odchodzą z toksycznych środowisk</p>
+                    </div>
+                    <div class="glass-card">
+                        <p><span class="emoji">🔄</span> Pozostają tylko "maruderzy" - spirala się pogłębia</p>
+                    </div>
+                    <aside class="notes">
+                        Pokazujemy jak jedno narzekanie niszczy cały zespół. Uczestnik ma zrozumieć wagę problemu.
+                    </aside>
+                </section>
+            </section>
+
+            <!-- Główny poziom: Relacje osobiste -->
+            <section>
+                <section>
+                    <div class="section-indicator">Relacje</div>
+                    <h2>Wpływ na relacje osobiste</h2>
+                    <div class="warning-card">
+                        <div class="statistic">73%</div>
+                        <p>ludzi świadomie unika osób które stale narzekają</p>
+                    </div>
+                    <div class="quote">
+                        "Energia jest zaraźliwa - negatywna odpycha szybciej niż pozytywna przyciąga"
+                    </div>
+                    <aside class="notes">
+                        Uderzamy w czuły punkt - relacje. Uczestnik: "Czy inni mnie unikają? Czy jestem osobą która odstrasza?"
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Sygnały ostrzegawcze</h2>
+                    <ul>
+                        <li>Znajomi rzadziej dzielą się dobrymi wiadomościami</li>
+                        <li>Rozmowy szybko schodzą na negatywne tematy</li>
+                        <li>Ludzie "nie mają czasu" na spontaniczne spotkania</li>
+                        <li>Otrzymujesz więcej skarg niż próśb o radę</li>
+                    </ul>
+                    <div class="reflection-box">
+                        <p>Czy rozpoznajesz któryś z tych wzorców?</p>
+                    </div>
+                    <aside class="notes">
+                        Lista symptomów - uczestnik ma sprawdzić czy to o nim. Moment samoidentyfikacji z problemem.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Historie z życia</h2>
+                    <div class="quote">
+                        "Przez lata narzekałem na wszystko. Pewnego dnia usłyszałem: 'Znowu idzie Pan Negatyw'. To mnie otrzeźwiło."
+                    </div>
+                    <div class="quote">
+                        "Żona przestała mi opowiadać o dobrych rzeczach, bo zawsze znajdę problem."
+                    </div>
+                    <aside class="notes">
+                        Prawdziwe historie mają wywołać: "O Boże, czy ja też jestem tak postrzegany?"
+                    </aside>
+                </section>
+            </section>
+
+            <!-- Główny poziom: Marnotrawstwo energii -->
+            <section>
+                <section>
+                    <div class="section-indicator">Energia</div>
+                    <h2>Ile energii marnujesz?</h2>
+                    <div class="accent-card">
+                        <h3>Typowy dzień "marudera"</h3>
+                        <p><strong>8:00</strong> Korki (15 min) • <strong>10:00</strong> Procedury (20 min) • <strong>12:00</strong> Lunch complaints (30 min) • <strong>15:00</strong> Plotki (25 min) • <strong>18:00</strong> Wyładowanie (40 min)</p>
+                    </div>
+                    <div class="warning-card">
+                        <div class="statistic">130</div>
+                        <p>minut dziennie = <strong>22 godziny miesięcznie</strong> na negatywność</p>
+                    </div>
+                    <aside class="notes">
+                        Mocny cios - konkretny czas zmarnowany. Uczestnik: "O Boże, to ja!" Rozpoznanie własnych wzorców.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Koszt alternatywny</h2>
+                    <p>Co można zrobić w <strong>22 godziny</strong>?</p>
+                    <div class="transform-example">
+                        <div class="mini-card">
+                            <p><span class="emoji">📚</span> 2-3 książki rozwojowe</p>
+                        </div>
+                        <div class="mini-card">
+                            <p><span class="emoji">💪</span> 11 treningów fitness</p>
+                        </div>
+                        <div class="mini-card">
+                            <p><span class="emoji">🎯</span> Nowa umiejętność</p>
+                        </div>
+                        <div class="mini-card">
+                            <p><span class="emoji">❤️</span> Czas z bliskimi</p>
+                        </div>
+                    </div>
+                    <div class="success-card">
+                        <p>Każda minuta narzekania = minuta mniej na rozwój</p>
+                    </div>
+                    <aside class="notes">
+                        Pokazujemy co traci. Ma wywołać żal: "Ile czasu zmarnowałem!" i motywację do zmiany.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Dlaczego narzekanie jest łatwe?</h2>
+                    <div class="glass-card">
+                        <h3><span class="emoji">🛋️</span> Strefa komfortu</h3>
+                        <p>Nie wymaga działania, jest bezpieczne</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3><span class="emoji">🤝</span> Fałszywa więź</h3>
+                        <p>Buduje połączenie przez wspólnego "wroga"</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3><span class="emoji">💨</span> Chwilowe wyładowanie</h3>
+                        <p>Daje pozorne poczucie ulgi</p>
+                    </div>
+                    <aside class="notes">
+                        Pokazujemy dlaczego narzekanie jest popularne - bo ŁATWE. Uczestnik: "Rzeczywiście, łatwiej narzekać niż działać."
+                    </aside>
+                </section>
+            </section>
+
+            <!-- Główny poziom: Autodiagnoza -->
+            <section>
+                <section>
+                    <div class="section-indicator">Refleksja</div>
+                    <h2>Test szczerości</h2>
+                    <div class="reflection-box">
+                        <p><strong>Odpowiedz sobie szczerze...</strong></p>
+                    </div>
+                    <ul>
+                        <li>Jak często zaczynasz rozmowy od problemów?</li>
+                        <li>Czy znajomi przychodzą po wsparcie czy wyładowanie?</li>
+                        <li>Jak reagujesz na dobre wiadomości innych?</li>
+                        <li>Ile minut dziennie spędzasz na narzekaniu?</li>
+                    </ul>
+                    <aside class="notes">
+                        Kluczowy moment autodiagnozy. Pytania prowadzą do wniosku że ma problem z marudzeniem.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Moment prawdy</h2>
+                    <div class="accent-card">
+                        <p>Czy rozpoznajesz się w tych wzorcach?</p>
+                        <p>Czy łatwiej Ci znaleźć co nie działa niż docenić co działa?</p>
+                    </div>
+                    <div class="glass-card">
+                        <p>To nie jest o obwinianiu siebie</p>
+                        <p>To jest o <strong>uświadomieniu</strong> wzorców</p>
+                    </div>
+                    <aside class="notes">
+                        Moment konfrontacji - uczestnik ma się przyznać że ma problem. Dodajemy współczucie żeby nie było brutalne.
+                    </aside>
+                </section>
+            </section>
+
+            <!-- Główny poziom: Transformacja -->
+            <section>
+                <section>
+                    <div class="section-indicator">Zmiana</div>
+                    <h2>3 kroki do zmiany</h2>
+                    <div class="progress-step">
+                        <h3>1. Świadomość</h3>
+                        <p>Zauważanie momentów narzekania</p>
+                    </div>
+                    <div class="progress-step">
+                        <h3>2. Pauza</h3>
+                        <p>3-sekundowa przerwa przed skargą</p>
+                    </div>
+                    <div class="progress-step">
+                        <h3>3. Reframe</h3>
+                        <p>Zmiana skargi w pytanie lub działanie</p>
+                    </div>
+                    <aside class="notes">
+                        Dajemy nadzieję i konkretny plan. Zmiana jest możliwa ale wymaga wysiłku.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Praktyczne przykłady</h2>
+                    <div class="transform-example">
+                        <div class="before">
+                            <h3>❌ Przed</h3>
+                            <p>"Ta prezentacja będzie nudna"</p>
+                        </div>
+                        <div class="after">
+                            <h3>✅ Po</h3>
+                            <p>"Jak mogę z tego skorzystać?"</p>
+                        </div>
+                        <div class="before">
+                            <p>"Znowu wymyślili jakiś nonsens"</p>
+                        </div>
+                        <div class="after">
+                            <p>"Jakie możliwości to stwarza?"</p>
+                        </div>
+                    </div>
+                    <aside class="notes">
+                        Konkretne przykłady transformacji. Uczestnik widzi że to możliwe i nie takie trudne.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>21-dniowe wyzwanie</h2>
+                    <div class="success-card">
+                        <div class="statistic">21</div>
+                        <p>dni na wykształcenie nowego nawyku</p>
+                    </div>
+                    <div class="progress-step">
+                        <p><strong>Tydzień 1:</strong> Zauważaj momenty narzekania</p>
+                    </div>
+                    <div class="progress-step">
+                        <p><strong>Tydzień 2:</strong> Rób 3-sekundowe pauzy</p>
+                    </div>
+                    <div class="progress-step">
+                        <p><strong>Tydzień 3:</strong> Przekształcaj w działania</p>
+                    </div>
+                    <aside class="notes">
+                        Konkretny plan na 21 dni. Stopniowany - od świadomości do działania.
+                    </aside>
+                </section>
+            </section>
+
+            <!-- Główny poziom: Korzyści -->
+            <section>
+                <section>
+                    <div class="section-indicator">Rezultaty</div>
+                    <h2>Co zyskasz?</h2>
+                    <div class="success-card">
+                        <div class="statistic">+40%</div>
+                        <p>więcej energii na rzeczy ważne</p>
+                    </div>
+                    <ul>
+                        <li><span class="emoji">🤝</span> Lepsze relacje z otoczeniem</li>
+                        <li><span class="emoji">💼</span> Większa atrakcyjność jako partner</li>
+                        <li><span class="emoji">🎯</span> Wzrost poczucia sprawczości</li>
+                        <li><span class="emoji">✨</span> Pozytywny wpływ na innych</li>
+                    </ul>
+                    <aside class="notes">
+                        Korzyści ze zmiany. Uczestnik ma być zmotywowany wizją lepszego życia.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Twoje wyzwanie na dziś</h2>
+                    <div class="accent-card">
+                        <p>Przed snem zadaj sobie pytanie:</p>
+                        <div class="quote" style="color: white;">
+                            "Ile razy dziś narzekałem, a ile razy działałem konstruktywnie?"
+                        </div>
+                        <p><strong>Jutro spróbuj odwrócić proporcje</strong></p>
+                    </div>
+                    <aside class="notes">
+                        Końcowe wyzwanie - zadanie na dziś. Uczestnik ma zacząć obserwować już teraz.
+                    </aside>
+                </section>
+            </section>
+
+        </div>
+    </div>
+
+    <div class="navigation-hint">← → główne sekcje | ↑ ↓ szczegóły | S notatki</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            width: 1360,
+  			height: 900,
+  			margin: 0.04,
+		    minScale: 0.2,
+  			maxScale: 2.0,
+            controls: true,
+            progress: true,
+            keyboard: true,
+            touch: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            plugins: [ RevealNotes ]
+        });
+
+        // Timer
+        let startTime = Date.now();
+        let timerElement = document.createElement('div');
+        timerElement.className = 'timer';
+        document.body.appendChild(timerElement);
+
+        function updateTimer() {
+            let elapsed = Math.floor((Date.now() - startTime) / 1000);
+            let minutes = Math.floor(elapsed / 60);
+            let seconds = elapsed % 60;
+            timerElement.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

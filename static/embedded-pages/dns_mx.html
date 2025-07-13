@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DNS: MX, SPF, DKIM</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reveal.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/theme/league.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/plugin/highlight/monokai.min.css">
+	<style>
+		.reveal pre code {
+			font-size: 0.7em;
+			line-height: 1.3;
+			max-height: 600px;
+		}
+		.reveal h2 {
+			color: #13daec;
+		}
+		.reveal h3 {
+			color: #ffffff;
+		}
+		.small-code {
+			font-size: 0.6em !important;
+		}
+		.reveal .code-wrapper {
+			position: relative;
+		}
+		.reveal .highlight-box {
+			position: absolute;
+			background: rgba(255, 235, 59, 0.3);
+			border: 2px solid #ffeb3b;
+			border-radius: 4px;
+			pointer-events: none;
+			z-index: 1;
+		}
+	</style>
+</head>
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Title Slide -->
+			<section data-auto-animate>
+				<h1>DNS dla Email</h1>
+				<h2>MX, SPF, DKIM, DMARC</h2>
+				<p>Warsztat konfiguracji DNS</p>
+				
+				<aside class="notes">
+					Witajcie na warsztacie o DNS dla email! 📧
+					
+					Ciekawostka: 99% problemów z dostarczalnością email to źle skonfigurowane DNS.
+					
+					Historia: MX records powstały w 1986, SPF w 2003, DKIM w 2007, DMARC w 2012.
+					
+					Statystyka: Firmy z poprawnie skonfigurowanym DMARC mają 10x lepszą dostarczalność.
+					
+					Dzisiaj nauczymy się konfigurować te protokoły od podstaw do enterprise level.
+				</aside>
+			</section>
+
+			<!-- MX Records Introduction -->
+			<section data-auto-animate>
+				<h2 data-id="title">MX Records</h2>
+				<h3>Mail Exchange</h3>
+				<ul>
+					<li>Określa serwery pocztowe dla domeny</li>
+					<li>Priorytet: niższy = wyższy priorytet</li>
+					<li>Umożliwia redundancję</li>
+				</ul>
+				
+				<aside class="notes">
+					MX to jeden z najstarszych typów rekordów DNS - powstał w RFC 974 z 1986 roku! 📜
+					
+					Ciekawostka: Priorytet 0 to najwyższy priorytet - Google używa 0 dla Microsoft 365.
+					
+					Praktyczne: Zawsze konfiguruj backup MX - 99.9% firm ma tylko jeden MX i tracą pocztę przy awarii.
+					
+					Enterprise tip: Duże firmy mają często 5-10 serwerów MX z różnymi priorytetami.
+					
+					Błąd beginnerów: MX wskazuje na hostname, NIE na IP! (częsty błąd w panelach DNS)
+					
+					Load balancing: Serwery o tym samym priorytecie są wybierane losowo (round-robin).
+				</aside>
+			</section>
+
+			<!-- MX Basic Example -->
+			<section data-auto-animate>
+				<h3 data-id="title">MX - Podstawowa konfiguracja</h3>
+				<pre data-id="mx-code"><code class="dns" data-trim data-line-numbers>
+example.com.    IN  MX  10  mail.example.com.
+				</code></pre>
+				<p>Domena example.com używa serwera mail.example.com z priorytetem 10</p>
+				
+				<aside class="notes">
+					To jest minimalna konfiguracja MX - jedna linia = jeden point of failure! ⚠️
+					
+					Practical tip: Priorytet 10 to standard - większość firm używa 10, 20, 30...
+					
+					Debugowanie: `dig MX domena.com` - jeśli nie ma odpowiedzi, sprawdź czy mail.example.com ma rekord A.
+					
+					Ciekawostka: Można mieć MX wskazujący na domenę główną, ale to ZŁA praktyka (creates A record dependency).
+					
+					Enterprise: Nigdy nie używaj tylko jednego MX w produkcji!
+					
+					TTL tip: MX rekordy powinny mieć TTL 3600s (1h) - częste zmiany powodują delivery delays.
+				</aside>
+			</section>
+
+			<!-- MX with Backup -->
+			<section data-auto-animate>
+				<h3 data-id="title">MX - Z backup serwerem</h3>
+				<pre data-id="mx-code"><code class="dns" data-trim data-line-numbers="|1|2">
+example.com.    IN  MX  10  primary.example.com.
+example.com.    IN  MX  20  backup.example.com.
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>Priorytet 10</strong> - primary server (niższy = wyższy priorytet)</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>Priorytet 20</strong> - backup server używany gdy primary niedostępny</p>
+				</div>
+			</section>
+
+			<!-- MX Google Workspace -->
+			<section data-auto-animate>
+				<h3 data-id="title">MX - Google Workspace</h3>
+				<pre data-id="mx-code"><code class="dns small-code" data-trim data-line-numbers="|1|2-3|4-5">
+example.com.    IN  MX  1   aspmx.l.google.com.
+example.com.    IN  MX  5   alt1.aspmx.l.google.com.
+example.com.    IN  MX  5   alt2.aspmx.l.google.com.
+example.com.    IN  MX  10  alt3.aspmx.l.google.com.
+example.com.    IN  MX  10  alt4.aspmx.l.google.com.
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>aspmx.l.google.com</strong> - główny serwer Google (priorytet 1)</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>alt1, alt2</strong> - pierwsze serwery backup (priorytet 5)</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>alt3, alt4</strong> - dodatkowe serwery backup (priorytet 10)</p>
+				</div>
+				
+				<aside class="notes">
+					Google ma najbardziej zaawansowaną infrastrukturę MX na świecie! 🌍
+					
+					Skala: Google obsługuje 1.5 miliarda użytkowników Gmail + miliony firm Workspace.
+					
+					Geograficzne: aspmx.l = główne DC w USA, alt1/2 = backup DC, alt3/4 = emergency DC.
+					
+					Pro tip: Google automatycznie routuje ruch na najbliższy geograficznie serwer.
+					
+					Ciekawostka: "aspmx" = "Anti-Spam Mail Exchange" - Google wymyślił tę nazwę w 2004.
+					
+					Monitoring: Google gwarantuje 99.9% uptime dla MX - jeśli spadnie, to prawdopodobnie problem u ciebie.
+					
+					Różnice regionalne: W Chinach Google używa innych serwerów MX ze względu na Great Firewall.
+				</aside>
+			</section>
+
+			<!-- SPF Introduction -->
+			<section data-auto-animate>
+				<h2 data-id="title">SPF Records</h2>
+				<h3>Sender Policy Framework</h3>
+				<ul>
+					<li>Autoryzuje serwery do wysyłania poczty</li>
+					<li>Zapobiega spoofingowi domeny</li>
+					<li>Definiuje politykę obsługi nieautoryzowanych wiadomości</li>
+				</ul>
+				
+				<aside class="notes">
+					SPF = pierwszy krok w walce ze spamem i phishingiem! 🛡️
+					
+					Historia: SPF wynalezione w 2003 przez Meng Weng Wong (Microsoft potem to kupił).
+					
+					Statystyka szokująca: 85% firm nie ma poprawnie skonfigurowanego SPF!
+					
+					Prawda o spamie: Bez SPF twoja domena może być używana do phishingu BEZ twojej wiedzy.
+					
+					Practical: SPF NIE BLOKUJE spamu - tylko informuje czy nadawca jest autoryzowany.
+					
+					Ewolucja: SPF v1 (2006) → SPF był częścią "Project Honeypot" - pierwszy crowdsourced anti-spam.
+					
+					Problem: SPF sprawdza TYLKO envelope-from, nie From: header (dlatego potrzebujemy DMARC).
+					
+					Ciekawostka: Netflix, Spotify, Airbnb - wszystkie używają SPF z ~all zamiast -all (soft fail).
+				</aside>
+			</section>
+
+			<!-- SPF Syntax -->
+			<section data-auto-animate>
+				<h3 data-id="title">SPF - Składnia</h3>
+				<pre data-id="spf-syntax"><code class="dns" data-trim data-line-numbers="|1|2|3">
+v=spf1
+[mechanisms: ip4, mx, include, a]
+[qualifier: +pass, -fail, ~softfail, ?neutral]
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>v=spf1</strong> - wersja SPF</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>mechanisms</strong> - definiują autoryzowane źródła (ip4, mx, include, a)</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>qualifier</strong> - akcja dla nieautoryzowanych (+pass, -fail, ~softfail, ?neutral)</p>
+				</div>
+				
+				<aside class="notes">
+					SPF to mini-język programowania w DNS! 🤓
+					
+					Trivia: "v=spf1" jest JEDYNĄ obsługiwaną wersją - v=spf2 nigdy nie powstało.
+					
+					Mechanisms deep dive:
+					- ip4/ip6: 97% firm używa tylko ip4
+					- mx: bardzo popularny ale RYZYKOWNY (co jeśli MX się zmieni?)
+					- a: sprawdza A record domeny (rzadko używany)
+					- include: NAJWAŻNIEJSZY - 80% nowoczesnych SPF to tylko include
+					- exists: zaawansowany, sprawdza istnienie A record (używane do dynamic SPF)
+					
+					Qualifiers prawda:
+					- + (pass): domyślny, większość nie pisze +
+					- ~ (softfail): Netflix, Spotify używają - mniej ryzykowne niż -all
+					- - (fail): tylko dla przedsiębiorstw z dobrą reputacją
+					- ? (neutral): praktycznie nigdy nie używany
+					
+					Pułapka: Kolejność ma znaczenie! Pierwszy match wygrywa.
+				</aside>
+			</section>
+
+			<!-- SPF Basic -->
+			<section data-auto-animate>
+				<h3 data-id="title">SPF - Podstawowy</h3>
+				<pre data-id="spf-code"><code class="dns" data-trim data-line-numbers="1|1|1">
+example.com.    IN  TXT  "v=spf1 mx -all"
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>mx</strong> - używa serwerów z rekordów MX</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>-all</strong> - odrzuca wszystkie inne źródła</p>
+				</div>
+			</section>
+
+			<!-- SPF with IP -->
+			<section data-auto-animate>
+				<h3 data-id="title">SPF - Z konkretnym IP</h3>
+				<pre data-id="spf-code"><code class="dns" data-trim data-line-numbers="1|1|1">
+example.com.    IN  TXT  "v=spf1 ip4:203.0.113.1 mx -all"
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>ip4:203.0.113.1</strong> - autoryzuje konkretny adres IP</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>mx</strong> - dodatkowo serwery z rekordów MX</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>-all</strong> - strict fail dla wszystkich innych</p>
+				</div>
+			</section>
+
+			<!-- SPF Google Include -->
+			<section data-auto-animate>
+				<h3 data-id="title">SPF - Google Workspace</h3>
+				<pre data-id="spf-code"><code class="dns" data-trim data-line-numbers="1|1">
+example.com.    IN  TXT  "v=spf1 include:_spf.google.com -all"
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>include:_spf.google.com</strong> - dołącza rekord SPF z domeny Google</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p>Google automatycznie zarządza swoimi serwerami pocztowymi</p>
+				</div>
+			</section>
+
+			<!-- SPF Complex -->
+			<section data-auto-animate>
+				<h3 data-id="title">SPF - Złożony przykład</h3>
+				<pre data-id="spf-code"><code class="dns" data-trim data-line-numbers="|1|2|3|4">
+example.com. IN TXT "v=spf1 ip4:203.0.113.0/24
+                     include:_spf.google.com
+                     include:mailgun.org
+                     ~all"
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>ip4:203.0.113.0/24</strong> - cała sieć IP /24</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>include:_spf.google.com</strong> - Google Workspace</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>include:mailgun.org</strong> - Mailgun API</p>
+				</div>
+				<div class="fragment" data-fragment-index="4">
+					<p><strong>~all</strong> - soft fail (podejrzane, ale nie odrzucaj)</p>
+				</div>
+			</section>
+
+			<!-- DKIM Introduction -->
+			<section data-auto-animate>
+				<h2 data-id="title">DKIM Records</h2>
+				<h3>DomainKeys Identified Mail</h3>
+				<ul>
+					<li>Cyfrowy podpis wiadomości</li>
+					<li>Weryfikuje autentyczność i integralność</li>
+					<li>Klucz publiczny w DNS</li>
+					<li>Klucz prywatny na serwerze</li>
+				</ul>
+			</section>
+
+			<!-- DKIM Structure -->
+			<section data-auto-animate>
+				<h3 data-id="title">DKIM - Struktura</h3>
+				<pre data-id="dkim-structure"><code class="dns" data-trim data-line-numbers="|1|2|3">
+[selektor]._domainkey.[domena]
+↓
+default._domainkey.example.com.
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>selektor</strong> - identyfikuje konkretny klucz (default, google, mail)</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>_domainkey</strong> - stała część standardu DKIM</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>domena</strong> - twoja domena (example.com)</p>
+				</div>
+			</section>
+
+			<!-- DKIM Basic -->
+			<section data-auto-animate>
+				<h3 data-id="title">DKIM - Podstawowy</h3>
+				<pre data-id="dkim-code"><code class="dns small-code" data-trim data-line-numbers="|1-2|1-2|1-2">
+default._domainkey.example.com. IN TXT
+"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC..."
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>v=DKIM1</strong> - wersja DKIM</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>k=rsa</strong> - algorytm klucza (RSA)</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>p=</strong> - klucz publiczny w formacie base64</p>
+				</div>
+			</section>
+
+			<!-- DKIM Google -->
+			<section data-auto-animate>
+				<h3 data-id="title">DKIM - Google Workspace</h3>
+				<pre data-id="dkim-code"><code class="dns small-code" data-trim data-line-numbers="|1-2">
+google._domainkey.example.com. IN TXT
+"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC..."
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>google</strong> - selektor standardowy dla Google Workspace</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p>Klucz generowany automatycznie w Google Admin Console</p>
+				</div>
+			</section>
+
+			<!-- DKIM Microsoft -->
+			<section data-auto-animate>
+				<h3 data-id="title">DKIM - Microsoft 365</h3>
+				<pre data-id="dkim-code"><code class="dns small-code" data-trim data-line-numbers="|1-2|1-2">
+selector1._domainkey.example.com. IN CNAME 
+selector1-example-com._domainkey.domain.onmicrosoft.com.
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>CNAME</strong> - Microsoft używa delegacji zamiast bezpośredniego klucza</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p>Microsoft automatycznie rotuje klucze za nas</p>
+				</div>
+			</section>
+
+			<!-- DMARC Introduction -->
+			<section data-auto-animate>
+				<h2 data-id="title">DMARC Records</h2>
+				<h3>Domain-based Message Authentication</h3>
+				<ul>
+					<li>Łączy SPF i DKIM</li>
+					<li>Definiuje politykę postępowania</li>
+					<li>Zapewnia raportowanie</li>
+					<li>Pełna ochrona email authentication</li>
+				</ul>
+			</section>
+
+			<!-- DMARC Basic -->
+			<section data-auto-animate>
+				<h3 data-id="title">DMARC - Monitoring</h3>
+				<pre data-id="dmarc-code"><code class="dns" data-trim data-line-numbers="|1|2">
+_dmarc.example.com. IN TXT "v=DMARC1; p=none;
+                           rua=mailto:dmarc@example.com"
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>p=none</strong> - tylko monitoring, nie blokuj niczego</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>rua=mailto:dmarc@example.com</strong> - raporty agregowane na email</p>
+				</div>
+			</section>
+
+			<!-- DMARC Quarantine -->
+			<section data-auto-animate>
+				<h3 data-id="title">DMARC - Kwarantanna</h3>
+				<pre data-id="dmarc-code"><code class="dns" data-trim data-line-numbers="|1|2|3">
+_dmarc.example.com. IN TXT "v=DMARC1; p=quarantine;
+                           sp=reject;
+                           rua=mailto:dmarc@example.com"
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>p=quarantine</strong> - nieautoryzowane do spam folder</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>sp=reject</strong> - polityka dla subdomen (odrzuć)</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p>Środkowy krok przed pełną ochroną</p>
+				</div>
+			</section>
+
+			<!-- DMARC Strict -->
+			<section data-auto-animate>
+				<h3 data-id="title">DMARC - Pełna ochrona</h3>
+				<pre data-id="dmarc-code"><code class="dns" data-trim data-line-numbers="|1|2|3|4">
+_dmarc.example.com. IN TXT "v=DMARC1; p=reject;
+                           sp=reject;
+                           rua=mailto:dmarc@example.com;
+                           ruf=mailto:forensic@example.com"
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>p=reject</strong> - odrzucaj nieautoryzowane wiadomości</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>sp=reject</strong> - to samo dla subdomen</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>rua=</strong> - raporty agregowane (dzienne/tygodniowe)</p>
+				</div>
+				<div class="fragment" data-fragment-index="4">
+					<p><strong>ruf=</strong> - raporty szczegółowe (każda wiadomość)</p>
+				</div>
+			</section>
+
+			<!-- Complete Example -->
+			<section data-auto-animate>
+				<h2 data-id="title">Kompletna konfiguracja</h2>
+				<pre data-id="complete-code"><code class="dns small-code" data-trim data-line-numbers="|1-2|4-5|7-8|10-11">
+# MX Records
+example.com.    IN  MX  10  mail.example.com.
+
+# SPF
+example.com.    IN  TXT  "v=spf1 mx ip4:203.0.113.1 -all"
+
+# DKIM
+default._domainkey.example.com. IN TXT "v=DKIM1; k=rsa; p=MIG..."
+
+# DMARC
+_dmarc.example.com. IN TXT "v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com"
+				</code></pre>
+			</section>
+
+			<!-- Real World Google -->
+			<section data-auto-animate>
+				<h2 data-id="title">Przykład Google Workspace</h2>
+				<pre data-id="google-code"><code class="dns small-code" data-trim data-line-numbers="|1-5|7-8|10-11|13-14">
+# MX Records
+example.com.    IN  MX  1   aspmx.l.google.com.
+example.com.    IN  MX  5   alt1.aspmx.l.google.com.
+example.com.    IN  MX  5   alt2.aspmx.l.google.com.
+example.com.    IN  MX  10  alt3.aspmx.l.google.com.
+
+# SPF
+example.com.    IN  TXT  "v=spf1 include:_spf.google.com -all"
+
+# DKIM
+google._domainkey.example.com. IN TXT "v=DKIM1; k=rsa; p=..."
+
+# DMARC
+_dmarc.example.com. IN TXT "v=DMARC1; p=reject; rua=mailto:admin@example.com"
+				</code></pre>
+			</section>
+
+			<!-- Testing Tools -->
+			<section data-auto-animate>
+				<h2 data-id="title">Narzędzia testowe</h2>
+				<div style="display: flex; justify-content: space-around;">
+					<div class="fragment">
+						<h3>Online</h3>
+						<ul>
+							<li>MXToolbox.com</li>
+							<li>Mail-tester.com</li>
+							<li>DMARC Analyzer</li>
+							<li>Google Admin Console</li>
+						</ul>
+					</div>
+					<div class="fragment">
+						<h3>CLI</h3>
+						<pre><code class="bash" data-trim data-line-numbers="|1|2|3|4">
+dig MX example.com
+dig TXT example.com
+dig TXT google._domainkey.example.com
+dig TXT _dmarc.example.com
+						</code></pre>
+					</div>
+				</div>
+			</section>
+
+			<!-- Verification Commands -->
+			<section data-auto-animate>
+				<h3 data-id="title">Weryfikacja krok po krok</h3>
+				<pre data-id="verify-code"><code class="bash" data-trim data-line-numbers="|1-2|4-5|7-8|10-11">
+# Sprawdź MX
+dig MX example.com +short
+
+# Sprawdź SPF
+dig TXT example.com | grep spf
+
+# Sprawdź DKIM
+dig TXT google._domainkey.example.com +short
+
+# Sprawdź DMARC
+dig TXT _dmarc.example.com +short
+				</code></pre>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>MX records</strong> - powinny pokazać serwery pocztowe z priorytetami</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>SPF record</strong> - powinien zaczynać się od "v=spf1"</p>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>DKIM key</strong> - długi ciąg base64 z "v=DKIM1"</p>
+				</div>
+				<div class="fragment" data-fragment-index="4">
+					<p><strong>DMARC policy</strong> - powinien zawierać "v=DMARC1; p=..."</p>
+				</div>
+			</section>
+
+			<!-- Best Practices -->
+			<section data-auto-animate>
+				<h2 data-id="title">Najlepsze praktyki</h2>
+				<div class="fragment">
+					<h3>SPF - Ograniczenia</h3>
+					<pre><code class="dns" data-trim data-line-numbers="|1|2">
+"v=spf1 include:provider1.com include:provider2.com ... -all"
+# Maksymalnie 10 DNS lookups!
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>Limit 10 DNS lookups</strong> - include, a, mx, exists liczą się do limitu</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>Zawsze kończ -all lub ~all</strong> - bez tego SPF nie chroni</p>
+				</div>
+				<div class="fragment">
+					<h3>DKIM - Bezpieczeństwo</h3>
+					<pre><code class="bash" data-trim data-line-numbers="|1|2">
+openssl genrsa -out dkim.key 2048  # Minimum 2048 bit
+# Rotacja co 6-12 miesięcy
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>Klucze minimum 2048 bit</strong> - 1024 bit już nie są bezpieczne</p>
+				</div>
+				<div class="fragment" data-fragment-index="4">
+					<p><strong>Regularnie rotuj klucze</strong> - używaj selektorów z datą</p>
+				</div>
+				<div class="fragment">
+					<h3>DMARC - Stopniowe wdrażanie</h3>
+					<pre><code class="dns" data-trim data-line-numbers="|1|2|3">
+p=none      # Start: monitoring
+p=quarantine # Krok 2: spam folder  
+p=reject    # Cel: pełna ochrona
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="5">
+					<p><strong>Nigdy nie zacznij od p=reject</strong> - można zablokować legalną pocztę</p>
+				</div>
+			</section>
+
+			<!-- Common Mistakes -->
+			<section data-auto-animate>
+				<h2 data-id="title">Typowe błędy</h2>
+				<div class="fragment">
+					<h3 style="color: #ff6b6b;">SPF ❌ - Za dużo DNS lookups</h3>
+					<pre><code class="dns small-code" data-trim data-line-numbers="|1|2|3">
+"v=spf1 ip4:1.1.1.1 ip4:2.2.2.2 ip4:3.3.3.3 
+ include:mailgun.org include:_spf.google.com 
+ include:sendgrid.net a mx all"
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="1">
+					<p style="color: #ff6b6b;"><strong>Problem:</strong> 6 DNS lookups (include + a + mx) > limit 10</p>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p style="color: #ff6b6b;"><strong>Rezultat:</strong> SPF nie działa (PermError)</p>
+				</div>
+				<div class="fragment">
+					<h3 style="color: #51cf66;">SPF ✅ - Delegacja</h3>
+					<pre><code class="dns" data-trim data-line-numbers="|1">
+"v=spf1 include:_spf.example.com -all"
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p style="color: #51cf66;"><strong>Rozwiązanie:</strong> Przenieś wszystko do _spf.example.com (1 lookup)</p>
+				</div>
+			</section>
+
+			<!-- DMARC Journey -->
+			<section data-auto-animate>
+				<h2 data-id="title">Droga do DMARC</h2>
+				<div class="fragment">
+					<h3>Krok 1: Monitoring (2-4 tygodnie)</h3>
+					<pre><code class="dns" data-trim data-line-numbers="|1">
+_dmarc.example.com. IN TXT "v=DMARC1; p=none; rua=mailto:reports@example.com"
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="1">
+					<p><strong>p=none</strong> - zbieraj dane, nie blokuj niczego</p>
+				</div>
+				<div class="fragment">
+					<h3>Krok 2: Kwarantanna (4-8 tygodni)</h3>
+					<pre><code class="dns" data-trim data-line-numbers="|1">
+_dmarc.example.com. IN TXT "v=DMARC1; p=quarantine; pct=25; rua=mailto:reports@example.com"
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="2">
+					<p><strong>pct=25</strong> - testuj tylko na 25% wiadomości</p>
+				</div>
+				<div class="fragment">
+					<h3>Krok 3: Pełna ochrona</h3>
+					<pre><code class="dns" data-trim data-line-numbers="|1">
+_dmarc.example.com. IN TXT "v=DMARC1; p=reject; sp=reject; rua=mailto:reports@example.com"
+					</code></pre>
+				</div>
+				<div class="fragment" data-fragment-index="3">
+					<p><strong>p=reject</strong> - pełna ochrona po analizie raportów</p>
+				</div>
+			</section>
+
+			<!-- Thank You -->
+			<section data-auto-animate>
+				<h1>Dziękuję!</h1>
+				<h2>Pytania?</h2>
+				<p>Warsztat DNS: MX, SPF, DKIM, DMARC</p>
+				<p><small>Press ESC for overview • Alt+Click to zoom</small></p>
+			</section>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reveal.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/plugin/highlight/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/plugin/zoom/zoom.min.js"></script>
+	<script>
+		Reveal.initialize({
+			hash: true,
+			plugins: [ RevealHighlight, RevealZoom ],
+			transition: 'slide',
+			transitionSpeed: 'default',
+			backgroundTransition: 'fade',
+			autoAnimate: true,
+			autoAnimateEasing: 'ease-out',
+			autoAnimateDuration: 0.8,
+			center: true,
+			touch: true,
+			loop: false,
+			rtl: false,
+			navigationMode: 'default',
+			shuffle: false,
+			fragments: true,
+			embedded: false,
+			help: true,
+			showNotes: false,
+			autoPlayMedia: null,
+			controls: true,
+			progress: true,
+			keyboard: true,
+			disableLayout: false,
+			overview: true
+		});
+	</script>
+</body>
+</html>
