@@ -49,6 +49,10 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl:
             'https://github.com/choinek/choinek.github.io/tree/main/',
+          admonitions: {
+            keywords: ['story'],
+            extendDefaults: true,
+          },
         },
         blog: {
           showReadingTime: true,
@@ -62,6 +66,10 @@ const config: Config = {
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
+          admonitions: {
+            keywords: ['story'],
+            extendDefaults: true,
+          },
         },
         theme: {
           customCss: './src/css/custom.css',
