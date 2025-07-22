@@ -71,7 +71,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/surreal-vision-05.jpg',
     mermaid: {
       theme: {light: 'dark', dark: 'dark'},
     },
