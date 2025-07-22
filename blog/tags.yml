@@ -1,19 +1,24 @@
 health:
   label: Health
   permalink: /health
-  description: Health tag
+  description: Health
 
 life:
   label: Life
   permalink: /life
-  description: Life tag
+  description: Life
 
 business:
   label: Business
   permalink: /business
-  description: Business tag
+  description: Business
+
+dreams:
+  label: Dreams and visions
+  permalink: /dreams-and-visions
+  description: Dreams and visions
 
 it:
   label: IT
   permalink: /it
-  description: IT tag
+  description: IT
