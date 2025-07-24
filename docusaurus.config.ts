@@ -84,6 +84,14 @@ const config: Config = {
 
   themeConfig: {
     image: 'img/surreal-vision-05.jpg',
+    announcementBar: {
+      id: 'pl',
+      content:
+        '🇵🇱 Jeżeli otrzymałeś ode mnie link, to oznacza dokładnie tyle, że chciałem się nim z Tobą podzielić. Nie ma tu ukrytego drugiego dna. ',
+      backgroundColor: '#fafbfc',
+      textColor: '#091E42',
+      isCloseable: false,
+    },
     mermaid: {
       theme: {light: 'dark', dark: 'dark'},
     },
