@@ -13,7 +13,7 @@ business:
   permalink: /business
   description: Business
 
-dreams:
+dreams-and-visions:
   label: Dreams and visions
   permalink: /dreams-and-visions
   description: Dreams and visions
@@ -22,3 +22,8 @@ it:
   label: IT
   permalink: /it
   description: IT
+
+psychology:
+  label: Psychology
+  permalink: /psychology
+  description: Psychology
