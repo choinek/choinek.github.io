@@ -5,6 +5,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import ContactForm from '../components/FirebaseContactForm';
+import HtmlEmbed from '../components/HtmlEmbed';
+import { useState } from 'react';
 
 import styles from './index.module.css';
 
@@ -30,31 +32,62 @@ function HomepageHeader() {
 }
 
 export default function Contact() {
+  const [clickCount, setClickCount] = useState(0);
+  const [showHiddenContent, setShowHiddenContent] = useState(false);
+
+  const handleAvatarClick = () => {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+    
+    if (newCount >= 3) {
+      setShowHiddenContent(true);
+      setClickCount(0); // Reset counter
+    }
+  };
+
   return (
-    <Layout title="Contact">
-      <div className="contact-page" style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+    <Layout title="Kontakt">
+      <div className="contact-page">
         <div className="card card--full-height">
-                  <div className="card__header">
-                      <div className="avatar avatar--vertical">
-                          <img className="avatar__photo avatar__photo--xl"
-                              src="https://github.com/choinek.png"
-                              alt="Adrian Chojnicki"/>
-                          <div className="avatar__intro">
-                              <div className="avatar__name">Adrian Chojnicki</div>
-                              <small className="avatar__subtitle">
-                                  <a href="https://univio.com/" target="_blank">@Univo </a>
-                                  <a href="https://global4net.com/" target="_blank">@Global4Net</a><br/>
-                                  <a href="https://www.linkedin.com/in/adrian-chojnicki" target="_blank">Linkedin</a><br/>
-                                  <a href="mailto:adrian@chojnicki.pl">adrian@chojnicki.pl</a>
-                              </small>
-                          </div>
-                      </div>
-                  </div>
+          <div className="card__header">
+            <div className="avatar avatar--vertical">
+              <img 
+                className="avatar__photo avatar__photo--xl"
+                src="https://github.com/choinek.png"
+                alt="Adrian Chojnicki"
+                onClick={handleAvatarClick}
+                style={{ cursor: 'pointer' }}
+              />
+              <div className="avatar__intro">
+                <div className="avatar__name">Adrian Chojnicki</div>
+                <small className="avatar__subtitle">
+                  <a href="https://univio.com/" target="_blank" rel="noopener noreferrer">@Univo</a>
+                  <a href="https://global4net.com/" target="_blank" rel="noopener noreferrer">@Global4Net</a>
+                  <a href="https://www.linkedin.com/in/adrian-chojnicki" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                  <a href="mailto:adrian@chojnicki.pl">adrian@chojnicki.pl</a>
+                </small>
               </div>
-          {/* <ContactForm /> */}
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJDpPNc2kENr_ABzBjzYV8rsg3W0lm-Rz6JwNpKBk2RiTfDA/viewform?embedded=true" width="640" height="820" frameBorder="0">
-        Ładuję...
-        </iframe>
+            </div>
+          </div>
+        </div>
+        
+        {showHiddenContent ? (
+          <HtmlEmbed 
+            height={820} 
+            src="/embedded-pages/ahvana-albely.html" 
+            title="Ahvana Albely" 
+          />
+        ) : (
+          <iframe 
+            src="https://docs.google.com/forms/d/e/1FAIpQLScJDpPNc2kENr_ABzBjzYV8rsg3W0lm-Rz6JwNpKBk2RiTfDA/viewform?embedded=true" 
+            width="640" 
+            height="820" 
+            frameBorder="0"
+            title="Formularz kontaktowy"
+          >
+            Ładuję...
+          </iframe>
+        )}
       </div>
     </Layout>
   );
