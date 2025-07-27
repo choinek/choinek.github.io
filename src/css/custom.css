@@ -56,6 +56,82 @@
 
 /** Contact page */
 
+.contact-page {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  max-width: 100%;
+}
+
+.contact-page .card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-page .card__header {
+  text-align: center;
+  padding: 20px;
+}
+
+.contact-page .avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.contact-page .avatar__photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.contact-page .avatar__photo:hover {
+  transform: scale(1.05);
+}
+
+.contact-page .avatar__intro {
+  text-align: center;
+}
+
+.contact-page .avatar__name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--ifm-color-primary);
+}
+
+.contact-page .avatar__subtitle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.contact-page .avatar__subtitle a {
+  color: var(--ifm-color-content-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-page .avatar__subtitle a:hover {
+  color: var(--ifm-color-primary);
+}
+
+.contact-page iframe {
+  width: 100%;
+  max-width: 640px;
+  height: 820px;
+  border: none;
+  border-radius: 8px;
+  margin: 20px auto;
+  display: block;
+}
+
 .contact-page input {
   border-color: var(--ifm-color-content-secondary);
   border-radius: var(--ifm-global-radius);
@@ -75,6 +151,59 @@
   padding: .5rem;
   margin: 0.8rem;
   min-height: 300px
+}
+
+/* Responsive styles for mobile */
+@media screen and (max-width: 768px) {
+  .contact-page {
+    padding: 10px;
+  }
+  
+  .contact-page .card {
+    margin: 0;
+    border-radius: 8px;
+  }
+  
+  .contact-page .card__header {
+    padding: 15px;
+  }
+  
+  .contact-page .avatar__photo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .contact-page .avatar__name {
+    font-size: 1.3rem;
+  }
+  
+  .contact-page .avatar__subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .contact-page iframe {
+    height: 600px;
+    margin: 15px auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contact-page .avatar__photo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .contact-page .avatar__name {
+    font-size: 1.2rem;
+  }
+  
+  .contact-page .avatar__subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .contact-page iframe {
+    height: 500px;
+  }
 }
 
 /** Header */
