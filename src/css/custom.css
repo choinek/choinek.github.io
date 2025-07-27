@@ -58,15 +58,19 @@
 
 .contact-page {
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: flex-start;
   padding: 20px;
   max-width: 100%;
+  gap: 20px;
 }
 
 .contact-page .card {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 300px;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .contact-page .card__header {
@@ -124,12 +128,12 @@
 
 .contact-page iframe {
   width: 100%;
-  max-width: 640px;
   height: 820px;
   border: none;
   border-radius: 8px;
-  margin: 20px auto;
+  margin: 0;
   display: block;
+  flex: 1;
 }
 
 .contact-page input {
@@ -156,10 +160,14 @@
 /* Responsive styles for mobile */
 @media screen and (max-width: 768px) {
   .contact-page {
+    flex-direction: column;
+    align-items: center;
     padding: 10px;
+    gap: 15px;
   }
   
   .contact-page .card {
+    max-width: 600px;
     margin: 0;
     border-radius: 8px;
   }
@@ -183,7 +191,8 @@
   
   .contact-page iframe {
     height: 600px;
-    margin: 15px auto;
+    margin: 0;
+    max-width: 100%;
   }
 }
 
