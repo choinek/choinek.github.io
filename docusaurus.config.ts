@@ -90,7 +90,7 @@ const config: Config = {
         '🇵🇱 Jeżeli otrzymałeś ode mnie link, to oznacza dokładnie tyle, że chciałem się nim z Tobą podzielić. Nie ma tu ukrytego drugiego dna. ',
       backgroundColor: '#fafbfc',
       textColor: '#091E42',
-      isCloseable: false,
+      isCloseable: true,
     },
     mermaid: {
       theme: {light: 'dark', dark: 'dark'},
