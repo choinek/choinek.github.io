@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft - System Punktowy</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(90deg, #8B4513, #D2691E);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.points-summary {
+    background: white;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    border-bottom: 3px solid #ddd;
+}
+
+.player-points {
+    text-align: center;
+    padding: 15px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1.3em;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.harry-points {
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    border: 3px solid #2196F3;
+}
+
+.nati-points {
+    background: linear-gradient(135deg, #FCE4EC, #F8BBD9);
+    border: 3px solid #E91E63;
+}
+
+.shared-points {
+    background: linear-gradient(135deg, #E8F5E8, #C8E6C9);
+    border: 3px solid #4CAF50;
+}
+
+.main-content {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.projects-list {
+    flex: 1;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.project-card {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.project-card:hover {
+    border-color: #4CAF50;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.project-card.selected {
+    border-color: #2E7D32;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+}
+
+.project-header {
+    padding: 15px;
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-header.medium {
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+}
+
+.project-header.hard {
+    background: linear-gradient(135deg, #FCE4EC, #F8BBD9);
+}
+
+.project-header.mega {
+    background: linear-gradient(135deg, #1B5E20, #2E7D32);
+    color: white;
+}
+
+.project-name {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.project-total {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.project-header.mega .project-total {
+    background: #FFD700;
+    color: #1B5E20;
+}
+
+.project-details {
+    flex: 1;
+    padding: 20px;
+    background: #f9f9f9;
+}
+
+.detail-header {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2E7D32;
+}
+
+.requirements-list {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.requirement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin: 8px 0;
+    background: white;
+    border-radius: 10px;
+    border-left: 4px solid #4CAF50;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.requirement:hover {
+    background: #f0f8f0;
+}
+
+.requirement.completed {
+    background: #E8F5E8;
+    opacity: 0.8;
+}
+
+.requirement-text {
+    flex: 1;
+}
+
+.requirement-points {
+    background: #FF9800;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.requirement-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.requirement-checkbox.checked {
+    background: #4CAF50;
+    color: white;
+}
+
+.total-earned {
+    background: #2E7D32;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.category-header {
+    background: #2E7D32;
+    color: white;
+    padding: 10px 15px;
+    margin: 20px 0 10px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.age-indicator {
+    background: #FF5722;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.age-harry {
+    background: #2196F3;
+    color: white;
+}
+
+.age-anastazja {
+    background: #E91E63;
+    color: white;
+}
+
+.age-both {
+    background: #4CAF50;
+    color: white;
+}
+
+.confirm-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+
+.confirm-button:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+.confirm-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.confirmed-points {
+    color: #4CAF50 !important;
+}
+
+.pending-points {
+    color: #FF9800 !important;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    🏗️ MINECRAFT - SYSTEM PUNKTOWY 🏗️
+</div>
+
+<div class="points-summary">
+    <div class="player-points harry-points">
+        <div>🧒 HARRY</div>
+        <div id="harry-total">0 punktów</div>
+    </div>
+    <div class="player-points nati-points">
+        <div>👧 NATI</div>
+        <div id="nati-total">0 punktów</div>
+    </div>
+    <div class="player-points shared-points">
+        <div>👫 WSPÓLNIE</div>
+        <div id="shared-total">0 punktów</div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="projects-list" id="projects-list"></div>
+    
+    <div class="project-details">
+        <div class="detail-header">🏠 Wybierz projekt z listy</div>
+        <p style="text-align: center; color: #666; font-size: 1.2em; margin-top: 50px;">
+            Kliknij na dowolny projekt po lewej stronie, aby zobaczyć szczegółowe wymagania i system punktów.
+        </p>
+    </div>
+</div>
+</div>
+
+<script>
+// Dane projektów z wymaganiami
+const projectsData = {
+    'domek_na_drzewie': {
+        name: '🏠 Domek na drzewie',
+        player: 'harry',
+        requirements: [
+            { text: 'Zbudować drzewo min. 8 bloków wysokości', points: 3 },
+            { text: 'Platforma z drewna min. 4 bloki szerokości', points: 3 },
+            { text: 'Ściany domku (dowolny materiał)', points: 4 },
+            { text: 'Dach (schody lub płyty)', points: 2 },
+            { text: 'Drabina lub schody na górę', points: 2 },
+            { text: 'Okno (szkło lub kratka)', points: 1 }
+        ]
+    },
+    'farma_zwierzat': {
+        name: '🐄 Farma zwierząt',
+        player: 'harry',
+        requirements: [
+            { text: 'Ogrodzenie min. 6 bloków każda strona', points: 3 },
+            { text: 'Bramka drewniana', points: 2 },
+            { text: 'Przynajmniej 3 zwierzęta tego samego typu', points: 3 },
+            { text: 'Koryto/miska na wodę', points: 2 },
+            { text: 'Budka/schronienie dla zwierząt', points: 2 }
+        ]
+    },
+    'fontanna': {
+        name: '⛲ Fontanna',
+        player: 'harry',
+        requirements: [
+            { text: 'Podstawa z kamienia/cegły min. 5 bloków szerokości', points: 3 },
+            { text: 'Strumień wody spływający w dół', points: 3 },
+            { text: 'Użycie kolorowego szkła', points: 2 },
+            { text: 'Dekoracje wokół (kwiaty/trawa)', points: 2 }
+        ]
+    },
+    'most_nad_rzeka': {
+        name: '🌉 Most nad rzeką',
+        player: 'harry',
+        requirements: [
+            { text: 'Przeprawa przez wodę min. 8 bloków długości', points: 3 },
+            { text: 'Balustrady z obu stron', points: 2 },
+            { text: 'Solidne filary w wodzie', points: 2 },
+            { text: 'Ścieżka na most (schody)', points: 1 }
+        ]
+    },
+    'wieza_straznicza': {
+        name: '🗼 Wieża strażnicza',
+        player: 'shared',
+        requirements: [
+            { text: 'Wieża min. 12 bloków wysokości', points: 4 },
+            { text: 'Okna strażnicze (min. 4)', points: 3 },
+            { text: 'Schody wewnętrzne na szczyt', points: 3 },
+            { text: 'Platforma obserwacyjna na górze', points: 2 },
+            { text: 'Drzwi wejściowe', points: 1 },
+            { text: 'Flaga lub pochodnia na szczycie', points: 1 }
+        ]
+    },
+    'maly_sklep': {
+        name: '🏪 Mały sklep',
+        player: 'shared',
+        requirements: [
+            { text: 'Budynek min. 5 bloków szerokości', points: 3 },
+            { text: 'Lada sklepowa z płyt', points: 2 },
+            { text: 'Półki z towarem (skrzynie)', points: 2 },
+            { text: 'Witryna sklepowa (szkło)', points: 2 },
+            { text: 'Szyld z nazwą sklepu', points: 1 },
+            { text: 'Oświetlenie wnętrza', points: 1 }
+        ]
+    },
+    'karuzela': {
+        name: '🎠 Karuzela',
+        player: 'nati',
+        requirements: [
+            { text: 'Okrągła podstawa min. 7 bloków średnicy', points: 4 },
+            { text: 'Centralny maszt z drewna', points: 3 },
+            { text: 'Min. 4 konie/siodełka do jazdy', points: 4 },
+            { text: 'Kolorowy dach nad karuzelą', points: 3 },
+            { text: 'Dekoracje (flagi, lampy)', points: 2 }
+        ]
+    },
+    'zamek_z_wiezami': {
+        name: '🏰 Zamek z wieżami',
+        player: 'nati',
+        requirements: [
+            { text: 'Główny budynek min. 8 bloków szerokości', points: 5 },
+            { text: 'Przynajmniej 2 wieże min. 10 bloków wysokości', points: 6 },
+            { text: 'Spiralne schody w wieżach', points: 4 },
+            { text: 'Komnaty z wnętrzem (łóżka, stoły)', points: 4 },
+            { text: 'Brama wjazdowa z drzwiami', points: 3 },
+            { text: 'Flagi na wieżach', points: 2 },
+            { text: 'Dziedziniec wewnętrzny', points: 1 }
+        ]
+    },
+    'podziemna_baza': {
+        name: '🕳️ Podziemna baza',
+        player: 'nati',
+        requirements: [
+            { text: 'Wykopanie min. 3 pokoi różnej wielkości', points: 5 },
+            { text: 'Tunele łączące pokoje', points: 4 },
+            { text: 'Ukryte wejście (mechanizm redstone)', points: 6 },
+            { text: 'Oświetlenie w każdym pomieszczeniu', points: 3 },
+            { text: 'Magazyn/skład', points: 2 },
+            { text: 'Pokój dowodzenia z mapami', points: 2 }
+        ]
+    },
+    'szkola': {
+        name: '🏫 Szkoła',
+        player: 'nati',
+        requirements: [
+            { text: 'Główny budynek min. 10 bloków długości', points: 5 },
+            { text: 'Min. 3 sale lekcyjne z ławkami', points: 5 },
+            { text: 'Korytarz łączący sale', points: 3 },
+            { text: 'Biblioteka z półkami (lecterni)', points: 3 },
+            { text: 'Pokój nauczycielski', points: 2 },
+            { text: 'Plac zabaw przed szkołą', points: 2 }
+        ]
+    },
+    'teatr': {
+        name: '🎭 Teatr',
+        player: 'nati',
+        requirements: [
+            { text: 'Scena min. 6 bloków szerokości', points: 4 },
+            { text: 'Widownia z rzędami siedzeń (schody)', points: 5 },
+            { text: 'Kurtyna na scenie (wełna)', points: 3 },
+            { text: 'Oświetlenie sceny', points: 3 },
+            { text: 'Foyer/hol wejściowy', points: 2 },
+            { text: 'Dekoracje sceniczne', points: 1 }
+        ]
+    },
+    'statek_piracki': {
+        name: '🏴‍☠️ Statek piracki',
+        player: 'nati',
+        requirements: [
+            { text: 'Kadłub z drewna min. 15 bloków długości', points: 8 },
+            { text: 'Przynajmniej 2 maszty z żaglami', points: 6 },
+            { text: 'Działa na pokładzie (min. 4)', points: 5 },
+            { text: 'Kajuta kapitana z wyposażeniem', points: 4 },
+            { text: 'Flaga piracka na maszcie', points: 3 },
+            { text: 'Pokład z deskami i kratkami', points: 2 },
+            { text: 'Kotwica i łańcuch', points: 2 }
+        ]
+    },
+    'wulkan': {
+        name: '🌋 Wulkan',
+        player: 'nati',
+        requirements: [
+            { text: 'Góra stożkowa min. 15 bloków wysokości', points: 7 },
+            { text: 'Krater na szczycie z lawą', points: 6 },
+            { text: 'Strumienie lawy spływające w dół', points: 5 },
+            { text: 'Jaskinie lawowe wewnątrz', points: 4 },
+            { text: 'Dym/ogień na szczycie', points: 3 },
+            { text: 'Obszar zniszczony przez lawę', points: 2 },
+            { text: 'Obsydian wokół lawy', points: 1 }
+        ]
+    },
+    'stacja_kosmiczna': {
+        name: '🚀 Stacja kosmiczna',
+        player: 'nati',
+        requirements: [
+            { text: 'Główny moduł min. 12 bloków średnicy', points: 8 },
+            { text: 'Min. 3 dodatkowe moduły połączone', points: 7 },
+            { text: 'Panele słoneczne (żółte/niebieskie bloki)', points: 5 },
+            { text: 'Laboratoria z wyposażeniem', points: 5 },
+            { text: 'Hangar z rakietą/promem', points: 4 },
+            { text: 'Anteny komunikacyjne', points: 3 },
+            { text: 'Iluminatory (szkło)', points: 2 },
+            { text: 'System dokowania', points: 1 }
+        ]
+    },
+    'zamek_krolewski': {
+        name: '🏰 Zamek królewski',
+        player: 'shared',
+        requirements: [
+            { text: 'Mury obronne dookoła min. 4 bloki wysokości', points: 10 },
+            { text: 'Brama główna z drewna i żelaza', points: 5 },
+            { text: 'Przynajmniej 4 wieże min. 12 bloków wysokości', points: 12 },
+            { text: 'Pałac królewski z tronem', points: 8 },
+            { text: 'Koszary dla straży', points: 5 },
+            { text: 'Stajnie z końmi', points: 4 },
+            { text: 'Ogrody królewskie', points: 3 },
+            { text: 'Fosa z wodą wokół zamku', points: 3 }
+        ]
+    },
+    'wielkie_miasto': {
+        name: '🏙️ Wielkie miasto',
+        player: 'shared',
+        requirements: [
+            { text: 'Min. 10 różnych budynków', points: 15 },
+            { text: 'Ulice z kostki brukowej', points: 8 },
+            { text: 'Ratusz z wieżą zegarową', points: 10 },
+            { text: 'Rynek z fontanną', points: 6 },
+            { text: 'Dzielnica mieszkalna', points: 5 },
+            { text: 'Dzielnica handlowa ze sklepami', points: 5 },
+            { text: 'Park miejski z drzewami', points: 4 },
+            { text: 'System dróg łączących dzielnice', points: 4 },
+            { text: 'Latarnie uliczne', points: 3 }
+        ]
+    }
+};
+
+function getProjectDifficultyClass(projectId) {
+    // dopasowanie klas nagłówka do skali trudności na podstawie sumy punktów
+    const total = projectsData[projectId].requirements.reduce((s, r) => s + r.points, 0);
+    if (total >= 50) return 'mega';
+    if (total >= 28) return 'hard';
+    if (total >= 16) return 'medium';
+    return '';
+}
+
+function getPlayerBadgeClass(player) {
+    if (player === 'harry') return 'age-harry';
+    if (player === 'nati') return 'age-anastazja';
+    return 'age-both';
+}
+
+function renderProjectsList() {
+    const listEl = document.getElementById('projects-list');
+    if (!listEl) return;
+
+    // render zwykłych projektów i mega nagłówka grupy
+    const entries = Object.entries(projectsData);
+    const htmlParts = [];
+
+    entries.forEach(([id, proj]) => {
+        const totalMax = proj.requirements.reduce((s, r) => s + r.points, 0);
+        const headerClass = getProjectDifficultyClass(id);
+        const badgeClass = getPlayerBadgeClass(proj.player);
+
+        // dodaj separator kategorii przed mega projektami (pierwszy mega)
+        if (headerClass === 'mega' && !htmlParts.some(p => p.includes('category-header'))) {
+            htmlParts.push(`<div class="category-header">👫 WSPÓLNE MEGA PROJEKTY</div>`);
+        }
+
+        htmlParts.push(`
+        <div class="project-card" onclick="selectProject('${id}')">
+            <div class="project-header ${headerClass}">
+                <div class="project-name">${proj.name} <span class="age-indicator ${badgeClass}">${proj.player === 'shared' ? 'Wspólnie' : (proj.player === 'harry' ? 'Harry' : 'Nati')}</span></div>
+                <div class="project-total">MAX ${totalMax} pkt</div>
+            </div>
+        </div>`);
+    });
+
+    listEl.innerHTML = htmlParts.join('\n');
+}
+
+// Zapisane stany
+let completedRequirements = JSON.parse(localStorage.getItem('completedRequirements') || '{}');
+let confirmedProjects = JSON.parse(localStorage.getItem('confirmedProjects') || '{}');
+let playerPoints = JSON.parse(localStorage.getItem('playerPoints') || '{"harry": 0, "nati": 0, "shared": 0}');
+
+function updatePointsDisplay() {
+    document.getElementById('harry-total').textContent = `${playerPoints.harry} punktów`;
+    document.getElementById('nati-total').textContent = `${playerPoints.nati} punktów`;
+    document.getElementById('shared-total').textContent = `${playerPoints.shared} punktów`;
+}
+
+function selectProject(projectId) {
+    // Usuń zaznaczenie z poprzednich
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    
+    // Zaznacz aktualny
+    event.currentTarget.classList.add('selected');
+    
+    // Pokaż szczegóły
+    showProjectDetails(projectId);
+}
+
+function showProjectDetails(projectId) {
+    const project = projectsData[projectId];
+    const detailsDiv = document.querySelector('.project-details');
+    
+    let totalEarned = 0;
+    const projectCompleted = completedRequirements[projectId] || {};
+    const isConfirmed = confirmedProjects[projectId] || false;
+    
+    let requirementsHtml = project.requirements.map((req, index) => {
+        const isCompleted = projectCompleted[index] || false;
+        if (isCompleted) totalEarned += req.points;
+        
+        const pointsClass = isConfirmed ? 'confirmed-points' : 'pending-points';
+        
+        return `
+            <li class="requirement ${isCompleted ? 'completed' : ''}" onclick="toggleRequirement('${projectId}', ${index})">
+                <div class="requirement-text">${req.text}</div>
+                <div class="requirement-points ${pointsClass}">${req.points} pkt</div>
+                <div class="requirement-checkbox ${isCompleted ? 'checked' : ''}">${isCompleted ? '✓' : ''}</div>
+            </li>
+        `;
+    }).join('');
+    
+    const maxPoints = project.requirements.reduce((sum, req) => sum + req.points, 0);
+    const canConfirm = totalEarned > 0 && !isConfirmed;
+    
+    detailsDiv.innerHTML = `
+        <div class="detail-header">${project.name}</div>
+        <ul class="requirements-list">
+            ${requirementsHtml}
+        </ul>
+        <div class="total-earned">
+            Zdobyte punkty: ${totalEarned} / ${maxPoints}
+            ${isConfirmed ? ' ✅ ZATWIERDZONE' : ' ⏳ DO ZATWIERDZENIA'}
+        </div>
+        <button class="confirm-button" onclick="confirmProject('${projectId}')" ${!canConfirm ? 'disabled' : ''}>
+            ${isConfirmed ? '✅ Projekt zatwierdzony' : '🎯 Zatwierdź projekt'}
+        </button>
+    `;
+}
+
+function toggleRequirement(projectId, requirementIndex) {
+    const isConfirmed = confirmedProjects[projectId] || false;
+    if (isConfirmed) return; // Nie można zmieniać po zatwierdzeniu
+    
+    if (!completedRequirements[projectId]) {
+        completedRequirements[projectId] = {};
+    }
+    
+    completedRequirements[projectId][requirementIndex] = !completedRequirements[projectId][requirementIndex];
+    
+    // Zapisz do localStorage
+    localStorage.setItem('completedRequirements', JSON.stringify(completedRequirements));
+    
+    // Odśwież widok
+    showProjectDetails(projectId);
+}
+
+function confirmProject(projectId) {
+    const project = projectsData[projectId];
+    const projectCompleted = completedRequirements[projectId] || {};
+    
+    // Oblicz zdobyte punkty
+    let earnedPoints = 0;
+    project.requirements.forEach((req, index) => {
+        if (projectCompleted[index]) {
+            earnedPoints += req.points;
+        }
+    });
+    
+    if (earnedPoints === 0) return;
+    
+    // Dodaj punkty do odpowiedniego gracza
+    if (project.player === 'harry') {
+        playerPoints.harry += earnedPoints;
+    } else if (project.player === 'nati') {
+        playerPoints.nati += earnedPoints;
+    } else if (project.player === 'shared') {
+        playerPoints.shared += earnedPoints;
+    }
+    
+    // Oznacz jako zatwierdzony
+    confirmedProjects[projectId] = true;
+    
+    // Zapisz do localStorage
+    localStorage.setItem('playerPoints', JSON.stringify(playerPoints));
+    localStorage.setItem('confirmedProjects', JSON.stringify(confirmedProjects));
+    
+    // Odśwież widoki
+    updatePointsDisplay();
+    showProjectDetails(projectId);
+}
+
+// Wczytaj stan przy ładowaniu
+window.onload = function() {
+    updatePointsDisplay();
+    renderProjectsList();
+}
+</script>
+</body>
+</html>
