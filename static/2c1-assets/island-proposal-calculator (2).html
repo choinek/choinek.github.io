@@ -1,0 +1,422 @@
+<html lang="pl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warunki Współpracy - Kalkulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        
+        .left-panel {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .right-panel {
+            padding: 40px;
+            background: white;
+            border-left: 1px solid #e9ecef;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .item-value {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.1rem;
+        }
+        
+        .item-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .calculation-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .calculation-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .total-box {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .total-box h4 {
+            margin-bottom: 10px;
+        }
+        
+        .total-amount {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .risk-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .risk-section h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .context-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .context-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .option-box {
+            background: #f1f8e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .option-box h5 {
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Warunki Współpracy</h1>
+            <p>Fakty i kalkulacje</p>
+        </div>
+
+<div>
+UWAGA - to tylko początek, plusów współpracy będzie więcej ale też ja prowadzę mentoringi itp. ale woalłbym się na tym skupić i doprecyzować jak będzie baza pokryta.
+</div>
+        
+        <div class="content">
+            <div class="left-panel">
+                <div class="context-box">
+                    <h4>📊 Kontekst finansowy</h4>
+                    <p><strong>Obecny dochód:</strong> 48,000 zł netto/miesiąc (tyle miałem obecnie + urlopy)</p>
+                    <p><strong>Obecnie: Stawka konsultacyjna:</strong> 400 zł/h</p>
+                    <p><strong>Stawka projektowa:</strong> 300 zł/h</p>
+                    <p><strong>Stawka bizdev:</strong> 250 zł/h</p>
+                </div>
+                
+                <div class="section">
+                    <h3>🏠 Wymagania mieszkaniowe</h3>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Pokój w 15tce</span>
+                            <span class="item-value">7,600 zł/msc</span>
+                        </div>
+                        <div class="item-description">
+                            Dla Adriana + asystentki
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>🍽️ Wyżywienie</h3>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Śniadania</span>
+                            <span class="item-value">600 zł/msc</span>
+                        </div>
+                        <div class="item-description">
+                            Adrian + asystentka (2 osoby)
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Obiady</span>
+                            <span class="item-value">1,600 zł/msc</span>
+                        </div>
+                        <div class="item-description">
+                            Zupa + drugie danie dla 2 osób
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>👩&zwj;💼 Asystentka - opcje</h3>
+                    
+                    <div class="option-box">
+                        <h5>Opcja 1: Stała praca</h5>
+                        <div class="calculation-row">
+                            <span>40 zł/h × 80h/msc</span>
+                            <span><strong>3,200 zł</strong></span>
+                        </div>
+                        <small>Gwarantowane 80h miesięcznie</small>
+                    </div>
+                    
+                    <div class="option-box">
+                        <h5>Opcja 2: Elastyczna</h5>
+                        <div class="calculation-row">
+                            <span>50 zł/h × zmienne godziny</span>
+                            <span><strong>Według potrzeb</strong></span>
+                        </div>
+                        <small>Model "cloud" - dostępność on-demand</small>
+                    </div>
+                </div>
+                
+                <div class="risk-section">
+                    <h4>🛡️ Bezpieczniki</h4>
+                    <div class="calculation-row">
+                        <span>Miesiąc 1:</span>
+                        <span>Adrian oddaje 5,000 zł</span>
+                    </div>
+                    <div class="calculation-row">
+                        <span>Miesiąc 2:</span>
+                        <span>Adrian oddaje 3,500 zł</span>
+                    </div>
+                    <div class="calculation-row">
+                        <span>Miesiąc 3:</span>
+                        <span>Adrian oddaje 2,000 zł</span>
+                    </div>
+
+<div class="calculation-row">
+
+                        <span>Później renegocjacja: <br>
+                         Wyspa pokrywa Adrianowi i asystentce kolacje oraz dojdą specjalne warunki związane z inwestowaniem - zupełnie niezależny temat od bieżącego; uwaga - kilka asów w rękawie zachowam sobie na "sprzedanie" po 3 miesiącu (będę je opisywać)</span>
+                    </div>
+                    <p><small>Zwrot części kosztów jeśli współpraca nie będzie działała</small></p>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="section">
+                    <h3>⚙️ Zakres pracy</h3>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Konsultacje IT (Univio)</span>
+                            <span class="item-value">70-90h/msc</span>
+                        </div>
+                        <div class="item-description">
+                            Może wymagać planowania tygodnia w godzinach 8:00-16:00. Możliwe wyjazdy do klientów.
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Praca dla wyspy</span>
+                            <span class="item-value">160h+ minimum</span>
+                        </div>
+                        <div class="item-description">
+                            W praktyce: <span class="highlight">prawie cały czas obecny na wyspie</span> - poza wyjazdami do klientów z Univio (zaplanowane minimum tydzień wcześniej). Wsparcie techniczne (sauny, naprawy), kuchnia, recepcja. <strong>Jedna rola na raz</strong> (wymóg ADHD). Jest asystentka jak coś na zastępstwo :P
+                            <br><br>
+                            <strong>Uwaga:</strong> Ok. 6-8 dni miesięcznie będą u mnie dzieci - ustalane z miesięcznym wyprzedzeniem, żeby każdy czuł się fair. Jak dzieci są to dalej pracuję, dzieci pomagają, ale wiadomo jak to jest ;-)
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Rozwój organizacyjny</span>
+                            <span class="item-value">Ongoing</span>
+                        </div>
+                        <div class="item-description">
+                            Warsztaty, kultura feedbacku, budowanie zespołu, rozwiązywanie problemów recepcji, raporty miesięczne.
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Optymalizacja P&amp;L</span>
+                            <span class="item-value">Analiza ROI</span>
+                        </div>
+                        <div class="item-description">
+                            Szczegółowa analiza zyskowności, optymalizacja przepływów pracy.
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="item-header">
+                            <span class="item-title">Dokumentacja</span>
+                            <span class="item-value">Systematyczna</span>
+                        </div>
+                        <div class="item-description">
+                            Tworzenie procedur, procesów. Transparentność, szczery feedback, pytania o oczywiste rzeczy → dokumentacja dla zespołu.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>💰 Kalkulacja kosztów (tego NIE PŁACICIE)</h3>
+                    
+                    <div class="calculation-row">
+                        <span>Pokój 15tka:</span>
+                        <span>7,600 zł</span>
+                    </div>
+                    <div class="calculation-row">
+                        <span>Śniadania (2 osoby):</span>
+                        <span>600 zł</span>
+                    </div>
+                    <div class="calculation-row">
+                        <span>Obiady (2 osoby):</span>
+                        <span>1,600 zł</span>
+                    </div>
+                    <div class="calculation-row">
+                        <span><strong>RAZEM podstawowy:</strong></span>
+                        <span><strong>9,800 zł</strong></span>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>➕ Opcjonalne dodatki (to płacicie jak będzie potrzeba)</h3>
+                    
+                    <div class="calculation-row">
+                        <span>Asystentka (opcja 1):</span>
+                        <span>+3,200 zł</span>
+                    </div>
+                    <div class="calculation-row">
+                        <span>Asystentka (opcja 2):</span>
+                        <span>+50 zł/h</span>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>📈 Charakterystyka</h3>
+                    
+                    <div class="item">
+                        <div class="item-title">Autyzm</div>
+                        <div class="item-description">
+                            Perfekcyjność, szczerość, transparentność. Pytanie o oczywiste rzeczy = lepsze procesy dla wszystkich.
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="item-title">ADHD</div>
+                        <div class="item-description">
+                            Wymaga jasno określonej roli w danym momencie. Wysoka wydajność przy właściwej organizacji.
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="item-title">Zaangażowanie</div>
+                        <div class="item-description">
+                            Chce żyć wyspą. Brak standardowych godzin pracy - dostępność według potrzeb.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>💼 Dodatkowe informacje</h3>
+                    
+                    <div class="item">
+                        <div class="item-title">Inwestycja w wyspę</div>
+                        <div class="item-description">
+                            Jestem zainteresowany zainwestowaniem w wyspę, ale to zupełnie niezwiązany z tymi warunkami proces. Muszę tu pożyć, poczuć i pomyśleć jak chciałbym to zrobić i jakie są możliwości.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body></html>

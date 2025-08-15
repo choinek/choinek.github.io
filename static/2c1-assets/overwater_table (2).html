@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekskluzywne domki na wodzie - interaktywny przewodnik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .controls {
+            background: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .control-group label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        select, input {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #2196F3;
+        }
+        
+        .table-container {
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        
+        th:hover {
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+        }
+        
+        th.sortable::after {
+            content: ' ⇅';
+            opacity: 0.5;
+            margin-left: 5px;
+        }
+        
+        th.sort-asc::after {
+            content: ' ↑';
+            opacity: 1;
+        }
+        
+        th.sort-desc::after {
+            content: ' ↓';
+            opacity: 1;
+        }
+        
+        td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+            cursor: pointer;
+        }
+        
+        .country {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #1976d2;
+        }
+        
+        .access-score {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stars {
+            color: #FFD700;
+            font-size: 1.1em;
+        }
+        
+        .safety-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .safety-high { 
+            background-color: #4CAF50; 
+            color: white; 
+        }
+        
+        .safety-medium { 
+            background-color: #FF9800; 
+            color: white; 
+        }
+        
+        .safety-low { 
+            background-color: #f44336; 
+            color: white; 
+        }
+        
+        .cost {
+            font-weight: bold;
+            color: #e91e63;
+            font-size: 1.1em;
+        }
+        
+        .info-button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background-color 0.3s;
+            margin-top: 5px;
+        }
+        
+        .info-button:hover {
+            background: #1976D2;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close:hover {
+            opacity: 0.7;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .attraction-category {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .attraction-category h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .attraction-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .attraction-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .attraction-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .attraction-list li::before {
+            content: '🏝️ ';
+            margin-right: 8px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .weather-calendar {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 5px;
+            margin: 15px 0;
+            font-size: 0.8em;
+        }
+        
+        .month-cell {
+            padding: 8px 4px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 2px solid transparent;
+        }
+        
+        .month-best {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .month-ok {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .month-avoid {
+            background: #f44336;
+            color: white;
+        }
+        
+        .weather-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .weather-detail {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #2196F3;
+        }
+        
+        .weather-detail h4 {
+            margin: 0 0 5px 0;
+            color: #1976d2;
+        }
+        
+        .weather-legend {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .control-group {
+                justify-content: space-between;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.9em;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏖️ Ekskluzywne domki na wodzie</h1>
+            <p>Interaktywny przewodnik po najluksuriowszych miejscach na świecie</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="duration">Długość pobytu:</label>
+                <select id="duration">
+                    <option value="7">7 dni</option>
+                    <option value="14">14 dni</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="search">Szukaj:</label>
+                <input type="text" id="search" placeholder="Wpisz nazwę kraju...">
+            </div>
+            
+            <div class="control-group">
+                <label for="safetyFilter">Bezpieczeństwo:</label>
+                <select id="safetyFilter">
+                    <option value="">Wszystkie</option>
+                    <option value="wysokie">Wysokie</option>
+                    <option value="średnie">Średnie</option>
+                    <option value="niskie">Niskie</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="destinationTable">
+                <thead>
+                    <tr>
+                        <th class="sortable" data-column="country">🌍 Kraj/Region</th>
+                        <th class="sortable" data-column="access">✈️ Dostęp</th>
+                        <th class="sortable" data-column="safety">🛡️ Bezpieczeństwo</th>
+                        <th class="sortable" data-column="cost">💰 Koszt (USD)</th>
+                        <th>🌤️ Pogoda</th>
+                        <th>📋 Informacje</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Dane będą wstawione przez JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Zawartość będzie wstawiona przez JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const destinations = [
+            {
+                country: "🇲🇻 Malediwy",
+                countryName: "Malediwy",
+                access: 4,
+                accessText: "14-17h (1-2 przesiadki)",
+                accessDetails: "Emirates, Turkish Airlines, Qatar Airways",
+                safety: "wysokie",
+                safetyScore: 5,
+                safetyText: "Bardzo bezpieczne - stabilny rząd, brak konfliktów",
+                cost7: 14000,
+                cost14: 28000,
+                costRange7: "$7,000-21,000",
+                costRange14: "$14,000-42,000",
+                weather: {
+                    bestMonths: [11, 12, 1, 2, 3, 4],
+                    okMonths: [5, 10],
+                    avoidMonths: [6, 7, 8, 9],
+                    temperatures: {
+                        high: "29-31°C",
+                        low: "25-27°C"
+                    },
+                    rainfall: {
+                        dry: "Nov-Apr: 5-15%",
+                        wet: "May-Oct: 60-80%"
+                    },
+                    notes: "Monsun maj-październik"
+                },
+                attractions: {
+                    "Atrakcje naturalne": [
+                        "Nurkowanie z rekinem wielorybu",
+                        "Snorkeling na rafach koralowych",
+                        "Obserwacja delfinów",
+                        "Bioluminescencyjny plankton",
+                        "Piaszczyste plaże z białym piaskiem"
+                    ],
+                    "Aktywności wodne": [
+                        "Głębowodne wędkarstwo",
+                        "Surfing (niektóre atole)",
+                        "Windsurfing i kitesurfing",
+                        "Rejsy sunset cruise",
+                        "Paddleboarding"
+                    ],
+                    "Kultura i zwiedzanie": [
+                        "Malé - stolica (lokalne targi)",
+                        "Wizyty w wiosce rybaków",
+                        "Tradycyjna muzyka i taniec",
+                        "Lokalne rękodzieło",
+                        "Meczety i zabytki islamu"
+                    ],
+                    "Wellness i relaks": [
+                        "Spa treatments nad oceanem",
+                        "Joga na plaży o wschodzie słońca",
+                        "Masaże w overwater pavilions",
+                        "Meditation gardens",
+                        "Luksusowe spa resorts"
+                    ]
+                }
+            },
+            {
+                country: "🇦🇼 Aruba",
+                countryName: "Aruba",
+                access: 3,
+                accessText: "12-16h (1-2 przesiadki)",
+                accessDetails: "KLM, American Airlines",
+                safety: "wysokie",
+                safetyScore: 5,
+                safetyText: "Bardzo bezpieczne - Królestwo Niderlandów",
+                cost7: 18200,
+                cost14: 36400,
+                costRange7: "$8,400-28,000",
+                costRange14: "$16,800-56,000",
+                weather: {
+                    bestMonths: [1, 2, 3, 4, 11, 12],
+                    okMonths: [5, 10],
+                    avoidMonths: [6, 7, 8, 9],
+                    temperatures: {
+                        high: "30-32°C",
+                        low: "26-28°C"
+                    },
+                    rainfall: {
+                        dry: "Jan-Apr: 5-10%",
+                        wet: "Sep-Dec: 15-25%"
+                    },
+                    notes: "Bardzo sucho, stały wiatr"
+                },
+                attractions: {
+                    "Atrakcje naturalne": [
+                        "Eagle Beach - jedna z najpiękniejszych plaż świata",
+                        "Natural Pool (Conchi) - basen naturalny",
+                        "Butterfly Farm - farma motyli",
+                        "Ostrich Farm - farma strusi",
+                        "California Lighthouse"
+                    ],
+                    "Aktywności": [
+                        "Windsurfing (stała capital świata)",
+                        "Kitesurfing",
+                        "Snorkeling i nurkowanie",
+                        "Deep sea fishing",
+                        "Kayaking przez mangrove"
+                    ],
+                    "Kultura": [
+                        "Oranjestad - kolorowa stolica",
+                        "Fort Zoutman - najstarszy budynek",
+                        "Archaeological Museum",
+                        "Local markets i shopping",
+                        "Casinos i nightlife"
+                    ],
+                    "Przygoda": [
+                        "ATV tours przez pustynię",
+                        "Rock climbing",
+                        "Horseback riding na plaży",
+                        "Sunset sailing",
+                        "Cave exploration"
+                    ]
+                }
+            },
+            {
+                country: "🇵🇫 Bora Bora",
+                countryName: "Bora Bora",
+                access: 2,
+                accessText: "18-24h (2-3 przesiadki)",
+                accessDetails: "Air France, United Airlines",
+                safety: "wysokie",
+                safetyScore: 5,
+                safetyText: "Bardzo bezpieczne - terytorium Francji",
+                cost7: 22750,
+                cost14: 45500,
+                costRange7: "$10,500-35,000",
+                costRange14: "$21,000-70,000",
+                weather: {
+                    bestMonths: [4, 5, 6, 7, 8, 9, 10],
+                    okMonths: [3, 11],
+                    avoidMonths: [12, 1, 2],
+                    temperatures: {
+                        high: "27-30°C",
+                        low: "24-26°C"
+                    },
+                    rainfall: {
+                        dry: "Apr-Oct: 10-20%",
+                        wet: "Nov-Mar: 40-60%"
+                    },
+                    notes: "Sezon suchy: kwiecień-październik"
+                },
+                attractions: {
+                    "Atrakcje naturalne": [
+                        "Mount Otemanu - wulkan 727m",
+                        "Laguna - najpiękniejsza na świecie",
+                        "Coral gardens - ogrody koralowe",
+                        "Ray i shark feeding",
+                        "Matira Beach"
+                    ],
+                    "Aktywności wodne": [
+                        "Lagoon tours",
+                        "Snorkeling w Crystal Clear lagunie",
+                        "Jet ski tours",
+                        "Parasailing",
+                        "Deep sea fishing"
+                    ],
+                    "Kultura polinezyjska": [
+                        "Tradycyjne tatoo",
+                        "Pokazy tańca tahitańskiego",
+                        "Lokalne rękodzieło - perły",
+                        "Traditional Tahitian cuisine",
+                        "Historie i legendy"
+                    ],
+                    "Przygoda": [
+                        "Helicopter tours",
+                        "4WD island tours",
+                        "Hiking trails",
+                        "Sunset champagne cruises",
+                        "Romantic beach picnics"
+                    ]
+                }
+            },
+            {
+                country: "🇹🇭 Tajlandia",
+                countryName: "Tajlandia",
+                access: 4,
+                accessText: "11-14h (1 przesiadka)",
+                accessDetails: "Thai Airways, Emirates, Qatar Airways",
+                safety: "średnie",
+                safetyScore: 3,
+                safetyText: "Względnie bezpieczne - stabilny kraj",
+                cost7: 7000,
+                cost14: 14000,
+                costRange7: "$3,500-10,500",
+                costRange14: "$7,000-21,000",
+                weather: {
+                    bestMonths: [2, 3, 4, 5, 6, 7, 8],
+                    okMonths: [1, 9],
+                    avoidMonths: [10, 11, 12],
+                    temperatures: {
+                        high: "30-33°C",
+                        low: "24-26°C"
+                    },
+                    rainfall: {
+                        dry: "May-Sep: 10-20%",
+                        wet: "Oct-Feb: 40-60%"
+                    },
+                    notes: "Monsun październik-luty"
+                },
+                weather: {
+                    bestMonths: [11, 12, 1, 2, 3],
+                    okMonths: [4, 10],
+                    avoidMonths: [5, 6, 7, 8, 9],
+                    temperatures: {
+                        high: "32-35°C",
+                        low: "24-26°C"
+                    },
+                    rainfall: {
+                        dry: "Nov-Mar: 5-15%",
+                        wet: "Apr-Oct: 50-70%"
+                    },
+                    notes: "Monsun maj-październik, bardzo gorąco"
+                },
+                attractions: {
+                    "Świątynie i kultura": [
+                        "Wat Phra Kaew - Świątynia Szmaragdowego Buddy",
+                        "Grand Palace Bangkok",
+                        "Floating markets",
+                        "Traditional Thai massage",
+                        "Buddhist monasteries"
+                    ],
+                    "Przyroda": [
+                        "Phi Phi Islands",
+                        "James Bond Island",
+                        "Elephant sanctuaries",
+                        "Tropical rainforest",
+                        "National parks"
+                    ],
+                    "Aktywności": [
+                        "Thai cooking classes",
+                        "Snorkeling i diving",
+                        "Longtail boat tours",
+                        "Kayaking przez mangrove",
+                        "Rock climbing w Krabi"
+                    ],
+                    "Miasta i plaże": [
+                        "Bangkok - temples i street food",
+                        "Phuket - nightlife i plaże",
+                        "Koh Samui - luxury resorts",
+                        "Chiang Mai - night bazaars",
+                        "River Kwai - historia II wojny"
+                    ]
+                }
+            },
+            {
+                country: "🇲🇽 Meksyk",
+                countryName: "Meksyk",
+                access: 3,
+                accessText: "14-18h (1-2 przesiadki)",
+                accessDetails: "Lufthansa, KLM, American Airlines",
+                safety: "średnie",
+                safetyScore: 3,
+                safetyText: "Względnie bezpieczne w resortach",
+                cost7: 15750,
+                cost14: 31500,
+                costRange7: "$7,000-24,500",
+                costRange14: "$14,000-49,000",
+                weather: {
+                    bestMonths: [11, 12, 1, 2, 3, 4],
+                    okMonths: [5, 10],
+                    avoidMonths: [6, 7, 8, 9],
+                    temperatures: {
+                        high: "28-32°C",
+                        low: "22-25°C"
+                    },
+                    rainfall: {
+                        dry: "Nov-Apr: 5-10%",
+                        wet: "May-Oct: 45-65%"
+                    },
+                    notes: "Huragany czerwiec-listopad"
+                },
+                attractions: {
+                    "Zabytki Majów": [
+                        "Chichen Itza - cud świata",
+                        "Tulum - ruiny nad oceanem",
+                        "Coba - piramidy w dżungli",
+                        "Uxmal - miasto Majów",
+                        "Cenote diving - święte studnie"
+                    ],
+                    "Przyroda": [
+                        "Mesoamerican Reef - 2. największa rafa",
+                        "Xel-Há - naturalny akwarium",
+                        "Sian Ka'an Biosphere",
+                        "Swimming with whale sharks",
+                        "Sea turtle nesting sites"
+                    ],
+                    "Kultura": [
+                        "Colonial cities - Mérida, Valladolid",
+                        "Traditional Mexican cuisine",
+                        "Tequila i mezcal tasting",
+                        "Local handicrafts",
+                        "Day of the Dead traditions"
+                    ],
+                    "Aktywności": [
+                        "Cenote snorkeling/diving",
+                        "Fishing charters",
+                        "Eco-adventures",
+                        "Beach clubs Playa del Carmen",
+                        "Xcaret eco-archaeological park"
+                    ]
+                }
+            },
+            {
+                country: "🇲🇾 Malezja",
+                countryName: "Malezja",
+                access: 4,
+                accessText: "13-16h (1 przesiadka)",
+                accessDetails: "Malaysia Airlines, Emirates, Qatar Airways",
+                safety: "wysokie",
+                safetyScore: 4,
+                safetyText: "Bezpieczne - stabilny kraj",
+                cost7: 7000,
+                cost14: 14000,
+                costRange7: "$3,500-10,500",
+                costRange14: "$7,000-21,000",
+                attractions: {
+                    "Kuala Lumpur": [
+                        "Petronas Twin Towers",
+                        "Chinatown i Little India",
+                        "Street food tours",
+                        "Islamic Arts Museum",
+                        "Shopping malls"
+                    ],
+                    "Langkawi": [
+                        "Mangrove tours",
+                        "Cable car i Sky Bridge",
+                        "Eagle watching",
+                        "Underwater World",
+                        "Rice Garden Museum"
+                    ],
+                    "Przyroda": [
+                        "Borneo rainforest",
+                        "Orangutan sanctuaries",
+                        "Mount Kinabalu",
+                        "Sipadan Island diving",
+                        "Cameron Highlands tea plantations"
+                    ],
+                    "Kultura": [
+                        "Multi-cultural society",
+                        "Traditional batik workshops",
+                        "Local markets",
+                        "Religious sites różnych religii",
+                        "Fusion cuisine"
+                    ]
+                }
+            },
+            {
+                country: "🇵🇭 Filipiny",
+                countryName: "Filipiny",
+                access: 3,
+                accessText: "14-18h (1-2 przesiadki)",
+                accessDetails: "Emirates, Qatar Airways, Singapore Airlines",
+                safety: "średnie",
+                safetyScore: 3,
+                safetyText: "Względnie bezpieczne w resortach",
+                cost7: 5600,
+                cost14: 11200,
+                costRange7: "$2,800-8,400",
+                costRange14: "$5,600-16,800",
+                weather: {
+                    bestMonths: [1, 2, 3, 4, 5],
+                    okMonths: [11, 12],
+                    avoidMonths: [6, 7, 8, 9, 10],
+                    temperatures: {
+                        high: "30-32°C",
+                        low: "24-26°C"
+                    },
+                    rainfall: {
+                        dry: "Dec-May: 10-25%",
+                        wet: "Jun-Nov: 60-80%"
+                    },
+                    notes: "Tajfuny czerwiec-listopad"
+                },
+                attractions: {
+                    "El Nido & Palawan": [
+                        "Big Lagoon i Small Lagoon",
+                        "Hidden Beach",
+                        "Island hopping tours",
+                        "Underground River - UNESCO",
+                        "Nacpan Beach"
+                    ],
+                    "Boracay": [
+                        "White Beach - 4km białego piasku",
+                        "Windsurfing i kitesurfing",
+                        "Sunset sailing",
+                        "Beach parties",
+                        "Crystal Cove Island"
+                    ],
+                    "Bohol": [
+                        "Chocolate Hills - unikalne wzgórza",
+                        "Tarsier Sanctuary - najmniejsze małpy",
+                        "Loboc River cruise",
+                        "Historical churches",
+                        "Panglao Island beaches"
+                    ],
+                    "Aktywności": [
+                        "World-class diving spots",
+                        "Snorkeling w coral triangle",
+                        "Volcano tours",
+                        "Rice terraces trekking",
+                        "Local festivals i culture"
+                    ]
+                }
+            }
+        ];
+
+        let currentSort = { column: null, direction: 'asc' };
+        let filteredData = [...destinations];
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const duration = document.getElementById('duration').value;
+            
+            tbody.innerHTML = '';
+            
+            filteredData.forEach((dest, index) => {
+                const cost = duration === '7' ? dest.cost7 : dest.cost14;
+                const costRange = duration === '7' ? dest.costRange7 : dest.costRange14;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="country">${dest.country}</td>
+                    <td class="access-score">
+                        <span class="stars">${'⭐'.repeat(dest.access)}</span>
+                        <div>
+                            <div>${dest.accessText}</div>
+                            <small>${dest.accessDetails}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="safety-badge safety-${dest.safety}">${dest.safety.toUpperCase()}</span>
+                        <div><small>${dest.safetyText}</small></div>
+                    </td>
+                    <td class="cost">
+                        ${costRange}
+                    </td>
+                    <td>
+                        <button class="info-button" onclick="showWeather(${index})">
+                            🌤️ Zobacz pogodę
+                        </button>
+                    </td>
+                    <td>
+                        <button class="info-button" onclick="showInfo(${index})">
+                            🔍 Zobacz atrakcje
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function showWeather(index) {
+            const dest = filteredData[index];
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = dest.countryName + ' - Kalendarz pogodowy';
+            
+            const months = ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'];
+            
+            let calendarHTML = '<div class="weather-calendar">';
+            months.forEach((month, i) => {
+                let className = 'month-cell ';
+                if (dest.weather.bestMonths.includes(i + 1)) {
+                    className += 'month-best';
+                } else if (dest.weather.okMonths.includes(i + 1)) {
+                    className += 'month-ok';
+                } else {
+                    className += 'month-avoid';
+                }
+                calendarHTML += `<div class="${className}">${month}</div>`;
+            });
+            calendarHTML += '</div>';
+            
+            const legendHTML = `
+                <div class="weather-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4CAF50;"></div>
+                        <span>Najlepsze miesiące</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FF9800;"></div>
+                        <span>Akceptowalne</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f44336;"></div>
+                        <span>Unikaj</span>
+                    </div>
+                </div>
+            `;
+            
+            const weatherInfoHTML = `
+                <div class="weather-info">
+                    <div class="weather-detail">
+                        <h4>🌡️ Temperatura</h4>
+                        <p><strong>Dzień:</strong> ${dest.weather.temperatures.high}</p>
+                        <p><strong>Noc:</strong> ${dest.weather.temperatures.low}</p>
+                    </div>
+                    <div class="weather-detail">
+                        <h4>🌧️ Opady</h4>
+                        <p>${dest.weather.rainfall.dry}</p>
+                        <p>${dest.weather.rainfall.wet}</p>
+                    </div>
+                </div>
+                <div class="weather-detail">
+                    <h4>ℹ️ Dodatkowe informacje</h4>
+                    <p>${dest.weather.notes}</p>
+                </div>
+            `;
+            
+            modalBody.innerHTML = calendarHTML + legendHTML + weatherInfoHTML;
+            modal.style.display = 'block';
+        }
+
+        function showInfo(index) {
+            const dest = filteredData[index];
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = dest.countryName + ' - Atrakcje i zwiedzanie';
+            
+            let content = '';
+            Object.entries(dest.attractions).forEach(([category, attractions]) => {
+                content += `
+                    <div class="attraction-category">
+                        <h3>${category}</h3>
+                        <ul class="attraction-list">
+                            ${attractions.map(attraction => `<li>${attraction}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            });
+            
+            modalBody.innerHTML = content;
+            modal.style.display = 'block';
+        }
+
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'asc';
+            }
+            
+            // Update header appearance
+            document.querySelectorAll('th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+            });
+            
+            const currentHeader = document.querySelector(`th[data-column="${column}"]`);
+            currentHeader.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+            
+            filteredData.sort((a, b) => {
+                let aVal, bVal;
+                const duration = document.getElementById('duration').value;
+                
+                switch(column) {
+                    case 'country':
+                        aVal = a.countryName;
+                        bVal = b.countryName;
+                        break;
+                    case 'access':
+                        aVal = a.access;
+                        bVal = b.access;
+                        break;
+                    case 'safety':
+                        aVal = a.safetyScore;
+                        bVal = b.safetyScore;
+                        break;
+                    case 'cost':
+                        aVal = duration === '7' ? a.cost7 : a.cost14;
+                        bVal = duration === '7' ? b.cost7 : b.cost14;
+                        break;
+                }
+                
+                if (typeof aVal === 'string') {
+                    return currentSort.direction === 'asc' ? 
+                        aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                } else {
+                    return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+            });
+            
+            renderTable();
+        }
+
+        function filterData() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const safetyFilter = document.getElementById('safetyFilter').value;
+            
+            filteredData = destinations.filter(dest => {
+                const matchesSearch = dest.countryName.toLowerCase().includes(searchTerm);
+                const matchesSafety = !safetyFilter || dest.safety === safetyFilter;
+                
+                return matchesSearch && matchesSafety;
+            });
+            
+            renderTable();
+        }
+
+        // Event listeners
+        document.getElementById('duration').addEventListener('change', renderTable);
+        document.getElementById('search').addEventListener('input', filterData);
+        document.getElementById('safetyFilter').addEventListener('change', filterData);
+
+        document.querySelectorAll('th.sortable').forEach(th => {
+            th.addEventListener('click', () => {
+                sortTable(th.dataset.column);
+            });
+        });
+
+        // Modal controls
+        document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('infoModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('infoModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Initialize
+        renderTable();
+    </script>
+</body>
+</html>

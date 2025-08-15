@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adrian Chojnicki - Professional Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #f5f5f7;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #000;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+            color: #f5f5f7;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid #86868b;
+            border-radius: 15px;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 4px;
+            height: 8px;
+            background: #86868b;
+            border-radius: 2px;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: #1d1d1f;
+        }
+
+        .section:nth-child(odd) {
+            background: #000;
+        }
+
+        .section.highlight {
+            background: #161617;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .content-single {
+            text-align: center;
+            max-width: 980px;
+        }
+
+        .section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            color: #f5f5f7;
+        }
+
+        .section h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #86868b;
+        }
+
+        .section p {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 1.5rem;
+            color: #a1a1a6;
+            font-weight: 400;
+        }
+
+        .section .large-text {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            color: #f5f5f7;
+            font-weight: 500;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 4rem;
+        }
+
+        .skill-card {
+            background: rgba(255,255,255,0.03);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .skill-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #f5f5f7;
+        }
+
+        .skill-card p {
+            font-size: 1rem;
+            color: #86868b;
+            line-height: 1.5;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 4rem 0;
+            padding: 0 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: #86868b;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 3rem 0;
+            padding: 30px;
+            text-align: left;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-right: 50%;
+            padding-right: 50px;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+            padding-left: 50px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 12px;
+            height: 12px;
+            background: #f5f5f7;
+            border-radius: 50%;
+            border: 3px solid #000;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -6px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -6px;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #f5f5f7;
+            font-weight: 600;
+        }
+
+        .timeline-item .year {
+            font-size: 0.9rem;
+            color: #86868b;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            font-size: 1rem;
+            color: #a1a1a6;
+            line-height: 1.6;
+        }
+
+        .projects-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.02);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 3px solid #86868b;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateX(8px);
+            background: rgba(255,255,255,0.04);
+            border-left-color: #f5f5f7;
+        }
+
+        .project-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #f5f5f7;
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            color: #86868b;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: #f5f5f7;
+            font-weight: 600;
+        }
+
+        .emphasis {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: #f5f5f7;
+            font-weight: 600;
+            margin: 2rem 0;
+            line-height: 1.3;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #f5f5f7;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #86868b;
+            font-weight: 500;
+        }
+
+        .visual-separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #86868b, transparent);
+            margin: 4rem 0;
+            opacity: 0.3;
+        }
+
+        .image-showcase {
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .image-showcase img {
+            max-width: 100%;
+            border-radius: 12px;
+            opacity: 0.9;
+            filter: contrast(1.1) brightness(0.95);
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .community-card {
+            background: rgba(255,255,255,0.04);
+            padding: 35px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .community-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .community-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #f5f5f7;
+        }
+
+        .community-card p {
+            font-size: 1rem;
+            color: #86868b;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                margin: 2rem 0 !important;
+                padding: 20px !important;
+                padding-left: 50px !important;
+            }
+
+            .timeline-item::before {
+                left: 14px !important;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Adrian Chojnicki</h1>
+            <p>Senior Solution Architect & Technology Leader</p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content-single">
+                <h2>Praktyczne Podstawy</h2>
+                <h3>2009-2013: Wykorzystanie Każdej Możliwości</h3>
+                <p class="large-text">4-miesięczne wolne między maturą a studiami wykorzystałem na pracę jako <span class="highlight">sprzedawca</span>. Już na pierwszym roku studiów pracowałem w weekendy – nie ma nic lepszego niż połączenie nauki z praktycznym doświadczeniem biznesowym.</p>
+                <p>Pod koniec 2012 praca jako <span class="highlight">magazynier</span> – organizacja i optymalizacja workflow. Równolegle freelancing techniczny: strony internetowe, pierwsze projekty e-commerce.</p>
+                <p class="emphasis">Każdy dzień to okazja do nauki czegoś nowego. Praca to nie obciążenie – to sposób na ciągły rozwój.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section highlight">
+        <div class="container">
+            <div class="content-grid">
+                <div>
+                    <h2>Technical Foundation</h2>
+                    <h3>2013-2016: Samodzielny Full-Stack Developer</h3>
+                    <p>Recrute.pl na <span class="highlight">Zend Framework 2 + Java Spring</span> – pierwszy projekt enterprise level. WrytmieKobiety i 45plus na Yii Framework, custom websockets implementation.</p>
+                    <p>2015: Neonet S.A. – migracja CSCart → Magento 1 dla retailera z 300+ sklepami fizycznymi. Pierwszy kontakt z high-traffic e-commerce.</p>
+                </div>
+                <div class="projects-showcase">
+                    <div class="project-card">
+                        <h4>Recrute.pl</h4>
+                        <p>Zend Framework 2, Java + Spring Framework, MySQL – full-stack development</p>
+                    </div>
+                    <div class="project-card">
+                        <h4>45plus Custom Chat</h4>
+                        <p>Yii Framework + custom websockets – real-time communication implementation</p>
+                    </div>
+                    <div class="project-card">
+                        <h4>Neonet S.A.</h4>
+                        <p>CSCart → Magento 1 migration – 300+ physical stores, high-traffic platform</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content-single">
+                <h2>Global4Net Foundation</h2>
+                <h3>2016: Przejście do Przedsiębiorczości</h3>
+                <p class="large-text">Partnerstwo z Andrzejem Szylarem (CEO) – założenie <span class="highlight">Global4Net Ltd</span> jako CTO. Połączenie jego doświadczenia marketingowego z moim background technical leadership.</p>
+                <p>Pierwsze projekty: Bittersweet Paris (międzynarodowa platforma fashion), Mojekrzesla.pl (custom product configurator dla mebli).</p>
+                
+                <div class="visual-separator"></div>
+                
+                <p class="emphasis">2016-2022: Budowanie firmy od zera do 100+ specjalistów i 200+ projektów.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section highlight">
+        <div class="container">
+            <div class="content-grid">
+                <div>
+                    <h2>Enterprise Leadership</h2>
+                    <h3>2017-2020: Team Lead & Architekt</h3>
+                    <p><span class="highlight">Neonet S.A.</span>: Magento 1→2 + React PWA + AWS autoscaling. 4M+ miesięcznych użytkowników, 10-miesięczny projekt delivery.</p>
+                    <p><span class="highlight">NEO24.pl</span>: PWA implementation – 39% wzrost widoczności w przeglądarkach, nominacja Mobile Trends Awards.</p>
+                    <p>Odpowiedzialność za zespoły, architekturę systemów i bezpośrednie relacje z C-level klientów.</p>
+                </div>
+                <div>
+                    <div class="image-showcase">
+                        <img src="panel-discussion.jpg" alt="Panel dyskusyjny e-commerce" style="margin-bottom: 1rem;">
+                    </div>
+                    <div class="skill-card">
+                        <h4>Technical Innovation</h4>
+                        <p>Pierwsza implementacja PWA + AWS autoscaling w polskim e-commerce</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content-single">
+                <h2>MACH Architecture Pioneer</h2>
+                <h3>2020-2021: MyBenefit Flagship Project</h3>
+                <p class="large-text"><span class="highlight">Chief Architect</span> dla Benefit Systems – kompleksowa platforma e-commerce, turystyka i employee benefits. MACH architecture (Microservices, API-first, Cloud-native, Headless).</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">Miliony</span>
+                        <span class="stat-label">Użytkowników platform</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Microservices architecture</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Multi-market</span>
+                        <span class="stat-label">International deployment</span>
+                    </div>
+                </div>
+                
+                <p>Technologie: Symfony + API Platform, Kubernetes, Terraform, Helm Charts. Headless + PWA architecture dla maksymalnej skalowalności.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section highlight">
+        <div class="container">
+            <div class="content-single">
+                <h2>Strategic Partnership</h2>
+                <h3>2021-2022: CTO/VP Board & Exit</h3>
+                <p class="large-text">2021: Global4Net osiąga <span class="highlight">100+ specjalistów na pokładzie</span>, 200+ zrealizowanych projektów. Pozycja Vice-President Board z pełną odpowiedzialnością za strategic decisions.</p>
+                
+                <div class="image-showcase">
+                    <img src="linkedin-post-merger.jpg" alt="LinkedIn post o merger" style="max-width: 600px;">
+                </div>
+                
+                <p>2022: <span class="highlight">Strategic merger z Unity Group</span> (obecnie Univio) w formule 12% share exchange. Pozycjonowanie jako Managing Partner w największym zespole Adobe Commerce w Polsce.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="year">2009-2013</div>
+                        <h4>Foundation Building</h4>
+                        <p>Sprzedawca → Magazynier → Freelancer. Praktyczne podstawy biznesu i technologii.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">2013-2016</div>
+                        <h4>Full-Stack Developer</h4>
+                        <p>Samodzielne projekty enterprise. Zend, Yii, Magento 1, websockets.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">2016</div>
+                        <h4>Founder & CTO</h4>
+                        <p>Założenie Global4Net. Przejście do roli strategic decision maker.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">2017-2020</div>
+                        <h4>Team Lead & Architect</h4>
+                        <p>Enterprise projects leadership. PWA pioneer, AWS implementations.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">2021</div>
+                        <h4>VP Board</h4>
+                        <p>100+ team, strategic MACH architecture implementations.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">2022-Present</div>
+                        <h4>Managing Partner</h4>
+                        <p>Strategic partnership w największym zespole Adobe w Polsce.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content-single">
+                <h2>Current Operations</h2>
+                <h3>Present: Univio Managing Partner</h3>
+                <p class="large-text"><span class="highlight">Senior Solution Architect</span> w zespole 110+ developers. Największa organizacja Adobe Commerce w Polsce – strategic architecture decisions, enterprise client relations.</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h4>Enterprise Architecture</h4>
+                        <p>Strategic decisions dla Adobe Commerce implementations wysokiego poziomu</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Team Leadership</h4>
+                        <p>110+ top-tier developers w największej organizacji Adobe w Polsce</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Client Relations</h4>
+                        <p>Bezpośrednie relacje enterprise: RTV Euro AGD, Volkswagen, Leroy Merlin</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Strategic Partnership</h4>
+                        <p>Managing Partner z equity stake i strategic direction influence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section highlight">
+        <div class="container">
+            <div class="content-grid">
+                <div>
+                    <h2>Industry Contribution</h2>
+                    <h3>Mentoring & Open Source</h3>
+                    <p>Organizacja eventów dla dyrektorów e-commerce – <span class="highlight">knowledge sharing</span> między liderami branży. Obecnie: Business Life Health Track.</p>
+                    <p><span class="highlight">Mentor w MD Fellowship</span> – development przyszłych liderów technology. Aktywny rozwój projektów open source: Doqario + 2 API projects.</p>
+                    <p>Environmental responsibility: <span class="highlight">sadzenie lasów z Fundacją Las na Zawsze</span>.</p>
+                </div>
+                <div class="community-grid">
+                    <div class="community-card">
+                        <h4>MD Fellowship Mentor</h4>
+                        <p>Mentoring w prestiżowym programie rozwoju technology leaders</p>
+                    </div>
+                    <div class="community-card">
+                        <h4>Open Source Projects</h4>
+                        <p>Doqario + 2 API projects – contribution do developer ecosystem</p>
+                    </div>
+                    <div class="community-card">
+                        <h4>Environmental Impact</h4>
+                        <p>Fundacja Las na Zawsze – reforestation initiatives</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content-single">
+                <h2>Execution Track Record</h2>
+                <h3>Fact-Based Results</h3>
+                <p class="large-text">15 lat experience: freelancer → full-stack developer → team lead → CTO/VP → managing partner. Każdy level z <span class="highlight">measurable impact</span> i strategic responsibility.</p>
+                
+                <div class="visual-separator"></div>
+                
+                <div class="image-showcase">
+                    <img src="technology-innovation.jpg" alt="Technology innovation visualization">
+                </div>
+                
+                <p class="emphasis">Od individual contributora do strategic partner – focus na results, innovation i long-term value creation.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all containers
+        document.querySelectorAll('.container').forEach(container => {
+            observer.observe(container);
+        });
+
+        // Smooth scroll with wheel events
+        let isScrolling = false;
+        document.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            
+            if (Math.abs(e.deltaY) > 50) {
+                e.preventDefault();
+                isScrolling = true;
+                
+                const sections = [...document.querySelectorAll('.hero, .section')];
+                const currentSection = sections.find(section => {
+                    const rect = section.getBoundingClientRect();
+                    return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+                });
+                
+                const currentIndex = sections.indexOf(currentSection);
+                
+                if (e.deltaY > 0 && currentIndex < sections.length - 1) {
+                    sections[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+                } else if (e.deltaY < 0 && currentIndex > 0) {
+                    sections[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 1000);
+            }
+        }, { passive: false });
+
+        // Interactive elements
+        document.querySelectorAll('.skill-card, .project-card, .community-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = card.classList.contains('project-card') ? 
+                    'translateX(8px) scale(1.02)' : 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = card.classList.contains('project-card') ? 
+                    'translateX(0) scale(1)' : 'translateY(0) scale(1)';
+            });
+        });
+
+        // Stats animation
+        const animateStats = () => {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach((stat) => {
+                if (stat.textContent.includes('Miliony') || stat.textContent.includes('100%') || stat.textContent.includes('Multi-market')) {
+                    stat.style.opacity = '0';
+                    stat.style.transform = 'scale(0.8)';
+                    
+                    setTimeout(() => {
+                        stat.style.transition = 'all 0.5s ease';
+                        stat.style.opacity = '1';
+                        stat.style.transform = 'scale(1)';
+                    }, 100);
+                }
+            });
+        };
+
+        // Trigger stats animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
