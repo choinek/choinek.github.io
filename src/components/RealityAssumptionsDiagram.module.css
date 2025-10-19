@@ -11,30 +11,30 @@
 
 /* Global page background color effect */
 :global(.reality-bg-god) {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.03) 0%, rgba(236, 72, 153, 0.03) 100%) !important;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%) !important;
     transition: background 1s ease-in-out !important;
 }
 
 :global([data-theme='dark'].reality-bg-god) {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%) !important;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%) !important;
 }
 
 :global(.reality-bg-soul) {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%) !important;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%) !important;
     transition: background 1s ease-in-out !important;
 }
 
 :global([data-theme='dark'].reality-bg-soul) {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%) !important;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
 }
 
 :global(.reality-bg-human) {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(239, 68, 68, 0.03) 100%) !important;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(239, 68, 68, 0.08) 100%) !important;
     transition: background 1s ease-in-out !important;
 }
 
 :global([data-theme='dark'].reality-bg-human) {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(239, 68, 68, 0.08) 100%) !important;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(239, 68, 68, 0.15) 100%) !important;
 }
 
 /* Mystical Background Effects */
@@ -269,7 +269,7 @@
 
 .perspectiveButton.god.active .perspectiveIcon::before {
     border-color: rgba(255, 255, 255, 0.5);
-    transform: translate(-50%, -50%) rotate(180deg);
+    transform: translate(-50%, -50%) rotate(90deg);
 }
 
 /* Circle for human */
@@ -308,7 +308,7 @@
 
 .perspectiveButton.soul.active .perspectiveIcon::before {
     color: rgba(255, 255, 255, 0.4);
-    transform: translate(-50%, -50%) rotate(72deg);
+    transform: translate(-50%, -50%);
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
@@ -604,7 +604,7 @@
 }
 
 .section:hover .sectionNumber {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.1);
 }
 
 .displayGod .sectionNumber {
