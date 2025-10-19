@@ -1,0 +1,988 @@
+/* Reality Assumptions Diagram - Professional Styling */
+
+.container {
+    position: relative;
+    width: 100%;
+    padding: 3rem 1rem;
+    background: transparent;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Global page background color effect */
+:global(.reality-bg-god) {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%) !important;
+    transition: background 1s ease-in-out !important;
+}
+
+:global([data-theme='dark'].reality-bg-god) {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%) !important;
+}
+
+:global(.reality-bg-soul) {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%) !important;
+    transition: background 1s ease-in-out !important;
+}
+
+:global([data-theme='dark'].reality-bg-soul) {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+}
+
+:global(.reality-bg-human) {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(239, 68, 68, 0.08) 100%) !important;
+    transition: background 1s ease-in-out !important;
+}
+
+:global([data-theme='dark'].reality-bg-human) {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(239, 68, 68, 0.15) 100%) !important;
+}
+
+/* Mystical Background Effects */
+.backgroundEffect {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.backgroundBlob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.blob1 {
+    top: 10%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(45deg, rgba(147, 51, 234, 0.15), rgba(236, 72, 153, 0.15));
+    animation-delay: 0s;
+}
+
+.blob2 {
+    bottom: 10%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(45deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15));
+    animation-delay: 2s;
+}
+
+.blob3 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(45deg, rgba(236, 72, 153, 0.1), rgba(147, 51, 234, 0.1));
+    animation-delay: 1s;
+}
+
+[data-theme='dark'] .blob1,
+[data-theme='dark'] .blob2,
+[data-theme='dark'] .blob3 {
+    opacity: 1.5;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.1) translateY(-20px);
+        opacity: 0.8;
+    }
+}
+
+/* Content Container */
+.content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+/* Title Section */
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #7c3aed, #ec4899, #7c3aed);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s ease infinite;
+    letter-spacing: -0.02em;
+}
+
+[data-theme='dark'] .title {
+    background: linear-gradient(135deg, #a78bfa, #f9a8d4, #a78bfa);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+@keyframes gradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 1.125rem;
+    margin-bottom: 3rem;
+    font-weight: 500;
+}
+
+[data-theme='dark'] .subtitle {
+    color: #cbd5e1;
+}
+
+/* Perspective Selector */
+.perspectiveGrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.perspectiveButton {
+    position: relative;
+    padding: 1.5rem 2.5rem;
+    border-radius: 0;
+    border: 2px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+    min-width: 200px;
+}
+
+[data-theme='dark'] .perspectiveButton {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: #334155;
+}
+
+.perspectiveButton:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+}
+
+.perspectiveButton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 0;
+}
+
+.perspectiveButton:hover::before {
+    opacity: 0.15;
+}
+
+.perspectiveButton.active {
+    transform: scale(1.05);
+    box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.4);
+    border-color: transparent;
+}
+
+[data-theme='dark'] .perspectiveButton.active {
+    box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.6);
+}
+
+/* God Perspective - Purple/Pink */
+.perspectiveButton.god::before {
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+}
+
+.perspectiveButton.god.active {
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    color: white;
+}
+
+/* Soul Perspective - Cyan/Blue */
+.perspectiveButton.soul::before {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.perspectiveButton.soul.active {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    color: white;
+}
+
+/* Human Perspective - Orange/Red */
+.perspectiveButton.human::before {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.perspectiveButton.human.active {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: white;
+}
+
+.perspectiveIcon {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    margin: 0 auto 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+}
+
+/* Symboliczne kształty dla każdej perspektywy */
+.perspectiveButton.god .perspectiveIcon::before {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    border: 2px solid rgba(124, 58, 237, 0.3);
+    z-index: -1;
+    transition: all 0.4s ease;
+}
+
+.perspectiveButton.god.active .perspectiveIcon::before {
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Circle for human */
+.perspectiveButton.human .perspectiveIcon::before {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(245, 158, 11, 0.3);
+    border-radius: 50%;
+    z-index: -1;
+    transition: all 0.4s ease;
+}
+
+.perspectiveButton.human.active .perspectiveIcon::before {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Star/Pentagram for soul */
+.perspectiveButton.soul .perspectiveIcon::before {
+    content: '★';
+    position: absolute;
+    font-size: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(6, 182, 212, 0.2);
+    z-index: -1;
+    transition: all 0.4s ease;
+    line-height: 1;
+}
+
+.perspectiveButton.soul.active .perspectiveIcon::before {
+    color: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+[data-theme='dark'] .perspectiveButton.god .perspectiveIcon::before {
+    border-color: rgba(124, 58, 237, 0.5);
+}
+
+[data-theme='dark'] .perspectiveButton.human .perspectiveIcon::before {
+    border-color: rgba(245, 158, 11, 0.5);
+}
+
+[data-theme='dark'] .perspectiveButton.soul .perspectiveIcon::before {
+    color: rgba(6, 182, 212, 0.4);
+}
+
+.perspectiveButton:hover .perspectiveIcon {
+    transform: scale(1.1);
+}
+
+.perspectiveButton.active .perspectiveIcon {
+    animation: iconPulse 2s ease infinite;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+.perspectiveIcon svg {
+    width: 100%;
+    height: 100%;
+    color: #64748b;
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme='dark'] .perspectiveIcon svg {
+    color: #94a3b8;
+}
+
+.perspectiveButton.active .perspectiveIcon svg {
+    color: white;
+}
+
+.perspectiveTitle {
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: center;
+    color: #1e293b;
+    white-space: nowrap;
+}
+
+[data-theme='dark'] .perspectiveTitle {
+    color: #f1f5f9;
+}
+
+.perspectiveButton.active .perspectiveTitle {
+    color: white;
+}
+
+/* Active Perspective Display */
+.perspectiveDisplay {
+    position: relative;
+    border-radius: 0;
+    padding: 3rem;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+.perspectiveDisplay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.displayGod {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(236, 72, 153, 0.05));
+    border: 2px solid rgba(124, 58, 237, 0.2);
+}
+
+[data-theme='dark'] .displayGod {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.15));
+    border-color: rgba(124, 58, 237, 0.4);
+}
+
+.displayGod::before {
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+}
+
+.displaySoul {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(59, 130, 246, 0.05));
+    border: 2px solid rgba(6, 182, 212, 0.2);
+}
+
+[data-theme='dark'] .displaySoul {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15));
+    border-color: rgba(6, 182, 212, 0.4);
+}
+
+.displaySoul::before {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.displayHuman {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(239, 68, 68, 0.05));
+    border: 2px solid rgba(245, 158, 11, 0.2);
+}
+
+[data-theme='dark'] .displayHuman {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.15));
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+.displayHuman::before {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.displayHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.displayIconWrapper {
+    position: relative;
+    margin-right: 1.5rem;
+}
+
+.displayIconGlow {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.4;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.displayGod .displayIconGlow {
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+}
+
+.displaySoul .displayIconGlow {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.displayHuman .displayIconGlow {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.displayIcon {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+}
+
+.displayIcon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.displayGod .displayIcon svg {
+    color: #7c3aed;
+}
+
+[data-theme='dark'] .displayGod .displayIcon svg {
+    color: #a78bfa;
+}
+
+.displaySoul .displayIcon svg {
+    color: #06b6d4;
+}
+
+[data-theme='dark'] .displaySoul .displayIcon svg {
+    color: #67e8f9;
+}
+
+.displayHuman .displayIcon svg {
+    color: #f59e0b;
+}
+
+[data-theme='dark'] .displayHuman .displayIcon svg {
+    color: #fbbf24;
+}
+
+.displayTitle {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+[data-theme='dark'] .displayTitle {
+    color: #f1f5f9;
+}
+
+/* Sections */
+.sectionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.section {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 0;
+    padding: 2rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .section {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(148, 163, 184, 0.1);
+}
+
+.section:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='dark'] .section:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.section:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.section:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.section:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.section:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.section:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.section:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sectionContent {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.sectionNumber {
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.section:hover .sectionNumber {
+    transform: scale(1.1);
+}
+
+.displayGod .sectionNumber {
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+}
+
+.displaySoul .sectionNumber {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.displayHuman .sectionNumber {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.sectionTextContainer {
+    flex: 1;
+}
+
+.sectionPhase {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #0f172a;
+}
+
+[data-theme='dark'] .sectionPhase {
+    color: #f1f5f9;
+}
+
+.sectionText {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #475569;
+}
+
+[data-theme='dark'] .sectionText {
+    color: #cbd5e1;
+}
+
+/* Comparison Table */
+.comparisonSection {
+    margin-top: 4rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 0;
+    padding: 3rem;
+    border: 2px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .comparisonSection {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+.comparisonTitle {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #0f172a;
+}
+
+[data-theme='dark'] .comparisonTitle {
+    color: #f1f5f9;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+}
+
+.comparisonTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 700px;
+}
+
+.comparisonTable thead th {
+    padding: 1.25rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-align: left;
+    border-bottom: 3px solid rgba(148, 163, 184, 0.3);
+    background: transparent;
+}
+
+.comparisonTable thead th:first-child {
+    color: #475569;
+}
+
+[data-theme='dark'] .comparisonTable thead th:first-child {
+    color: #cbd5e1;
+}
+
+.comparisonTable thead th:nth-child(2) {
+    color: #7c3aed;
+}
+
+[data-theme='dark'] .comparisonTable thead th:nth-child(2) {
+    color: #a78bfa;
+}
+
+.comparisonTable thead th:nth-child(3) {
+    color: #06b6d4;
+}
+
+[data-theme='dark'] .comparisonTable thead th:nth-child(3) {
+    color: #67e8f9;
+}
+
+.comparisonTable thead th:nth-child(4) {
+    color: #f59e0b;
+}
+
+[data-theme='dark'] .comparisonTable thead th:nth-child(4) {
+    color: #fbbf24;
+}
+
+.comparisonTable tbody td {
+    padding: 1.25rem;
+    color: #475569;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+[data-theme='dark'] .comparisonTable tbody td {
+    color: #cbd5e1;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.comparisonTable tbody td:first-child {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+[data-theme='dark'] .comparisonTable tbody td:first-child {
+    color: #f1f5f9;
+}
+
+.comparisonTable tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.comparisonTable tbody tr:hover {
+    background-color: rgba(124, 58, 237, 0.05);
+}
+
+[data-theme='dark'] .comparisonTable tbody tr:hover {
+    background-color: rgba(124, 58, 237, 0.1);
+}
+
+/* Key Insight */
+.keyInsight {
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(236, 72, 153, 0.08));
+    border-radius: 0;
+    padding: 3rem;
+    border: 2px solid rgba(124, 58, 237, 0.2);
+    box-shadow: 0 20px 25px -5px rgba(124, 58, 237, 0.15);
+}
+
+[data-theme='dark'] .keyInsight {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(236, 72, 153, 0.15));
+    border-color: rgba(124, 58, 237, 0.4);
+}
+
+.keyInsight::before,
+.keyInsight::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+}
+
+.keyInsight::before {
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.4), transparent);
+}
+
+.keyInsight::after {
+    bottom: -50%;
+    left: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.4), transparent);
+}
+
+.insightContent {
+    position: relative;
+    z-index: 1;
+}
+
+.insightTitle {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-theme='dark'] .insightTitle {
+    background: linear-gradient(135deg, #a78bfa, #f9a8d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.insightIntro {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+}
+
+[data-theme='dark'] .insightIntro {
+    color: #f1f5f9;
+}
+
+.insightIntro strong {
+    font-weight: 800;
+}
+
+.insightList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.insightList li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #475569;
+}
+
+[data-theme='dark'] .insightList li {
+    color: #cbd5e1;
+}
+
+.insightBullet {
+    flex-shrink: 0;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    margin-top: 0.625rem;
+}
+
+.insightList li:nth-child(1) .insightBullet {
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+}
+
+.insightList li:nth-child(2) .insightBullet {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.insightList li:nth-child(3) .insightBullet {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.insightList strong {
+    font-weight: 700;
+}
+
+.insightList li:nth-child(1) strong {
+    color: #7c3aed;
+}
+
+[data-theme='dark'] .insightList li:nth-child(1) strong {
+    color: #a78bfa;
+}
+
+.insightList li:nth-child(2) strong {
+    color: #06b6d4;
+}
+
+[data-theme='dark'] .insightList li:nth-child(2) strong {
+    color: #67e8f9;
+}
+
+.insightList li:nth-child(3) strong {
+    color: #f59e0b;
+}
+
+[data-theme='dark'] .insightList li:nth-child(3) strong {
+    color: #fbbf24;
+}
+
+.insightHighlight {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 0;
+    border-left: 4px solid #7c3aed;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .insightHighlight {
+    background: rgba(30, 41, 59, 0.8);
+}
+
+.insightHighlight p {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #475569;
+    margin: 0;
+}
+
+[data-theme='dark'] .insightHighlight p {
+    color: #cbd5e1;
+}
+
+.insightHighlight strong {
+    color: #7c3aed;
+    font-weight: 700;
+}
+
+[data-theme='dark'] .insightHighlight strong {
+    color: #a78bfa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .perspectiveGrid {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .perspectiveButton {
+        min-width: 100%;
+        max-width: 400px;
+    }
+
+    .perspectiveDisplay {
+        padding: 2rem;
+    }
+
+    .displayTitle {
+        font-size: 1.75rem;
+    }
+
+    .sectionContent {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .comparisonSection,
+    .keyInsight {
+        padding: 2rem;
+    }
+
+    .comparisonTitle,
+    .insightTitle {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .perspectiveButton {
+        min-width: 180px;
+        padding: 1.25rem 2rem;
+    }
+
+    .perspectiveTitle {
+        font-size: 1rem;
+    }
+}

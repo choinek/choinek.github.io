@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "docusaurus-lunr-search": "^3.6.0",
     "firebase": "^11.10.0",
+    "lucide-react": "^0.546.0",
     "lunr": "^2.3.9",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.1.0",
