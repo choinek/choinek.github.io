@@ -54,6 +54,35 @@
   --ifm-footer-title-color: #ffffff;
 }
 
+/** Global max-width constraint for entire site */
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar__inner {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: var(--ifm-navbar-padding-horizontal);
+  padding-right: var(--ifm-navbar-padding-horizontal);
+}
+
+.main-wrapper {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.footer {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
 /** Contact page */
 
 .contact-page {
@@ -62,7 +91,8 @@
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
-  max-width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
   gap: 20px;
 }
 
