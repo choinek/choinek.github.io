@@ -5,8 +5,10 @@
 help:
 	@echo "Available commands:"
 	@echo "  install     Install dependencies using pnpm"
-	@echo "  dev         Start development server (alias for start)"
-	@echo "  start       Start development server"
+	@echo "  dev         Dev server with en + pl locales (build + serve + watch)"
+	@echo "  dev-fast    Fast HMR dev server (en only, /pl will 404)"
+	@echo "  dev-pl      Fast HMR dev server (pl only)"
+	@echo "  start       Alias for dev-fast"
 	@echo "  build       Build production site"
 	@echo "  serve       Serve the built site"
 	@echo "  clear       Clear Docusaurus cache"
@@ -24,14 +26,20 @@ PNPM := pnpm
 install:
 	$(PNPM) install
 
-# Development server (alias)
+# Dev server with full i18n (en + pl)
 .PHONY: dev
-dev: start
+dev:
+	$(PNPM) dev
 
-# Start development server
-.PHONY: start
-start:
-	$(PNPM) start
+# Fast HMR dev server – default locale only
+.PHONY: dev-fast start
+dev-fast start:
+	$(PNPM) dev:fast
+
+# Fast HMR dev server – Polish locale only
+.PHONY: dev-pl
+dev-pl:
+	$(PNPM) dev:pl
 
 # Build production site
 .PHONY: build

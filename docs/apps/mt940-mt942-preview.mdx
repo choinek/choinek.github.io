@@ -1,6 +1,6 @@
 ---
 title: MT940/MT942 Preview
-description: StatementLens – podgląd wyciągów bankowych MT940 i MT942
+description: StatementLens – preview of MT940 and MT942 bank statements
 hide_table_of_contents: true
 ---
 
@@ -8,23 +8,29 @@ import IframeWindow from '@site/src/components/BrowserWindow/IframeWindow';
 
 # MT940/MT942 Preview
 
-Stworzyłem aplikację **StatementLens** do podglądu wyciągów bankowych w formatach MT940 i MT942. Możesz ją zobaczyć na stronie [mt940.app.chojnicki.pl](https://mt940.app.chojnicki.pl/).
+I built **StatementLens** — an app for previewing bank statements in MT940 and MT942 formats. You can try it at [mt940.app.chojnicki.pl](https://mt940.app.chojnicki.pl/).
 
-## Co robi aplikacja
+## What the app does
 
-StatementLens to narzędzie do analizy wyciągów bankowych. Umożliwia:
+StatementLens is a tool for analyzing bank statements. It lets you:
 
-- **Wczytywanie plików** – przeciągnij plik lub kliknij, aby wybrać (`.sta`, `.mt940`, `.txt`, `.xml`, `.csv`)
-- **Wklejanie treści** – wklej zawartość wyciągu bezpośrednio (Ctrl+V)
-- **Tryb przykładowy** – wczytaj przykładowe dane, aby zobaczyć działanie bez własnego pliku
-- **Zakładki Źródło / Wynik** – podgląd surowej treści i sparsowanego wyniku
-- **Wielojęzyczność** – interfejs dostępny po polsku, angielsku, niemiecku i francusku
-- **Wiele zakładek** – praca z kilkoma wyciągami jednocześnie
+- **Load files** – drag and drop or click to select (`.sta`, `.mt940`, `.txt`, `.xml`, `.csv`)
+- **Paste content** – paste statement text directly (Ctrl+V)
+- **Demo mode** – load sample data to see how it works without your own file
+- **Source / Result tabs** – preview raw content and parsed output
+- **Multilingual UI** – available in Polish, English, German, and French
+- **Multiple tabs** – work with several statements at once
 
-## Podgląd na żywo
+## Live preview
 
 <IframeWindow url="https://mt940.app.chojnicki.pl/" height={800} title="MT940/MT942 Preview" />
 
 ## Link
 
-Pełna wersja aplikacji: [https://mt940.app.chojnicki.pl/](https://mt940.app.chojnicki.pl/)
+Full app: [https://mt940.app.chojnicki.pl/](https://mt940.app.chojnicki.pl/)
+
+:::info Polish description available
+
+An extended description in Polish is available in the [Polish version](pathname:///pl/docs/apps/mt940-mt942-preview) of this page.
+
+:::

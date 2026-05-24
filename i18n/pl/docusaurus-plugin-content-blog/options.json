@@ -4,11 +4,11 @@
     "description": "The title for the blog used in SEO"
   },
   "description": {
-    "message": "Blog",
+    "message": "Wpisy na blogu są dostępne w języku polskim.",
     "description": "The description for the blog used in SEO"
   },
   "sidebar.title": {
-    "message": "Recent posts",
+    "message": "Ostatnie wpisy",
     "description": "The label for the left sidebar"
   }
 }
