@@ -398,6 +398,38 @@ body {
   transform: translateY(-1px);
 }
 
+/** Mobile navbar – hide site title in top bar; keep it in burger menu brand */
+@media (max-width: 996px) {
+  .navbar .navbar__title {
+    display: none;
+  }
+
+  .navbar-sidebar .navbar__title {
+    display: block;
+  }
+
+  /* Give search more room between logo and right-side controls */
+  .navbar__inner {
+    gap: 0.35rem;
+  }
+
+  .navbar__items--right {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .navbar__search {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .navbar__search-input.search-bar {
+    width: 100%;
+    max-width: none;
+  }
+}
+
 /** Mobile navbar fixes */
 @media (max-width: 996px) {
   /* Ensure mobile menu takes full viewport height */

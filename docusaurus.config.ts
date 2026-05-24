@@ -46,7 +46,6 @@ const config: Config = {
   projectName: 'choinek.github.io', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   onBrokenLinks: 'log',
-  onBrokenMarkdownLinks: 'log',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -61,6 +60,9 @@ const config: Config = {
   },
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'log',
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
   presets: [
@@ -128,6 +130,10 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
+        {
+          type: 'custom-pageMessage',
+          position: 'right',
+        },
         {
           type: 'custom-fullWidthToggle',
           position: 'right',

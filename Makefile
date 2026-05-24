@@ -17,6 +17,8 @@ help:
 	@echo "  clean       Clean build artifacts and dependencies"
 	@echo "  clean-all   Clean everything including node_modules"
 	@echo "  swizzle     Swizzle Docusaurus components"
+	@echo "  update-docusaurus  Update @docusaurus/* packages to latest"
+	@echo "  update-packages    Update all project packages to latest"
 
 # Variables
 PNPM := pnpm
@@ -93,3 +95,19 @@ write-translations:
 .PHONY: write-heading-ids
 write-heading-ids:
 	$(PNPM) write-heading-ids
+
+# Update @docusaurus/* packages to latest (see Docusaurus upgrade banner)
+.PHONY: update-docusaurus
+update-docusaurus:
+	$(PNPM) update @docusaurus/core@latest \
+		@docusaurus/plugin-google-gtag@latest \
+		@docusaurus/preset-classic@latest \
+		@docusaurus/theme-mermaid@latest \
+		@docusaurus/module-type-aliases@latest \
+		@docusaurus/tsconfig@latest \
+		@docusaurus/types@latest
+
+# Update all dependencies to latest
+.PHONY: update-packages
+update-packages:
+	$(PNPM) update --latest
