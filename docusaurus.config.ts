@@ -2,6 +2,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const config: Config = {
   title: 'Adrian\'s Homepage',
   tagline: 'I always... sometimes...',
@@ -10,7 +12,27 @@ const config: Config = {
     require.resolve("./src/clientModules/visitorCounter"),
   ],
   plugins: [
-    require.resolve('docusaurus-lunr-search')
+    require.resolve('docusaurus-lunr-search'),
+    ...(isProd
+      ? [
+          () => ({
+            name: 'gtag-shim',
+            injectHtmlTags() {
+              return {
+                headTags: [
+                  {
+                    tagName: 'script',
+                    innerHTML: `
+                      window.dataLayer = window.dataLayer || [];
+                      window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+                    `,
+                  },
+                ],
+              };
+            },
+          }),
+        ]
+      : []),
   ],
   // Set the production url of your site here
   url: 'https://choinek.github.io/',
@@ -45,10 +67,14 @@ const config: Config = {
     [
       'classic',
       {
-        gtag: {
-          trackingID: 'G-6ZW60426P0',
-          anonymizeIP: true,
-        },
+        ...(isProd
+          ? {
+              gtag: {
+                trackingID: 'G-6ZW60426P0',
+                anonymizeIP: true,
+              },
+            }
+          : {}),
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:

@@ -7,14 +7,15 @@
 /* Palette inspired by static/img/hero-network-skyline.png:
    deep teal night sky + warm amber constellation glow + cyan mist. */
 :root {
-  /* Warm amber primary (the constellation glow) */
-  --ifm-color-primary: #e8954a;
-  --ifm-color-primary-dark: #d4823a;
-  --ifm-color-primary-darker: #c87838;
-  --ifm-color-primary-darkest: #a45f2c;
-  --ifm-color-primary-light: #f0a460;
-  --ifm-color-primary-lighter: #f4b577;
-  --ifm-color-primary-lightest: #fbd8b3;
+  /* Warm amber primary – darkened for light mode so it stays legible
+     on neutral surfaces (breadcrumbs, button--secondary, code blocks). */
+  --ifm-color-primary: #b8702e;
+  --ifm-color-primary-dark: #a4632a;
+  --ifm-color-primary-darker: #9a5d28;
+  --ifm-color-primary-darkest: #7e4c21;
+  --ifm-color-primary-light: #c87f37;
+  --ifm-color-primary-lighter: #d18943;
+  --ifm-color-primary-lightest: #e8a065;
 
   --ifm-color-secondary: #e6f0f2;
   --ifm-color-success: #2fae8e;
@@ -22,17 +23,21 @@
   --ifm-color-warning: #ffb46a;
   --ifm-color-danger: #ef5a5a;
 
+  /* Warm cream page surface – sits between pure white and parchment. */
+  --ifm-background-color: #f6efdf;
+  --ifm-background-surface-color: #fbf6e9;
+
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(14, 42, 54, 0.08);
 
   /* Glass tokens – light */
-  --ifm-navbar-background-color: rgba(240, 247, 249, 0.62);
+  --ifm-navbar-background-color: rgba(246, 239, 223, 0.62);
   --ifm-navbar-link-color: #0e2a36;
   --ifm-blur: blur(14px);
-  --ifm-shadow: 0 6px 28px 0 rgba(232, 149, 74, 0.10);
+  --ifm-shadow: 0 6px 28px 0 rgba(184, 112, 46, 0.12);
   --ifm-border: 1px solid rgba(14, 42, 54, 0.08);
 
-  --choinek-glass-bg: rgba(255, 255, 255, 0.55);
+  --choinek-glass-bg: rgba(255, 250, 235, 0.55);
   --choinek-glass-border: rgba(14, 42, 54, 0.10);
   --choinek-glow-warm: 255, 174, 94;
   --choinek-glow-cool: 110, 224, 229;
@@ -362,7 +367,7 @@ body {
 }
 
 [data-theme='light'] .hero--primary .hero__title {
-  background: linear-gradient(90deg, #c87838 0%, #e8954a 50%, #2fae8e 100%);
+  background: linear-gradient(90deg, #7e4c21 0%, #b8702e 50%, #2fae8e 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
