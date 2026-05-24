@@ -38,7 +38,7 @@ function run(command, args) {
   });
 }
 
-async function buildSite() {
+async function buildSite(forceClear = false) {
   if (building) {
     pending = true;
     return;
@@ -46,6 +46,10 @@ async function buildSite() {
 
   building = true;
   try {
+    if (forceClear) {
+      console.log('[i18n dev] Clearing Docusaurus cache…');
+      await run('pnpm', ['exec', 'docusaurus', 'clear']);
+    }
     await run('pnpm', ['exec', 'docusaurus', 'build', '--dev', '--no-minify']);
   } finally {
     building = false;
@@ -110,7 +114,12 @@ async function main() {
   process.on('SIGTERM', onExit);
 
   console.log('[i18n dev] Building en + pl (first run may take a minute)…');
-  await buildSite();
+  try {
+    await buildSite();
+  } catch (error) {
+    console.warn('[i18n dev] Build failed, retrying after cache clear…');
+    await buildSite(true);
+  }
   startServe();
   console.log(
     `[i18n dev] Ready at http://localhost:${PORT}/ and http://localhost:${PORT}/pl/`,
