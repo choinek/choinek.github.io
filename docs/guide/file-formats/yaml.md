@@ -1,4 +1,6 @@
 ---
+title: Podstawy YAML
+sidebar_label: YAML
 tags:
   - paReq
 ---

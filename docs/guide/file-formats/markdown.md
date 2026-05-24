@@ -1,4 +1,6 @@
 ---
+title: Podstawy Markdown
+sidebar_label: Markdown
 author: adrian@chojncki.pl
 ---
 
@@ -49,5 +51,4 @@ Stworzenie prostego dokumentu w Markdown, który zawiera wszystkie podstawowe el
 - [Markdown Guide](https://www.markdownguide.org/basic-syntax/) - kompletny przewodnik po podstawowej składni Markdown.  
 - [Learn Markdown](https://www.markdowntutorial.com/) - interaktywny kurs uczący składni Markdown.  
 - [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/) - poradnik dotyczący używania Markdown na GitHubie.
-
 

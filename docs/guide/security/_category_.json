@@ -1,0 +1,8 @@
+{
+  "label": "Bezpieczeństwo",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Security fundamentals: passwords, TLS, SSH keys, and more."
+  }
+}

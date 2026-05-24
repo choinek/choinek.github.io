@@ -1,4 +1,6 @@
 ---
+title: Podstawy przechowywania haseł
+sidebar_label: Bitwarden – podstawy haseł
 authors: [choinek]
 ---
 

@@ -1,3 +1,7 @@
+---
+title: SSL/TLS dla programisty
+sidebar_label: SSL/TLS
+---
 
 # Jak działa SSL/TLS z punktu widzenia aplikacji lub przeglądarki – dla programisty
 

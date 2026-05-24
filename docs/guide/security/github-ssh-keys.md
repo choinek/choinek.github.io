@@ -1,3 +1,8 @@
+---
+title: GitHub SSH Keys
+sidebar_label: GitHub SSH Keys
+---
+
 # SSH Keypair Setup for GitHub on Mac
 
 ## Open Terminal

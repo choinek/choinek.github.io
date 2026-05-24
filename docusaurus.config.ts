@@ -110,13 +110,25 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'guideSidebar',
           position: 'left',
-          label: '📖 Guide',
+          label: '📖 Guides',
         },
         {
           type: 'docSidebar',
           sidebarId: 'standardsSidebar',
           position: 'left',
           label: '🛠️ Standards',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'demosSidebar',
+          position: 'left',
+          label: '🎨 Demos',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'appsSidebar',
+          position: 'left',
+          label: '📱 Apps',
         },
         {
           to: 'blog', 
@@ -143,8 +155,20 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Guide',
+              label: 'Guides',
               to: '/docs/guide',
+            },
+            {
+              label: 'Standards',
+              to: '/docs/standards',
+            },
+            {
+              label: 'Demos',
+              to: '/docs/demos',
+            },
+            {
+              label: 'Apps',
+              to: '/docs/apps',
             },
           ],
         },

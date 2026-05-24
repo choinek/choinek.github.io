@@ -1,6 +1,6 @@
 ---
 title: Visual Studio Code
-sidebar_title: VS sCode
+sidebar_label: Visual Studio Code
 tags:
   - paReq
 ---

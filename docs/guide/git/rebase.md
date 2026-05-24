@@ -1,6 +1,6 @@
 ---
-title: git rebase – practical guide
-sidebar_label: git rebase
+title: Git Rebase – Practical Guide
+sidebar_label: Git Rebase
 tags:
   - git
 description: Practical guide on how to use git rebase with examples and Mermaid diagrams.
