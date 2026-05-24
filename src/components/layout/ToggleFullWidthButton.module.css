@@ -1,20 +1,77 @@
 .toggleContainer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.toggleContainerMobile {
+  width: 100%;
 }
 
 .toggleButton {
-  font-size: 0.9rem;
-  padding: 6px 12px;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 6px;
-  background-color: var(--ifm-background-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--choinek-glass-border);
+  border-radius: 8px;
+  background: var(--choinek-glass-bg);
+  color: var(--ifm-navbar-link-color);
   cursor: pointer;
-  transition: background 0.2s ease;
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease,
+    color 0.18s ease;
 }
 
-.toggleButton:hover {
-  background-color: var(--ifm-hover-overlay);
+.toggleButton:hover,
+.toggleButton:focus-visible {
+  background: rgba(var(--choinek-glow-warm), 0.18);
+  border-color: rgba(var(--choinek-glow-warm), 0.45);
+  color: var(--ifm-color-primary);
+  box-shadow: 0 6px 18px -8px rgba(var(--choinek-glow-warm), 0.45);
+  transform: translateY(-1px);
+}
+
+.toggleButton:focus-visible {
+  outline: 2px solid rgba(var(--choinek-glow-warm), 0.55);
+  outline-offset: 2px;
+}
+
+.toggleButton[aria-pressed='true'] {
+  background: rgba(var(--choinek-glow-warm), 0.22);
+  border-color: rgba(var(--choinek-glow-warm), 0.55);
+  color: var(--ifm-color-primary);
+}
+
+.toggleIcon {
+  font-size: 1.05rem;
+  letter-spacing: -0.05em;
+}
+
+.toggleLabel {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.toggleButtonMobile {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+}
+
+/* Hide the navbar variant inside the mobile sidebar — the mobile menu
+   renders items through ComponentTypes again with `mobile: true`, so the
+   desktop instance would otherwise show duplicated. */
+@media (max-width: 996px) {
+  .toggleContainer:not(.toggleContainerMobile) {
+    display: none;
+  }
 }

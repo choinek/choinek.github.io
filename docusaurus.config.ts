@@ -129,6 +129,10 @@ const config: Config = {
       },
       items: [
         {
+          type: 'custom-fullWidthToggle',
+          position: 'right',
+        },
+        {
           type: 'localeDropdown',
           position: 'right',
         },
@@ -154,11 +158,11 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'appsSidebar',
           position: 'left',
-          label: '📱 Apps',
+          label: '💖 Apps',
         },
         {
-          to: 'blog', 
-          label: 'Blog',
+          to: 'blog',
+          label: '📝 Blog',
           position: 'left'
         },
         {
