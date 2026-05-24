@@ -21,3 +21,8 @@ it:
   label: IT
   permalink: /it
   description: IT
+
+personal:
+  label: Personal
+  permalink: /personal
+  description: Osobiste
