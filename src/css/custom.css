@@ -4,57 +4,91 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Palette inspired by static/img/hero-network-skyline.png:
+   deep teal night sky + warm amber constellation glow + cyan mist. */
 :root {
-  --ifm-color-primary: #3578e5;
-  --ifm-color-secondary: #ebedf0;
-  --ifm-color-success: #00a400;
-  --ifm-color-info: #54c7ec;
-  --ifm-color-warning: #ffba00;
-  --ifm-color-danger: #fa383e;
-  --ifm-color-primary-dark: #306cce;
-  --ifm-color-primary-darker: #2d66c3;
-  --ifm-color-primary-darkest: #2554a0;
-  --ifm-color-primary-light: #538ce9;
-  --ifm-color-primary-lighter: #72a1ed;
-  --ifm-color-primary-lightest: #9abcf2;
+  /* Warm amber primary (the constellation glow) */
+  --ifm-color-primary: #e8954a;
+  --ifm-color-primary-dark: #d4823a;
+  --ifm-color-primary-darker: #c87838;
+  --ifm-color-primary-darkest: #a45f2c;
+  --ifm-color-primary-light: #f0a460;
+  --ifm-color-primary-lighter: #f4b577;
+  --ifm-color-primary-lightest: #fbd8b3;
+
+  --ifm-color-secondary: #e6f0f2;
+  --ifm-color-success: #2fae8e;
+  --ifm-color-info: #6ed0e0;
+  --ifm-color-warning: #ffb46a;
+  --ifm-color-danger: #ef5a5a;
+
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  
-  /* Glass Header - Light theme */
-  --ifm-navbar-background-color: rgba(255,255,255,0.77);
-  --ifm-navbar-link-color: #161d22;
-  --ifm-blur: blur(10px);
-  --ifm-shadow: 0 4px 24px 0 #3ec1e812;
-  --ifm-border: 1px solid rgba(62,193,232,0.07);
+  --docusaurus-highlighted-code-line-bg: rgba(14, 42, 54, 0.08);
+
+  /* Glass tokens – light */
+  --ifm-navbar-background-color: rgba(240, 247, 249, 0.62);
+  --ifm-navbar-link-color: #0e2a36;
+  --ifm-blur: blur(14px);
+  --ifm-shadow: 0 6px 28px 0 rgba(232, 149, 74, 0.10);
+  --ifm-border: 1px solid rgba(14, 42, 54, 0.08);
+
+  --choinek-glass-bg: rgba(255, 255, 255, 0.55);
+  --choinek-glass-border: rgba(14, 42, 54, 0.10);
+  --choinek-glow-warm: 255, 174, 94;
+  --choinek-glow-cool: 110, 224, 229;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #85b8ff;
-  --ifm-color-primary-dark: #5ea1ff;
-  --ifm-color-primary-darker: #4b96ff;
-  --ifm-color-primary-darkest: #1174ff;
-  --ifm-color-primary-light: #accfff;
-  --ifm-color-primary-lighter: #bfdaff;
-  --ifm-color-primary-lightest: #f9fcff;
-  --ifm-background-color: #020412;
-  
-  /* Glass Header - Dark theme */
-  --ifm-navbar-background-color: rgba(20, 20, 20, 0.8);
-  --ifm-navbar-link-color: #e9fcff;
-  --ifm-blur: blur(18px);
-  --ifm-shadow: 0 4px 24px 0 #6ef3ff25;
-  --ifm-border: 1px solid rgba(110,243,255,0.10);
-  
-  /* Footer - Dark theme */
-  --ifm-footer-background-color: #1a1a1a;
-  --ifm-footer-color: #b0b0b0;
-  --ifm-footer-link-color: #85b8ff;
-  --ifm-footer-title-color: #ffffff;
+  --ifm-color-primary: #ffae5e;
+  --ifm-color-primary-dark: #f4994a;
+  --ifm-color-primary-darker: #e88f44;
+  --ifm-color-primary-darkest: #b87035;
+  --ifm-color-primary-light: #ffc185;
+  --ifm-color-primary-lighter: #ffd0a3;
+  --ifm-color-primary-lightest: #ffe4cb;
+
+  --ifm-background-color: #06141b;
+  --ifm-background-surface-color: #0a2330;
+
+  /* Glass tokens – dark */
+  --ifm-navbar-background-color: rgba(10, 35, 48, 0.55);
+  --ifm-navbar-link-color: #eaf6f9;
+  --ifm-blur: blur(20px);
+  --ifm-shadow: 0 6px 30px 0 rgba(255, 174, 94, 0.12);
+  --ifm-border: 1px solid rgba(110, 224, 229, 0.10);
+
+  --choinek-glass-bg: rgba(10, 35, 48, 0.45);
+  --choinek-glass-border: rgba(110, 224, 229, 0.14);
+
+  /* Footer */
+  --ifm-footer-background-color: #061119;
+  --ifm-footer-color: #a9c5cd;
+  --ifm-footer-link-color: #ffae5e;
+  --ifm-footer-title-color: #eaf6f9;
 }
 
-/** Global max-width constraint for entire site */
+/* Subtle ambient gradient behind the whole page – evokes the image's sky/mist.
+   Dark mode is more pronounced; light mode is intentionally faint so it doesn't
+   bleed into form/content pages. */
+html,
+body {
+  background:
+    radial-gradient(60vw 50vh at 90% -10%, rgba(var(--choinek-glow-warm), 0.04), transparent 60%),
+    radial-gradient(50vw 40vh at -10% 110%, rgba(var(--choinek-glow-cool), 0.04), transparent 60%),
+    var(--ifm-background-color);
+  background-attachment: fixed;
+}
+
+[data-theme='dark'] body {
+  background:
+    radial-gradient(60vw 50vh at 90% -10%, rgba(var(--choinek-glow-warm), 0.10), transparent 60%),
+    radial-gradient(50vw 40vh at -10% 110%, rgba(var(--choinek-glow-cool), 0.08), transparent 60%),
+    var(--ifm-background-color);
+  background-attachment: fixed;
+}
+
+/* Only the navbar's inner row is centered & max-width constrained.
+   Pages and footer are intentionally full-bleed so backgrounds reach the edge. */
 .navbar {
   display: flex;
   justify-content: center;
@@ -67,20 +101,6 @@
   width: 100%;
   padding-left: var(--ifm-navbar-padding-horizontal);
   padding-right: var(--ifm-navbar-padding-horizontal);
-}
-
-.main-wrapper {
-  max-width: 1600px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
-
-.footer {
-  max-width: 1600px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
 }
 
 /** Contact page */
@@ -101,6 +121,14 @@
   max-width: 300px;
   margin: 0;
   flex-shrink: 0;
+  background: var(--choinek-glass-bg);
+  border: 1px solid var(--choinek-glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 12px 36px -12px rgba(var(--choinek-glow-warm), 0.18),
+    0 4px 16px -4px rgba(0, 0, 0, 0.20);
 }
 
 .contact-page .card__header {
@@ -260,15 +288,100 @@
 
 .navbar {
   background: var(--ifm-navbar-background-color);
-  backdrop-filter: var(--ifm-blur) saturate(140%);
+  backdrop-filter: var(--ifm-blur) saturate(160%);
+  -webkit-backdrop-filter: var(--ifm-blur) saturate(160%);
   box-shadow: var(--ifm-shadow);
   border-bottom: var(--ifm-border);
 }
 
 .navbar__link {
   color: var(--ifm-navbar-link-color);
-  transition: color 0.16s;
+  transition: color 0.16s ease;
   font-weight: 500;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--ifm-color-primary);
+}
+
+/* Soft amber underline on hover – echoes the constellation glow */
+.navbar__link {
+  position: relative;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.25rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--choinek-glow-warm), 0.7),
+    transparent
+  );
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.navbar__link:hover::after,
+.navbar__link--active::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Frosted hero blocks (used by the index/contact pages) */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60vw 40vh at 80% -10%, rgba(var(--choinek-glow-warm), 0.20), transparent 60%),
+    radial-gradient(50vw 40vh at 0% 110%, rgba(var(--choinek-glow-cool), 0.14), transparent 60%),
+    linear-gradient(180deg, #0a2330 0%, #0d2f3d 100%);
+  color: #eaf6f9;
+}
+
+[data-theme='light'] .hero--primary {
+  background:
+    radial-gradient(60vw 40vh at 80% -10%, rgba(var(--choinek-glow-warm), 0.30), transparent 60%),
+    radial-gradient(50vw 40vh at 0% 110%, rgba(var(--choinek-glow-cool), 0.18), transparent 60%),
+    linear-gradient(180deg, #f0f7f9 0%, #c3dde2 100%);
+  color: #0e2a36;
+}
+
+.hero__title {
+  background: linear-gradient(90deg, #ffd9a8 0%, #ffae5e 45%, #6ee0e5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 30px rgba(var(--choinek-glow-warm), 0.20);
+}
+
+[data-theme='light'] .hero--primary .hero__title {
+  background: linear-gradient(90deg, #c87838 0%, #e8954a 50%, #2fae8e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glass buttons */
+.button--secondary {
+  background: var(--choinek-glass-bg);
+  border: 1px solid var(--choinek-glass-border);
+  color: var(--ifm-color-primary);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.button--secondary:hover {
+  background: rgba(var(--choinek-glow-warm), 0.18);
+  box-shadow: 0 8px 24px -8px rgba(var(--choinek-glow-warm), 0.45);
+  transform: translateY(-1px);
 }
 
 /** Mobile navbar fixes */
@@ -331,12 +444,96 @@
   }
 }
 
+/** Schedule meeting page – glass card around the Google Calendar iframe */
+
+.schedule-page {
+  display: flex;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem) 1rem 4rem;
+}
+
+.schedule-page__inner {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+.schedule-page__title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  background: linear-gradient(90deg, #ffd9a8 0%, #ffae5e 45%, #6ee0e5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.schedule-page__subtitle {
+  margin: 0 0 1rem;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 36rem;
+}
+
+.schedule-page__card {
+  width: 100%;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+  border-radius: 20px;
+  background: var(--choinek-glass-bg);
+  border: 1px solid var(--choinek-glass-border);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  box-shadow:
+    0 20px 60px -20px rgba(var(--choinek-glow-warm), 0.20),
+    0 8px 32px -8px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule-page__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px 200px at 80% -20%,
+    rgba(var(--choinek-glow-warm), 0.18),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.schedule-page__iframe {
+  display: block;
+  width: 100%;
+  height: 600px;
+  max-width: 100%;
+  border: 0;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+@media (max-width: 768px) { .schedule-page__iframe { height: 540px; } }
+@media (max-width: 480px) { .schedule-page__iframe { height: 480px; } }
+
 /** Footer **/
 
 .footer--dark {
-  --ifm-footer-background-color: #1a1a1a;
-  --ifm-footer-color: #b0b0b0;
-  --ifm-footer-link-color: #85b8ff;
-  --ifm-footer-title-color: #ffffff;
+  --ifm-footer-background-color: #061119;
+  --ifm-footer-color: #a9c5cd;
+  --ifm-footer-link-color: #ffae5e;
+  --ifm-footer-title-color: #eaf6f9;
+  position: relative;
+  background:
+    radial-gradient(60vw 30vh at 90% 0%, rgba(var(--choinek-glow-warm), 0.10), transparent 60%),
+    radial-gradient(50vw 30vh at 0% 100%, rgba(var(--choinek-glow-cool), 0.08), transparent 60%),
+    var(--ifm-footer-background-color);
+  border-top: 1px solid rgba(110, 224, 229, 0.10);
+}
+
+.footer--dark .footer__link-item:hover {
+  color: #ffd0a3;
 }
 

@@ -164,6 +164,10 @@ const config: Config = {
               label: 'Blog',
               to: '/blog',
             },
+            {
+              label: 'Schedule a meeting',
+              to: '/schedule-meeting',
+            },
           ],
         },
       ],
