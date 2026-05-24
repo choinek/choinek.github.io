@@ -1,34 +1,34 @@
 {
   "title": {
-    "message": "Choinek GitHub Homepage",
+    "message": "Adrian's Homepage",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "My Site Logo",
+    "message": "Choinek",
     "description": "The alt text of navbar logo"
   },
-  "item.label.Tutorial": {
-    "message": "Tutorial",
-    "description": "Navbar item with label Tutorial"
-  },
-  "item.label.Blog": {
-    "message": "Blog",
-    "description": "Navbar item with label Blog"
-  },
-  "item.label.GitHub": {
-    "message": "GitHub",
-    "description": "Navbar item with label GitHub"
-  },
-  "item.label.📖 Guide": {
-    "message": "📖 Guide",
-    "description": "Navbar item with label 📖 Guide"
+  "item.label.📖 Guides": {
+    "message": "📖 Przewodniki",
+    "description": "Navbar item with label Guides"
   },
   "item.label.🛠️ Standards": {
-    "message": "🛠️ Standards",
-    "description": "Navbar item with label 🛠️ Standards"
+    "message": "🛠️ Standardy",
+    "description": "Navbar item with label Standards"
+  },
+  "item.label.🎨 Demos": {
+    "message": "🎨 Dema",
+    "description": "Navbar item with label Demos"
+  },
+  "item.label.💖 Apps": {
+    "message": "💖 Aplikacje",
+    "description": "Navbar item with label Apps"
+  },
+  "item.label.📝 Blog": {
+    "message": "📝 Blog",
+    "description": "Navbar item with label Blog"
   },
   "item.label.💬 Adrian": {
     "message": "💬 Adrian",
-    "description": "Navbar item with label 💬 Adrian"
+    "description": "Navbar item with label Adrian"
   }
 }

@@ -3,6 +3,14 @@
     "message": "git",
     "description": "The label for category git in sidebar guideSidebar"
   },
+  "sidebar.guideSidebar.category.Security": {
+    "message": "Bezpieczeństwo",
+    "description": "The label for category Security in sidebar guideSidebar"
+  },
+  "sidebar.guideSidebar.category.File formats": {
+    "message": "Formaty plików",
+    "description": "The label for category File formats in sidebar guideSidebar"
+  },
   "version.label": {
     "message": "Next",
     "description": "The label for version current"
