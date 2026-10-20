@@ -112,12 +112,17 @@ const config: Config = {
 
   themeConfig: {
     image: 'img/surreal-vision-05.jpg',
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
+    },
     announcementBar: {
       id: 'pl',
       content:
         '🇵🇱 Jeżeli otrzymałeś ode mnie link, to oznacza dokładnie tyle, że chciałem się nim z Tobą podzielić. Nie ma tu ukrytego drugiego dna. ',
-      backgroundColor: '#fafbfc',
-      textColor: '#091E42',
+      backgroundColor: '#06141b',
+      textColor: '#eaf6f9',
       isCloseable: true,
     },
     mermaid: {
@@ -234,7 +239,7 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} Choinek\'s project. Built with Docusaurus.`,
     },
     prism: {
-      theme: prismThemes.github,
+      theme: prismThemes.dracula,
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,

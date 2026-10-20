@@ -1,6 +1,5 @@
 import React, {type ReactNode} from 'react';
 import clsx from 'clsx';
-import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import {usePageMessageContext} from './PageMessageContext';
 import styles from './PageMessagePanel.module.css';
 
@@ -14,18 +13,13 @@ export default function NavbarPageMessageToggle({
   className,
 }: Props): ReactNode {
   const {message, mobileExpanded, setMobileExpanded} = usePageMessageContext();
-  const navbarMobileSidebar = useNavbarMobileSidebar();
 
   if (!message || mobile) {
     return null;
   }
 
   const toggle = () => {
-    const next = !mobileExpanded;
-    setMobileExpanded(next);
-    if (next && !navbarMobileSidebar.shown) {
-      navbarMobileSidebar.toggle();
-    }
+    setMobileExpanded(!mobileExpanded);
   };
 
   return (
