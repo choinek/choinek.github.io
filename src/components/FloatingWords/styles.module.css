@@ -13,17 +13,12 @@
   position: absolute;
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 300;
-  color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-400);
   opacity: 0;
   user-select: none;
   pointer-events: none;
   animation: fadeInOut var(--animation-duration, 10s) ease-in-out forwards;
   font-style: italic;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-[data-theme='dark'] .floatingWord {
-  color: var(--ifm-color-emphasis-400);
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 

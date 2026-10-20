@@ -5,50 +5,12 @@
  */
 
 /* Palette inspired by static/img/hero-network-skyline.png:
-   deep teal night sky + warm amber constellation glow + cyan mist. */
-:root {
-  /* Warm amber primary – darkened for light mode so it stays legible
-     on neutral surfaces (breadcrumbs, button--secondary, code blocks). */
-  --ifm-color-primary: #b8702e;
-  --ifm-color-primary-dark: #a4632a;
-  --ifm-color-primary-darker: #9a5d28;
-  --ifm-color-primary-darkest: #7e4c21;
-  --ifm-color-primary-light: #c87f37;
-  --ifm-color-primary-lighter: #d18943;
-  --ifm-color-primary-lightest: #e8a065;
+   deep teal night sky + warm amber constellation glow + cyan mist.
+   html[data-theme='dark'] matches Infima's specificity so these tokens win. */
+:root,
+html[data-theme='dark'] {
+  color-scheme: dark;
 
-  --ifm-color-secondary: #e6f0f2;
-  --ifm-color-success: #2fae8e;
-  --ifm-color-info: #6ed0e0;
-  --ifm-color-warning: #ffb46a;
-  --ifm-color-danger: #ef5a5a;
-
-  /* Warm cream page surface – sits between pure white and parchment. */
-  --ifm-background-color: #f6efdf;
-  --ifm-background-surface-color: #fbf6e9;
-
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(14, 42, 54, 0.08);
-
-  /* Glass tokens – light */
-  --ifm-navbar-background-color: rgba(246, 239, 223, 0.62);
-  --ifm-navbar-link-color: #0e2a36;
-  --ifm-blur: blur(14px);
-  --ifm-shadow: 0 6px 28px 0 rgba(184, 112, 46, 0.12);
-  --ifm-border: 1px solid rgba(14, 42, 54, 0.08);
-
-  --choinek-glass-bg: rgba(255, 250, 235, 0.55);
-  --choinek-glass-border: rgba(14, 42, 54, 0.10);
-  --choinek-glow-warm: 255, 174, 94;
-  --choinek-glow-cool: 110, 224, 229;
-
-  /* Lock docs/blog content to a comfortable 1200px reading width.
-     The navbar full-width toggle bumps both vars up to 90% at runtime. */
-  --ifm-container-width: 1200px;
-  --ifm-container-width-xl: 1200px;
-}
-
-[data-theme='dark'] {
   --ifm-color-primary: #ffae5e;
   --ifm-color-primary-dark: #f4994a;
   --ifm-color-primary-darker: #e88f44;
@@ -57,10 +19,17 @@
   --ifm-color-primary-lighter: #ffd0a3;
   --ifm-color-primary-lightest: #ffe4cb;
 
+  --ifm-color-secondary: #e6f0f2;
+  --ifm-color-success: #2fae8e;
+  --ifm-color-info: #6ed0e0;
+  --ifm-color-warning: #ffb46a;
+  --ifm-color-danger: #ef5a5a;
+
   --ifm-background-color: #06141b;
   --ifm-background-surface-color: #0a2330;
 
-  /* Glass tokens – dark */
+  --ifm-code-font-size: 95%;
+
   --ifm-navbar-background-color: rgba(10, 35, 48, 0.55);
   --ifm-navbar-link-color: #eaf6f9;
   --ifm-blur: blur(20px);
@@ -69,27 +38,23 @@
 
   --choinek-glass-bg: rgba(10, 35, 48, 0.45);
   --choinek-glass-border: rgba(110, 224, 229, 0.14);
+  --choinek-glow-warm: 255, 174, 94;
+  --choinek-glow-cool: 110, 224, 229;
 
-  /* Footer */
   --ifm-footer-background-color: #061119;
   --ifm-footer-color: #a9c5cd;
   --ifm-footer-link-color: #ffae5e;
   --ifm-footer-title-color: #eaf6f9;
+
+  /* Lock docs/blog content to a comfortable 1200px reading width.
+     The navbar full-width toggle bumps both vars up to 90% at runtime. */
+  --ifm-container-width: 1200px;
+  --ifm-container-width-xl: 1200px;
 }
 
-/* Subtle ambient gradient behind the whole page – evokes the image's sky/mist.
-   Dark mode is more pronounced; light mode is intentionally faint so it doesn't
-   bleed into form/content pages. */
+/* Ambient gradient behind the whole page – evokes the image's sky/mist. */
 html,
 body {
-  background:
-    radial-gradient(60vw 50vh at 90% -10%, rgba(var(--choinek-glow-warm), 0.04), transparent 60%),
-    radial-gradient(50vw 40vh at -10% 110%, rgba(var(--choinek-glow-cool), 0.04), transparent 60%),
-    var(--ifm-background-color);
-  background-attachment: fixed;
-}
-
-[data-theme='dark'] body {
   background:
     radial-gradient(60vw 50vh at 90% -10%, rgba(var(--choinek-glow-warm), 0.10), transparent 60%),
     radial-gradient(50vw 40vh at -10% 110%, rgba(var(--choinek-glow-cool), 0.08), transparent 60%),
@@ -359,27 +324,12 @@ body {
   color: #eaf6f9;
 }
 
-[data-theme='light'] .hero--primary {
-  background:
-    radial-gradient(60vw 40vh at 80% -10%, rgba(var(--choinek-glow-warm), 0.30), transparent 60%),
-    radial-gradient(50vw 40vh at 0% 110%, rgba(var(--choinek-glow-cool), 0.18), transparent 60%),
-    linear-gradient(180deg, #f0f7f9 0%, #c3dde2 100%);
-  color: #0e2a36;
-}
-
 .hero__title {
   background: linear-gradient(90deg, #ffd9a8 0%, #ffae5e 45%, #6ee0e5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: 0 2px 30px rgba(var(--choinek-glow-warm), 0.20);
-}
-
-[data-theme='light'] .hero--primary .hero__title {
-  background: linear-gradient(90deg, #7e4c21 0%, #b8702e 50%, #2fae8e 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 /* Glass buttons */
